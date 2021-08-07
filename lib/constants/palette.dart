@@ -23,5 +23,7 @@ class Palette {
 
   // Input background color
   static const Color signinmember = const Color(0xFFF0233ad);
+  static const Color iconcolor = const Color(0xFFFffffff);
+
 
 }

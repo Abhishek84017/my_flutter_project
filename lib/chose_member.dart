@@ -18,20 +18,16 @@ class Homepage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assests/images/logo.png',width:300.r,height:300.r, fit:BoxFit.fill,),
+            Padding(
+              padding: const EdgeInsets.only(top:75),
+              child: Image.asset('assests/images/logo.png',width:250.r,height:250.r, fit:BoxFit.fill,),),
+            SizedBox(height: 10,),
             Signinbutton(text: 'Sign in as Member', icon: Icons.lock_open, maincolor: Color(0xFFF0233ad)),
             Signinbutton(text: 'Continue as Guest', icon: Icons.person,),
             Spacer(),
             Padding(
               padding: EdgeInsets.only(bottom: 30.h),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: [
-                    TextSpan(text: 'Developed By\n'),
-                    TextSpan(
-                        text: 'Linksys Intelligence',
-                        style: TextStyle(fontSize: 18.sp)),],
+              child: RichText(textAlign: TextAlign.center, text: TextSpan(children: [TextSpan(text: 'Developed By\n'), TextSpan(text: 'Linksys Intelligence', style: TextStyle(fontSize: 18.sp)),],
                 ),
               ),
             ),

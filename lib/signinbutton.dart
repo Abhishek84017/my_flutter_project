@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:avt_yuwas/constants/palette.dart';
 class Signinbutton extends StatelessWidget {
   final String? text;
   final IconData? icon;
@@ -20,11 +21,11 @@ class Signinbutton extends StatelessWidget {
       child: TextButton(
         onPressed: () {},
         child: Row(children: [
-            Icon(icon, color: Colors.white,size:32,),
+            Icon(icon, color:Palette.iconcolor,size:28,),
             Expanded(
                 child: Align(alignment: Alignment.center,
                     child: Text(
-                      text!, style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      text!, style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
                     )
                 )
             )
