@@ -6,7 +6,8 @@ class Signinbutton extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final Color?  maincolor;
-   const Signinbutton ({Key ,key, this.text, this.icon, this.maincolor}): super(key: key);
+  final VoidCallback? Callback;
+   const Signinbutton ({Key ,key, this.text, this.icon, this.maincolor, this.Callback}): super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +20,7 @@ class Signinbutton extends StatelessWidget {
            color: text == 'Continue as Guest' ? Colors.blue : maincolor,
           ),
       child: TextButton(
-        onPressed: () {},
+        onPressed:Callback,
         child: Row(children: [
             Icon(icon, color:Palette.iconcolor,size:28,),
             Expanded(

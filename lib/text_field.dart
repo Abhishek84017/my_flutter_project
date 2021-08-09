@@ -13,16 +13,18 @@ class inputtext extends StatelessWidget {
           style: TextStyle(color: Colors.white),
           cursorRadius: Radius.circular(100.0),
           cursorColor: Colors.white,
-
-          decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(),
+          decoration: InputDecoration(enabledBorder: UnderlineInputBorder(),
           prefixIcon: Icon(icon, color: Colors.white, size: 28.sp,),
           hintText: text,
           hintStyle: TextStyle(color: Colors.white, fontSize: 16.sp),
-              focusedBorder: UnderlineInputBorder(
-          )
-        ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black)
+            )
+          ),
       ),
     );
   }
-}
+
+
+
+
