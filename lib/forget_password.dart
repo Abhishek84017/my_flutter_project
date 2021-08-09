@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'text_field.dart';
 
-class SignInAsMember extends StatelessWidget{
+class forgetpassword extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -18,13 +18,11 @@ class SignInAsMember extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.only(top:50),
-                child: Image.asset('assests/images/logo.png',width:200.h,height:200.h,fit:BoxFit.fill,),
+                child: Image.asset('assests/images/logo.png',width:200.w,height: 200.h,fit:BoxFit.fill,),
               ),
-              inputtext(text: 'Username', icon: Icons.person,),
+              inputtext(text: 'USERNAME or MOBILE', icon: Icons.person,),
               SizedBox(height:10.h),
-              inputtext(text: 'Password', icon: Icons.lock,),
-              SizedBox(height:20.h),
-              Signinbutton(text: 'Sign', maincolor: Color(0xFFF0233ad)),
+              Signinbutton(text: 'Get Password', maincolor: Color(0xFFF0233ad)),
             ],
           ),
         ),

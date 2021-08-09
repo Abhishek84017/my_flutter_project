@@ -16,7 +16,7 @@ class Signinbutton extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           // color: Palette.signinmember,
-           color: text == 'Sign in as Member' ? maincolor : Colors.blue,
+           color: text == 'Continue as Guest' ? Colors.blue : maincolor,
           ),
       child: TextButton(
         onPressed: () {},

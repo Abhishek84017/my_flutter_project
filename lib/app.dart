@@ -1,3 +1,6 @@
+import 'package:avt_yuwas/chose_member.dart';
+import 'package:avt_yuwas/forget_password.dart';
+import 'package:avt_yuwas/sign_in_as_guest.dart';
 import 'package:avt_yuwas/sign_in_as_member.dart';
 import 'package:avt_yuwas/splash_screen_1.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +13,7 @@ class Myapp extends StatelessWidget {
     return ScreenUtilInit(
         builder: () => MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: SignInAsMember(),
+              home:Homepage(),
             ));
   }
 }
