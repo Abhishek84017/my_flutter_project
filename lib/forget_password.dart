@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'sign_in_as_member.dart';
 import 'text_field.dart';
 
-class forgetpassword extends StatelessWidget{
+class Forgetpassword extends StatelessWidget{git
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -13,7 +14,7 @@ class forgetpassword extends StatelessWidget{
       body: SingleChildScrollView(
         child: Container(
           constraints: BoxConstraints.tight(size),
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assests/images/bg.jpg'),fit: BoxFit.fill,)),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assests/images/bg.jpg',),fit: BoxFit.fill,)),
           child: Column(
             children: [
               Padding(
@@ -23,6 +24,11 @@ class forgetpassword extends StatelessWidget{
               inputtext(text: 'USERNAME or MOBILE', icon: Icons.person,),
               SizedBox(height:10.h),
               Signinbutton(text: 'Get Password', maincolor: Color(0xFFF0233ad)),
+              SizedBox(height:15.h),
+              GestureDetector(
+                  child: Text('Back to Login',style: TextStyle(color: Colors.white,fontSize:16.sp,decoration: TextDecoration.underline),),
+                  onTap: () {Navigator.push(context,MaterialPageRoute( builder: (BuildContext context) {return SignInAsMember();}));}
+              ),
             ],
           ),
         ),

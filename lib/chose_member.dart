@@ -9,17 +9,16 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void Signinmember() {
-      Navigator.pushReplacement(context,CupertinoPageRoute(builder:(_)=>SignInAsMember()));
+      Navigator.push(context,MaterialPageRoute(builder:(_)=>SignInAsMember()));
     }
     void Signinguest() {
-      Navigator.pushReplacement(context,CupertinoPageRoute(builder:(_)=>SignInAsGuest()));
+      Navigator.push(context,MaterialPageRoute(builder:(_)=>SignInAsGuest()));
     }
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-
-          image: DecorationImage(
+            image: DecorationImage(
             image:AssetImage('assests/images/bg.jpg'),
             fit: BoxFit.fill,
           )
@@ -45,6 +44,4 @@ class Homepage extends StatelessWidget {
       ),
     );
   }
-
-
 }

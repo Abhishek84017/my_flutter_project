@@ -1,3 +1,4 @@
+import 'package:avt_yuwas/sign_in_as_member.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,9 @@ import 'text_field.dart';
 class SignInAsGuest extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    void signinmember() {
+      Navigator.push(context,MaterialPageRoute(builder:(_)=>SignInAsMember()));
+    }
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -17,7 +21,7 @@ class SignInAsGuest extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.only(top:50),
-                child: Image.asset('assests/images/logo.png',width:200.h,height: 200.h,fit:BoxFit.fill,),
+                child: Image.asset('assests/images/logo.png',width:180.h,height: 180.h,fit:BoxFit.fill,),
               ),
               inputtext(text: 'NAME', icon: Icons.person,),
               SizedBox(height:10.h),
@@ -26,11 +30,12 @@ class SignInAsGuest extends StatelessWidget{
               inputtext(text: 'MOBILE', icon: Icons.mobile_friendly_sharp,),
               SizedBox(height:10.h),
               Signinbutton(text: 'Next', maincolor: Color(0xFFF0233ad)),
-              Signinbutton(text: 'Sign in as Member',icon: Icons.lock_open,maincolor:Colors.blue),
+              Signinbutton(text: 'Sign in as Member',icon: Icons.lock_open,maincolor:Colors.blue,Callback:signinmember,),
             ],
           ),
         ),
       ),
     );
   }
+
 }
