@@ -13,7 +13,7 @@ class _SplashscreenState extends State<Splashscreen2> {
   void initState()
   {
      super.initState();
-     Timer(Duration(seconds: 3),()=>Navigator.pushReplacement(context,CupertinoPageRoute( builder: (BuildContext context) {return Homepage();})));
+     Timer(Duration(seconds: 3),()=>Navigator.pushReplacement(context,MaterialPageRoute( builder: (BuildContext context) {return Homepage();})));
   }
   Widget build(BuildContext context) {
     return Container(

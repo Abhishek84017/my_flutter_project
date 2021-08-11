@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'sign_in_as_member.dart';
 import 'text_field.dart';
 
-class Forgetpassword extends StatelessWidget{git
+class Forgetpassword extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
