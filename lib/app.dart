@@ -1,11 +1,7 @@
-import 'package:avt_yuwas/chose_member.dart';
-import 'package:avt_yuwas/forget_password.dart';
-import 'package:avt_yuwas/sign_in_as_guest.dart';
-import 'package:avt_yuwas/sign_in_as_member.dart';
-import 'package:avt_yuwas/splash_screen_1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'homescreen.dart';
+import 'about.dart';
+
 
 class Myapp extends StatelessWidget {
   @override
@@ -13,7 +9,7 @@ class Myapp extends StatelessWidget {
     return ScreenUtilInit(
         builder: () => MaterialApp(
               debugShowCheckedModeBanner: false,
-              home:Homescreen(),
+              home:About(),
             ));
   }
 }

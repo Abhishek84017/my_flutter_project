@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:avt_yuwas/constants/palette.dart';
-
 import 'constants/palette.dart';
+
+List<Widget>  _widgets =<Widget>[Home(), About(), Contact(), More()];
+
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);
   @override
