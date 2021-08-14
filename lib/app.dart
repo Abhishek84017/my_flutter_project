@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'contact.dart';
+import 'More.dart';
 
 
 class Myapp extends StatelessWidget {
@@ -9,7 +9,7 @@ class Myapp extends StatelessWidget {
     return ScreenUtilInit(
         builder: () => MaterialApp(
               debugShowCheckedModeBanner: false,
-              home:Contact(),
+              home:More(),
             ));
   }
 }

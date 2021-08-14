@@ -46,4 +46,3 @@ class Homepage extends StatelessWidget {
     );
   }
 }
-decoration: BoxDecoration(border: Border.all(color: Colors.white, width: 0.1),
