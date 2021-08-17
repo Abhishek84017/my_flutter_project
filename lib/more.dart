@@ -1,106 +1,107 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //ignore: must_be_immutable
 class More extends StatelessWidget {
   var _moreitem = [
     Moreitem(
-      iconleading: Icons.date_range_outlined,
+       iconleading:FontAwesomeIcons.calendarPlus,
       title: 'Maharaja Agrasen Jayanti',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.userCircle,
+      title: 'My Profile',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.infoCircle,
+      title: 'About Us',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.usersCog,
+      title: 'Committee Details',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.calendarAlt,
+      title: 'Calender',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.users,
+      title: 'Members',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.calendarWeek,
+      title: 'Events',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.handshake,
+      title: 'Meeting Updates',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.crown,
+      title: 'Maharaja Agarsen Jayanti',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.gift,
+      title: 'Birthday & Anniversary',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.portrait,
+      title: 'Selfie Corner',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.camera,
+      title: 'Media Corner',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.running,
+      title: 'Sports League',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.trophy,
+      title: 'Achivements',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.bell,
+      title: 'Notifications',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.userMd,
+      title: 'Suggestion',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.addressBook,
+      title: 'Contact Us',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.userTie,
+      title: 'Follow Us',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
-      title: 'hello',
+       iconleading:FontAwesomeIcons.key,
+      title: 'Change Password',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
     Moreitem(
-      iconleading: Icons.home,
+       iconleading:FontAwesomeIcons.signOutAlt,
+      title: 'LogOut',
       icontrainel: Icons.arrow_forward_ios_rounded,
     ),
   ];
@@ -108,31 +109,22 @@ class More extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                dragStartBehavior: DragStartBehavior.start,
-                itemCount: _moreitem.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var item = _moreitem[index];
-                  return Card(
-                    child: ListTile(
-                      leading: Icon(item.iconleading),
-                      title: Text('${item.title}'),
-                      trailing: Icon(item.icontrainel),
-                    ),
-                  );
-                }),
-          ],
-        ),
-      ),
+      body: ListView.builder(
+          dragStartBehavior: DragStartBehavior.start,
+          itemCount: _moreitem.length,
+          itemBuilder: (BuildContext context, int index) {
+            var item = _moreitem[index];
+            return Card(
+              child: ListTile(
+                leading: Icon(item. iconleading,),
+                title: Text('${item.title}'),
+                trailing: Icon(item.icontrainel),
+              ),
+            );
+          }),
     );
   }
 }
-
 class Moreitem {
   final IconData? iconleading;
   final String? title;

@@ -12,7 +12,7 @@ class About extends StatelessWidget {
             Container(
                 width: size.width,
                 padding: EdgeInsets.all(20.h),
-                margin: EdgeInsets.symmetric(horizontal: 10.h, vertical: 60.h),
+                margin: EdgeInsets.symmetric(horizontal: 10.h, vertical: 10.h),
                 decoration: BoxDecoration(border: Border.all(color: Colors.white, width: 0.1),
                 ),
 
@@ -34,9 +34,17 @@ class About extends StatelessWidget {
                   ),
                 ),
             ),
-            Text('Application Design By',style: TextStyle(color: Colors.white,fontSize: 13.sp
-            ),),
-            Text('Linksys Intelligence',style: TextStyle(color: Colors.blue,fontSize:12.sp),)
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Text('Application Design By',textAlign: TextAlign.start,style: TextStyle(color: Colors.white,fontSize: 13.sp),),
+                ),
+                SizedBox(width:5,),
+                Text('Linksys Intelligence',style: TextStyle(color: Colors.blue,fontSize:12.sp),)
+              ],
+            ),
+
           ],
         ),
     );

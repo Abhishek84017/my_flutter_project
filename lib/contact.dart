@@ -56,7 +56,6 @@ class Contact extends StatelessWidget {
                 itemCount: _constactItemList.length,
                 itemBuilder: (BuildContext context, int index) {
                   var contactItem = _constactItemList[index];
-
                   return Card(
                     child: ListTile(
                       title: Text('${contactItem.title}'),

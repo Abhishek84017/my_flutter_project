@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 // Applications Palette
 class Palette {
   // Primary color swatches
@@ -18,8 +16,7 @@ class Palette {
   };
 
   // Primary color
-  static const MaterialColor primaryColor =
-  MaterialColor(0xFFF7CA3E, primaryColorSwatch);
+  static const MaterialColor primaryColor = MaterialColor(0xFFF7CA3E, primaryColorSwatch);
 
   // Input background color
   static const Color signinmember = const Color(0xFFF0233ad);
