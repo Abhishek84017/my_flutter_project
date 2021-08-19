@@ -32,6 +32,7 @@ dependencies:
   splashscreen:
   carousel_slider: ^4.0.0
   font_awesome_flutter: ^9.1.0
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
