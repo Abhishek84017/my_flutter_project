@@ -78,8 +78,8 @@ class Contact extends StatelessWidget {
 
 class ContactItem {
   final String? title;
-  final String? subtitle;
-  final IconData? icon;
+    final String? subtitle;
+    final IconData? icon;
   final String? url;
 
 

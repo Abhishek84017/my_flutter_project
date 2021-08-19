@@ -3,16 +3,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'sign_in_as_guest.dart';
-import 'change_password.dart';
+import 'follow_us.dart';
 
+import 'change_password.dart';
 //ignore: must_be_immutable
 class More extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+    Widget build(BuildContext context) {
     void info() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 1;}
     void cont() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 2;}
     void passchange() {Navigator.push(context, MaterialPageRoute(builder: (_) => Changepassword()));}
+    void follow() {Navigator.push(context, MaterialPageRoute(builder: (_) => Followus()));}
     var _moreitem = [
       Moreitem(
         iconleading: FontAwesomeIcons.calendarPlus,
@@ -94,7 +95,8 @@ class More extends StatelessWidget {
           iconleading: FontAwesomeIcons.userMd,
           title: 'Suggestion',
           icontrainel: Icons.arrow_forward_ios_rounded,
-          Callback: info),
+          Callback: info
+      ),
       Moreitem(
           iconleading: FontAwesomeIcons.addressBook,
           title: 'Contact Us',
@@ -105,6 +107,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.userTie,
         title: 'Follow Us',
         icontrainel: Icons.arrow_forward_ios_rounded,
+          Callback: follow
       ),
       Moreitem(
           iconleading: FontAwesomeIcons.key,
@@ -158,7 +161,6 @@ class More extends StatelessWidget {
     );
   }
 }
-
 class Moreitem {
   final IconData? iconleading;
   final String? title;

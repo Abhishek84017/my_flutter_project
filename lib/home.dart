@@ -6,20 +6,25 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 final _events = <_EventsModel>[
   new _EventsModel(
-      image: 'assests/images/3.jpg',
+      image: 'assests/images/kawadyatra.jpg',
       title: 'Vishal Kwad Yatra',
       date: DateTime(Random().nextInt(12), 2021)),
   new _EventsModel(
-      image: 'assests/images/4.jpg',
+      image: 'assests/images/independenceday.jpg',
       title: 'INDEPENDENCE DAY',
       date: DateTime(Random().nextInt(12), 2021)),
   new _EventsModel(
-      image: 'assests/images/5.jpg',
+      image: 'assests/images/industrial.jpg',
       title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT.LTD',
+
       date: DateTime(Random().nextInt(12), 2021)),
   new _EventsModel(
-      image: 'assests/images/3.jpg',
+      image: 'assests/images/annualmeeting.jpg',
       title: '16TH ANNUAL GENRAL MEETING ',
+      date: DateTime(Random().nextInt(12), 2021)),
+  new _EventsModel(
+      image: 'assests/images/annualachivers.jpg',
+      title: 'AGRAWAl ACHIVERS-18TH OCT 20 ',
       date: DateTime(Random().nextInt(12), 2021))
 ];
 
