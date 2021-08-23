@@ -3,27 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final _events = <_EventsModel>[
   new _EventsModel(
       image: 'assests/images/kawadyatra.jpg',
       title: 'Vishal Kwad Yatra',
-      date: DateTime(Random().nextInt(12), 2021)),
-  new _EventsModel(
-      image: 'assests/images/independenceday.jpg',
-      title: 'INDEPENDENCE DAY',
-      date: DateTime(Random().nextInt(12), 2021)),
+      date: DateTime(Random().nextInt(12), 2021),
+  ),
   new _EventsModel(
       image: 'assests/images/industrial.jpg',
       title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT.LTD',
-
-      date: DateTime(Random().nextInt(12), 2021)),
+      date: DateTime(Random().nextInt(12), 2021),
+  ),
   new _EventsModel(
       image: 'assests/images/annualmeeting.jpg',
       title: '16TH ANNUAL GENRAL MEETING ',
-      date: DateTime(Random().nextInt(12), 2021)),
+      date: DateTime(Random().nextInt(12), 2021),
+  ),
   new _EventsModel(
-      image: 'assests/images/annualachivers.jpg',
+      image: 'assests/images/agrawalachivers.jpg',
       title: 'AGRAWAl ACHIVERS-18TH OCT 20 ',
       date: DateTime(Random().nextInt(12), 2021))
 ];
@@ -49,38 +48,44 @@ class Home extends StatelessWidget {
             ),
             Listview(),
           ],
-        ));
-  }
+        ));}
 }
-
 class Bannerimages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      child: Container(
-        child: CarouselSlider(
-            options: CarouselOptions(
-              viewportFraction: 1.0,
-              initialPage: 0,
-              autoPlay: true,
+    return CarouselSlider(
+        options: CarouselOptions(
+          viewportFraction: 1.0,
+          initialPage: 0,
+          autoPlay: true,
+        ),
+        items: _events
+            .map((event) => Container(
+          constraints: BoxConstraints.tight(size),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('${event.image}'),
+              fit: BoxFit.fill,
             ),
-            items: _events
-                .map((event) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('${event.image}'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ))
-                .toList()),
-      ),
+          ),
+           alignment: Alignment.bottomRight,
+          child:Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(
+
+              style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all(Size.fromWidth(120.w,)),
+                  backgroundColor: MaterialStateProperty.all(Colors.red)
+              ),
+              onPressed:event.callback,
+              child: Text('JOIN',style: TextStyle(color: Colors.white,fontSize:18),),
+            ),
+          ),
+        )).toList()
     );
   }
 }
-
 class Listview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -115,11 +120,14 @@ class Listview extends StatelessWidget {
     );
   }
 }
-
-class _EventsModel {
+class _EventsModel
+{
   final String? image;
   final String? title;
   final DateTime? date;
-
-  const _EventsModel({this.title, this.date, this.image});
+  final VoidCallback? callback;
+  const _EventsModel({this.title, this.date, this.image,this.callback,});
 }
+
+
+

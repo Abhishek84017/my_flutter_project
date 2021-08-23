@@ -1,17 +1,18 @@
+import 'package:avt_yuwas/homescreen.dart';
 import 'package:avt_yuwas/sign_in_as_guest.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'homescreen.dart';
 import 'sign_in_as_member.dart';
 
 class Homepage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     void Signinmember() {
-      Navigator.push(context,MaterialPageRoute(builder:(_)=>SignInAsMember()));
+      Navigator.push(context,MaterialPageRoute(builder:(_)=>Homescreen()));
     }
     void Signinguest() {
       Navigator.push(context,MaterialPageRoute(builder:(_)=>SignInAsGuest()));
@@ -29,8 +30,8 @@ class Homepage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(padding: const EdgeInsets.only(top:75),
-              child: Image.asset('assests/images/logo.png',width:250.r,height:250.r, fit:BoxFit.fill,),),
-            SizedBox(height: 10,),
+              child: Image.asset('assests/images/logo.png',width:200.r,height:200.r, fit:BoxFit.fill,),),
+            SizedBox(height:0.2.sh,),
             Signinbutton(text: 'Sign in as Member', icon: Icons.lock_open, maincolor: Color(0xFFF0233ad,),Callback: Signinmember,),
             Signinbutton(text: 'Continue as Guest', icon: Icons.person,Callback: Signinguest,),
             Spacer(),

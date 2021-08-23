@@ -19,7 +19,7 @@ class _SplashscreenState extends State<Splashscreen2> {
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assests/images/splash2.jpg'),fit:BoxFit.cover,
+            image: AssetImage('assests/images/splash2.jpg'),fit:BoxFit.fill,
           )
         ),
     );

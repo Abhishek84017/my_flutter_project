@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'follow_us.dart';
-
 import 'change_password.dart';
+import 'commitedetails.dart';
+import 'events.dart';
 //ignore: must_be_immutable
 class More extends StatelessWidget {
   @override
@@ -14,6 +15,8 @@ class More extends StatelessWidget {
     void cont() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 2;}
     void passchange() {Navigator.push(context, MaterialPageRoute(builder: (_) => Changepassword()));}
     void follow() {Navigator.push(context, MaterialPageRoute(builder: (_) => Followus()));}
+    void committedetails() {Navigator.push(context, MaterialPageRoute(builder: (_) => Commiteedetails()));}
+    void events() {Navigator.push(context, MaterialPageRoute(builder: (_) => Events()));}
     var _moreitem = [
       Moreitem(
         iconleading: FontAwesomeIcons.calendarPlus,
@@ -35,6 +38,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.usersCog,
         title: 'Committee Details',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: committedetails
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.calendarAlt,
@@ -50,6 +54,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.calendarWeek,
         title: 'Events',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: events
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.handshake,
@@ -124,6 +129,7 @@ class More extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: ListView.separated(
+        shrinkWrap: true,
         dragStartBehavior: DragStartBehavior.start,
         itemCount: _moreitem.length,
         itemBuilder: (BuildContext context, int index) {
@@ -141,7 +147,7 @@ class More extends StatelessWidget {
             ),
             title: Text(
               '${item.title}',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white,fontSize:14),
             ),
             trailing: Icon(
               item.icontrainel,

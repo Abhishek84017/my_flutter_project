@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //ignore: must_be_immutable
@@ -39,7 +36,8 @@ class Contact extends StatelessWidget {
         title: 'Visit Website'),
     ContactItem(
         icon: Icons.not_listed_location,
-        subtitle: '1st floor below Dwarka Hall,City Light,Surat-395007,Gujrat(India). +91 2612226688/89/90 +91 9687666677 agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
+        subtitle:
+            '1st floor below Dwarka Hall,City Light,Surat-395007,Gujrat(India). +91 2612226688/89/90 +91 9687666677 agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
         title: 'Maharaja Agrasen Bhawan'),
   ];
 
@@ -52,23 +50,39 @@ class Contact extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: _constactItemList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var contactItem = _constactItemList[index];
-                  return ListTile(
-                    dense: true,
-                    title: Text('${contactItem.title}',style: TextStyle(color: Colors.white),),
-                    subtitle: Text('${contactItem.subtitle}',style: TextStyle(color: Colors.white),),
-                    trailing: Icon(contactItem.icon,color: Colors.white,),
-
-                    onTap: () async {
-                      if (await canLaunch(contactItem.url ?? '')) {
-                        await launch(contactItem.url ?? '');
-                      }
-                    },
-                  );
-                }, separatorBuilder: (BuildContext context, int index) {return Divider(color: Colors.grey.withOpacity(0.5),height:0.8,thickness:1.5,);},),
+              shrinkWrap: true,
+              itemCount: _constactItemList.length,
+              itemBuilder: (BuildContext context, int index) {
+                var contactItem = _constactItemList[index];
+                return ListTile(
+                  dense: true,
+                  title: Text(
+                    '${contactItem.title}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  subtitle: Text(
+                    '${contactItem.subtitle}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  trailing: Icon(
+                    contactItem.icon,
+                    color: Colors.white,
+                  ),
+                  onTap: () async {
+                    if (await canLaunch(contactItem.url ?? '')) {
+                      await launch(contactItem.url ?? '');
+                    }
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  color: Colors.grey.withOpacity(0.5),
+                  height: 0.8,
+                  thickness: 1.5,
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -78,10 +92,9 @@ class Contact extends StatelessWidget {
 
 class ContactItem {
   final String? title;
-    final String? subtitle;
-    final IconData? icon;
+  final String? subtitle;
+  final IconData? icon;
   final String? url;
-
 
   const ContactItem({this.title, this.subtitle, this.icon, this.url});
 }
