@@ -1,3 +1,4 @@
+import 'package:avt_yuwas/more_webview.dart';
 import 'package:avt_yuwas/provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'follow_us.dart';
 import 'change_password.dart';
 import 'commitedetails.dart';
 import 'events.dart';
+import 'Sports/sports_league.dart';
 //ignore: must_be_immutable
 class More extends StatelessWidget {
   @override
@@ -17,11 +19,14 @@ class More extends StatelessWidget {
     void follow() {Navigator.push(context, MaterialPageRoute(builder: (_) => Followus()));}
     void committedetails() {Navigator.push(context, MaterialPageRoute(builder: (_) => Commiteedetails()));}
     void events() {Navigator.push(context, MaterialPageRoute(builder: (_) => Events()));}
+    void maharaja_agrasen_jayanti(){Navigator.push(context, MaterialPageRoute(builder: (_) => MoreWebview(title:'Maharaja Agrasen Jayanti',url:'http://www.avtyuwas.org/home/jayanti_events')));}
+    void sportsleague() {Navigator.push(context, MaterialPageRoute(builder: (_) => SportsLeague()));}
     var _moreitem = [
       Moreitem(
         iconleading: FontAwesomeIcons.calendarPlus,
         title: 'Maharaja Agrasen Jayanti',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: maharaja_agrasen_jayanti
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.userCircle,
@@ -85,6 +90,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.running,
         title: 'Sports League',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: sportsleague
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.trophy,
