@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'more_webview.dart';
 //ignore: must_be_immutable
 class Commiteedetails extends StatelessWidget {
-  var _constactItemList = [
-    ContactItem(
-      iconleading: Icons.home,
-      title: 'Past President',
-      icontrailing: FontAwesomeIcons.chevronRight,
-    ),
-    ContactItem(
-      iconleading: FontAwesomeIcons.globeAmericas,
-      title: 'Office Beares',
-      icontrailing: FontAwesomeIcons.chevronRight,
-    ),
-    ContactItem(
-      iconleading: FontAwesomeIcons.users,
-      title: 'Working Committee',
-      icontrailing: FontAwesomeIcons.chevronRight,
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
+    void Past_president(){Navigator.push(context, MaterialPageRoute(builder: (_) => MoreWebview(title:'Past President',url:'http://www.avtyuwas.org/web/president')));}
+    void Office_beares(){Navigator.push(context, MaterialPageRoute(builder: (_) => MoreWebview(title:'Office Beares',url:'http://www.avtyuwas.org/web/board')));}
+    void Working_committee(){Navigator.push(context, MaterialPageRoute(builder: (_) => MoreWebview(title:'Working_committee',url:'http://www.avtyuwas.org/web/committee')));}
+    var _constactItemList = [
+      ContactItem(
+          iconleading: Icons.home,
+          title: 'Past President',
+          icontrailing: FontAwesomeIcons.chevronRight,
+          Callback: Past_president
+      ),
+      ContactItem(
+        iconleading: FontAwesomeIcons.globeAmericas,
+        title: 'Office Beares',
+        icontrailing: FontAwesomeIcons.chevronRight,
+          Callback: Office_beares
+      ),
+      ContactItem(
+        iconleading: FontAwesomeIcons.users,
+        title: 'Working Committee',
+        icontrailing: FontAwesomeIcons.chevronRight,
+          Callback: Working_committee
+      ),
+    ];
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +59,7 @@ class Commiteedetails extends StatelessWidget {
                   trailing: Icon(
                     contactItem.icontrailing,
                     color: Colors.white,),
-                  onTap: () {},
+                  onTap: contactItem.Callback,
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
@@ -74,5 +81,6 @@ class ContactItem {
   final String? title;
   final IconData? iconleading;
   final IconData? icontrailing;
-  const ContactItem({this.title, this.iconleading, this.icontrailing});
+  final VoidCallback? Callback;
+  const ContactItem({this.title, this.iconleading, this.icontrailing,this.Callback,});
 }

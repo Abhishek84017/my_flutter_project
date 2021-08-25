@@ -12,7 +12,7 @@ class _MoreWebviewState extends State<MoreWebview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title),backgroundColor: Color(0xFFF0233ad),),
+      appBar: AppBar(title: Text(isloading ?'Loading....':widget.title),backgroundColor: Color(0xFFF0233ad),),
       body: Stack(
         children: <Widget>[
           WebView(

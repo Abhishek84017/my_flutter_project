@@ -33,8 +33,9 @@ class _HomescreenState extends State<Homescreen> {
       builder: (context, provider, child) => SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Color(0xFFF0233ad),
-            title: const Text('AVT YuwaS', style: TextStyle(fontSize: 16),),
+            title: const Text('AVT YuwaS', style: TextStyle(fontSize: 20),),
             actions: <Widget>[
               IconButton(icon: Icon(FontAwesomeIcons.bell, size: 22.sp,), onPressed: () {},),],
           ),

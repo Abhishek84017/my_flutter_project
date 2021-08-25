@@ -1,5 +1,6 @@
 import 'package:avt_yuwas/more_webview.dart';
 import 'package:avt_yuwas/provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,29 +10,35 @@ import 'change_password.dart';
 import 'commitedetails.dart';
 import 'events.dart';
 import 'Sports/sports_league.dart';
+import 'pageroute.dart';
 //ignore: must_be_immutable
 class More extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
+    void Maharaja_agrasen_jayanti(){Navigator.push(context, RotationRoute( Page:MoreWebview(title:'Maharaja Agrasen Jayanti',url:'http://www.avtyuwas.org/home/jayanti_events',),));}
+    void Metting_update(){Navigator.push(context, RotationRoute(Page:MoreWebview(title:'Meeting Update',url:'http://www.avtyuwas.org/web/meeting_update')));}
+    void Birthday(){Navigator.push(context, RotationRoute(Page:MoreWebview(title:'Birthday & Anniversary',url:'http://www.avtyuwas.org/web/birthday')));}
+    void profile(){Navigator.push(context, RotationRoute(Page:MoreWebview(title:'My Profile',url:'http://www.avtyuwas.org/web/profile')));}
+    void suggestion() {Navigator.push(context, RotationRoute(Page: MoreWebview(title:'Suggestion',url:'http://www.avtyuwas.org/web/suggestion')));}
     void info() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 1;}
     void cont() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 2;}
-    void passchange() {Navigator.push(context, MaterialPageRoute(builder: (_) => Changepassword()));}
-    void follow() {Navigator.push(context, MaterialPageRoute(builder: (_) => Followus()));}
-    void committedetails() {Navigator.push(context, MaterialPageRoute(builder: (_) => Commiteedetails()));}
-    void events() {Navigator.push(context, MaterialPageRoute(builder: (_) => Events()));}
-    void maharaja_agrasen_jayanti(){Navigator.push(context, MaterialPageRoute(builder: (_) => MoreWebview(title:'Maharaja Agrasen Jayanti',url:'http://www.avtyuwas.org/home/jayanti_events')));}
-    void sportsleague() {Navigator.push(context, MaterialPageRoute(builder: (_) => SportsLeague()));}
+    void passchange() {Navigator.push(context, RotationRoute(Page: Changepassword()));}
+    void follow() {Navigator.push(context, RotationRoute( Page: Followus()));}
+    void committedetails() {Navigator.push(context, RotationRoute(Page:  Commiteedetails()));}
+    void events() {Navigator.push(context, RotationRoute(Page: Events()));}
+    void sportsleague() {Navigator.push(context, RotationRoute(Page: SportsLeague()));}
     var _moreitem = [
       Moreitem(
         iconleading: FontAwesomeIcons.calendarPlus,
         title: 'Maharaja Agrasen Jayanti',
         icontrainel: Icons.arrow_forward_ios_rounded,
-        Callback: maharaja_agrasen_jayanti
+        Callback: Maharaja_agrasen_jayanti
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.userCircle,
         title: 'My Profile',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: profile
       ),
       Moreitem(
           iconleading: FontAwesomeIcons.infoCircle,
@@ -65,6 +72,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.handshake,
         title: 'Meeting Updates',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: Metting_update
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.crown,
@@ -75,6 +83,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.gift,
         title: 'Birthday & Anniversary',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: Birthday
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.portrait,
@@ -106,7 +115,7 @@ class More extends StatelessWidget {
           iconleading: FontAwesomeIcons.userMd,
           title: 'Suggestion',
           icontrainel: Icons.arrow_forward_ios_rounded,
-          Callback: info
+          Callback: suggestion
       ),
       Moreitem(
           iconleading: FontAwesomeIcons.addressBook,
@@ -141,7 +150,6 @@ class More extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           var item = _moreitem[index];
           return ListTile(
-            dense: true,
             tileColor: Colors.black26,
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading: Padding(
