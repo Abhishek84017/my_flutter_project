@@ -7,7 +7,6 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-
       backgroundColor: Colors.black,
         body:SingleChildScrollView(
           child: Column(
@@ -18,7 +17,6 @@ class About extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 10.h, vertical: 10.h),
                   decoration: BoxDecoration(border: Border.all(color: Colors.white, width: 0.1),
                   ),
-
                 child: RichText(
                     textAlign: TextAlign.justify,
                     text: TextSpan(

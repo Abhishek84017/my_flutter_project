@@ -1,9 +1,9 @@
 import 'package:avt_yuwas/more_webview.dart';
 import 'package:avt_yuwas/provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'follow_us.dart';
 import 'change_password.dart';
@@ -11,6 +11,7 @@ import 'commitedetails.dart';
 import 'events.dart';
 import 'Sports/sports_league.dart';
 import 'pageroute.dart';
+import 'jayanti.dart';
 //ignore: must_be_immutable
 class More extends StatelessWidget {
   @override
@@ -20,9 +21,11 @@ class More extends StatelessWidget {
     void Birthday(){Navigator.push(context, RotationRoute(Page:MoreWebview(title:'Birthday & Anniversary',url:'http://www.avtyuwas.org/web/birthday')));}
     void profile(){Navigator.push(context, RotationRoute(Page:MoreWebview(title:'My Profile',url:'http://www.avtyuwas.org/web/profile')));}
     void suggestion() {Navigator.push(context, RotationRoute(Page: MoreWebview(title:'Suggestion',url:'http://www.avtyuwas.org/web/suggestion')));}
+    void Achivements() {Navigator.push(context, RotationRoute(Page: MoreWebview(title:'Achivements',url:'http://www.avtyuwas.org/web/achievement')));}
     void info() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 1;}
     void cont() {Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 2;}
     void passchange() {Navigator.push(context, RotationRoute(Page: Changepassword()));}
+    void jayanti() {Navigator.push(context, RotationRoute(Page: Jayanti()));}
     void follow() {Navigator.push(context, RotationRoute( Page: Followus()));}
     void committedetails() {Navigator.push(context, RotationRoute(Page:  Commiteedetails()));}
     void events() {Navigator.push(context, RotationRoute(Page: Events()));}
@@ -78,6 +81,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.crown,
         title: 'Maharaja Agarsen Jayanti',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback: jayanti
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.gift,
@@ -105,6 +109,7 @@ class More extends StatelessWidget {
         iconleading: FontAwesomeIcons.trophy,
         title: 'Achivements',
         icontrainel: Icons.arrow_forward_ios_rounded,
+        Callback:Achivements
       ),
       Moreitem(
         iconleading: FontAwesomeIcons.bell,
@@ -143,38 +148,34 @@ class More extends StatelessWidget {
     ];
     return Scaffold(
       backgroundColor: Colors.black,
-      body: ListView.separated(
-        shrinkWrap: true,
-        dragStartBehavior: DragStartBehavior.start,
-        itemCount: _moreitem.length,
-        itemBuilder: (BuildContext context, int index) {
-          var item = _moreitem[index];
-          return ListTile(
-            tileColor: Colors.black26,
-            contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 7.0),
-              child: Icon(
-                item.iconleading,
-                color: Colors.white,
+      body: GridView.builder(
+        itemCount:_moreitem.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 3: 2,
+          crossAxisSpacing: 10.w,
+          mainAxisSpacing: 10.w,
+          childAspectRatio: (2 / 1),
+        ),
+        itemBuilder: (context,index,) {
+          var item =_moreitem[index];
+          return Padding(
+            padding:  EdgeInsets.symmetric(vertical:4.w),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey,width: 0.2),
+                borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
+              child: InkWell(
+                onTap: item.Callback,
+                child: Column(
+                  mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(item.iconleading,color: Colors.white,),
+                    Text(_moreitem[index].title,style: TextStyle(fontSize:15, color: Colors.white), textAlign: TextAlign.center),
+                  ],
+                ),
               ),
             ),
-            title: Text(
-              '${item.title}',
-              style: TextStyle(color: Colors.white,fontSize:14),
-            ),
-            trailing: Icon(
-              item.icontrainel,
-              color: Colors.white,
-            ),
-            focusColor: Colors.red,
-            onTap: item.Callback,
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            color: Colors.grey.withOpacity(0.5),
-            height: 0.8,
           );
         },
       ),
@@ -183,8 +184,8 @@ class More extends StatelessWidget {
 }
 class Moreitem {
   final IconData? iconleading;
-  final String? title;
+  final String title;
   final IconData? icontrainel;
   final VoidCallback? Callback;
-  const Moreitem({Key, key, this.iconleading, this.title, this.icontrainel, this.Callback});
+  const Moreitem({Key, key, this.iconleading, required this.title, this.icontrainel, this.Callback});
 }

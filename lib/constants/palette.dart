@@ -22,5 +22,7 @@ class Palette {
   static const Color signinmember = const Color(0xFFF0233ad);
   static const Color iconcolor = const Color(0xFFFffffff);
 
+  //app bar color
+  static const Color appbarcolor = const Color(0xFFF0233ad);
 
 }

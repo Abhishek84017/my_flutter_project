@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:avt_yuwas/pageroute.dart';
+import 'package:avt_yuwas/more_webview.dart';
 //ignore: must_be_immutable
 class CricketLeague extends StatelessWidget {
-  var _sportsItemList = [
-    Sportsleague(
-      title: 'APL',
-      icontrailing: FontAwesomeIcons.chevronRight,
-    ),
-    Sportsleague(
-      title: 'APL(U-18)',
-      icontrailing: FontAwesomeIcons.chevronRight,
-    ),
-    Sportsleague(
-      title: 'APL 9 2018',
-      icontrailing: FontAwesomeIcons.chevronRight,
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    void APL18(){Navigator.push(context, RotationRoute( Page:MoreWebview(title:'APL(U-18)',url:'https://cricheroes.in/tournament/19/AGRAWAL-PREMIER-LEAGUE-(U-18-TOURNAMENT)',),));}
+    void APL(){Navigator.push(context, RotationRoute( Page:MoreWebview(title:'APL',url:'https://cricheroes.in/tournament/15/AGRAWAL-PREMIER-LEAGUE-(SEASON---8)',),));}
+    var _sportsItemList = [
+      Sportsleague(
+        title: 'APL',
+        icontrailing: FontAwesomeIcons.chevronRight,
+        Callback: APL
+      ),
+      Sportsleague(
+        title: 'APL(U-18)',
+        icontrailing: FontAwesomeIcons.chevronRight,
+        Callback: APL18
+      ),
+      Sportsleague(
+        title: 'APL 9 2018',
+        icontrailing: FontAwesomeIcons.chevronRight,
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF0233ad),
@@ -45,7 +51,7 @@ class CricketLeague extends StatelessWidget {
                   trailing: Icon(
                     contactItem.icontrailing,
                     color: Colors.white,),
-                  onTap: () {},
+                  onTap:contactItem.Callback,
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
@@ -66,5 +72,6 @@ class CricketLeague extends StatelessWidget {
 class Sportsleague {
   final String? title;
   final IconData? icontrailing;
-  const Sportsleague({this.title, this.icontrailing});
+  final VoidCallback?  Callback;
+  const Sportsleague({this.title, this.icontrailing,this.Callback,});
 }

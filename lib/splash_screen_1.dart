@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:avt_yuwas/splash_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'pageroute.dart';
 
 class Splashscreen1 extends StatefulWidget
 {
@@ -13,7 +14,7 @@ class _SplashscreenState extends State<Splashscreen1> {
   void initState()
   {
     super.initState();
-    Timer(Duration(seconds: 3),()=>Navigator.pushReplacement(context,MaterialPageRoute( builder: (BuildContext context) {return Splashscreen2();})));
+    Timer(Duration(seconds: 3),()=>Navigator.pushReplacement(context,RotationRoute(Page: Splashscreen2())));
   }
   Widget build(BuildContext context) {
     return Container(

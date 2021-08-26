@@ -12,6 +12,7 @@ class _MoreWebviewState extends State<MoreWebview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(title: Text(isloading ?'Loading....':widget.title),backgroundColor: Color(0xFFF0233ad),),
       body: Stack(
         children: <Widget>[
@@ -23,7 +24,7 @@ class _MoreWebviewState extends State<MoreWebview> {
               });
             },
           ),
-          isloading ? Center( child: CircularProgressIndicator(valueColor:AlwaysStoppedAnimation<Color>(Colors.red),),) : Stack(),
+          isloading ? Center( child: CircularProgressIndicator(valueColor:AlwaysStoppedAnimation<Color>(Colors.white),),) : Stack(),
         ],
       ),
     );

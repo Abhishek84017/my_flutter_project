@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'more.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:avt_yuwas/provider/provider.dart';
-import 'package:provider/provider.dart';
+import 'appbar.dart';
+
 class Followus extends StatelessWidget {
   var url = 'https://www.instagram.com/avt.yuwashakha/';
   var facebookurl='https://www.facebook.com/';
@@ -17,12 +16,7 @@ class Followus extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFFF0233ad),
-          title: const Text('Follow Us', style: TextStyle(fontSize: 20),),
-          actions: <Widget>[
-            IconButton(icon: Icon(FontAwesomeIcons.bell, size: 22.sp,), onPressed: () {},),],
-        ),
+        appBar:appBar(context: context,title:'Follow Us',automaticallyImplyLeading: true),
         body: Container(
           constraints: BoxConstraints.tight(size),
           decoration: BoxDecoration(
