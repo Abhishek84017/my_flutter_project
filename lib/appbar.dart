@@ -1,3 +1,4 @@
+import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:flutter/material.dart';
 import 'package:avt_yuwas/constants/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ AppBar appBar<T>(
               ),
           )
           : titleWidget,
-      actions:[IconButton(onPressed: (){}, icon: Icon(Icons.notifications,size:24.sp,))],
+      actions:[IconButton(onPressed: _callMenus, icon: Icon(Icons.notifications,size:24.sp,))],
       shape: shape ?? null,
       leading: leading,
       elevation: elevation ?? 2.0,
@@ -55,4 +56,9 @@ AppBar appBar<T>(
       iconTheme: IconThemeData(color: leadingColor ?? Colors.white, size: 20),
       bottom: bottom);
 
+}
+
+void _callMenus() async {
+  var data = await Services.getMenus('app_menu');
+  print(data?.data?[0]);
 }
