@@ -59,6 +59,6 @@ AppBar appBar<T>(
 }
 
 void _callMenus() async {
-  var data = await Services.getMenus('app_menu');
+  var data = await Services.upcomingEvents('get_upcoming_events');
   print(data?.data?[0]);
 }

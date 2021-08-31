@@ -12,7 +12,7 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void Signinmember() {
-      Navigator.push(context,RotationRoute(Page: Homescreen()));
+      Navigator.push(context,RotationRoute(Page: SignInAsMember()));
     }
     void Signinguest() {
       Navigator.push(context,RotationRoute(Page:SignInAsGuest()));
