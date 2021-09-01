@@ -12,4 +12,8 @@ class Urls {
 
 
   static const String PAST_EVENTS= '/json/get_past_events';
+
+  static const String REGISTER_GUEST= '/json/register_guests';
+
+
 }

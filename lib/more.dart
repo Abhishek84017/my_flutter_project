@@ -14,7 +14,7 @@ class More extends StatefulWidget {
 
 class _MoreState extends State<More> {
   bool _isLoading = true;
-  var _menuItems = <MenuModel>[];
+  List<MenuModel>? _menuItems = <MenuModel>[];
 
   @override
   void initState() {
@@ -24,12 +24,8 @@ class _MoreState extends State<More> {
 
   void _fetchMenu() async {
     var data = await Services.getMenus('app_menu');
-    if (data?.status != null) {
-      var menus = <MenuModel>[];
-      data?.data?.forEach((element) {
-        menus.add(MenuModel.fromJson(element));
-      });
-      _menuItems = menus;
+    if (data.statusCode == 200) {
+      _menuItems = data.data;
     }
     _isLoading = false;
     setState(() {});
@@ -42,7 +38,7 @@ class _MoreState extends State<More> {
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : GridView.builder(
-              itemCount: _menuItems.length,
+              itemCount: (_menuItems?.length ?? 0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     MediaQuery.of(context).orientation == Orientation.landscape
@@ -53,7 +49,7 @@ class _MoreState extends State<More> {
                 childAspectRatio: (2 / 1.2),
               ),
               itemBuilder: (context, index) {
-                var item = _menuItems[index];
+                var item = _menuItems![index];
                 return Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 0.05),
