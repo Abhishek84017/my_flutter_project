@@ -1,4 +1,5 @@
 import 'package:avt_yuwas/models/signinguest.dart';
+import 'package:avt_yuwas/otp.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/sign_in_as_member.dart';
 import 'package:avt_yuwas/signinbutton.dart';
@@ -17,7 +18,6 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   TextEditingController _name = TextEditingController();
   TextEditingController _mail = TextEditingController();
   TextEditingController _mobile = TextEditingController();
-
   SignInGuestModel? GuestSignin = SignInGuestModel();
 
   @override
@@ -36,11 +36,16 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
     var response = await Services.SignUpGeste(data);
     if (response.statusCode == 200) {
       GuestSignin = response.data;
-      print(GuestSignin?.otp);
+      Navigator.push(context, MaterialPageRoute(builder:(context) =>Otp(otp:GuestSignin?.otp)));
       setState(() {});
     } else {
       print(response.message);
     }
+  }
+
+  void otppage()
+  {
+
   }
 
   @override

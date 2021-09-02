@@ -66,14 +66,11 @@ class Services {
   static Future<Data<SignInGuestModel>> SignUpGeste(
       Map<String, dynamic> data) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.REGISTER_GUEST, data);
-    print(uri);
     try {
       http.Response response = await http.get(uri);
-      print(response.body);
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
-        return Data(
-            data: new SignInGuestModel.fromJson(jsonResponse),
+        return Data(data: new SignInGuestModel.fromJson(jsonResponse),
             statusCode: 200,
             message: 'data fetcher succefully');
       }

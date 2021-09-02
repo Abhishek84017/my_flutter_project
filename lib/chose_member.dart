@@ -8,11 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'homescreen.dart';
 import 'pageroute.dart';
 import 'sign_in_as_member.dart';
+import 'otp.dart';
 class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void Signinmember() {
       Navigator.push(context,RotationRoute(Page: SignInAsMember()));
+
     }
     void Signinguest() {
       Navigator.push(context,RotationRoute(Page:SignInAsGuest()));

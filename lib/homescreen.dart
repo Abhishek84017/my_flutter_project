@@ -8,7 +8,7 @@ import 'about.dart';
 import 'contact.dart';
 import 'more.dart';
 import 'provider/provider.dart';
-import 'package:avt_yuwas/constants/palette.dart';
+
 import 'appbar.dart';
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);

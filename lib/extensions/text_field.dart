@@ -6,8 +6,7 @@ class inputtext extends StatelessWidget {
   final IconData? icon;
   final TextEditingController? controller;
 
-  const inputtext({Key, key, this.text, this.icon, this.controller})
-      : super(key: key);
+  const inputtext({Key, key, this.text, this.icon, this.controller}) :super(key: key);
 
   @override
   Widget build(BuildContext context) {
