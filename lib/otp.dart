@@ -1,4 +1,5 @@
 import 'package:avt_yuwas/homescreen.dart';
+import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/data_model.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'extensions/text_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class Otp extends StatefulWidget {
   final int? otp;
@@ -22,17 +25,15 @@ class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     void login() {
-       print('hello');
-      // print(widget.otp);
-      // print(value.text);
-      // if(widget.otp != value.text)
-      // {
-      //   print('wrong otp');
-      // }
-      // else
-      //   {
-      //     print('done');
-      //   }
+      var enterotp= int.parse(value.text);
+      if(widget.otp != enterotp)
+      {
+            Fluttertoast.showToast(msg:'Enterd Otp wrong' ,backgroundColor: Colors.red);
+      }
+      else
+        {
+          Navigator.pushReplacement(context,RotationRoute(Page: Homescreen()));
+        }
     }
 
     Size size = MediaQuery.of(context).size;

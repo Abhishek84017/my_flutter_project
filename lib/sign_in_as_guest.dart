@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'extensions/text_field.dart';
-import '';
+
 
 class SignInAsGuest extends StatefulWidget {
   @override
@@ -20,11 +20,6 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   TextEditingController _mobile = TextEditingController();
   SignInGuestModel? GuestSignin = SignInGuestModel();
 
-  @override
-  void initState() {
-    _guestsingin();
-    super.initState();
-  }
 
   void _guestsingin() async {
     var data = <String, dynamic>{
@@ -42,12 +37,6 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       print(response.message);
     }
   }
-
-  void otppage()
-  {
-
-  }
-
   @override
   Widget build(BuildContext context) {
     void signinmember() {
@@ -95,7 +84,11 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
               Signinbutton(
                 text: 'Next',
                 maincolor: Color(0xFFF0233ad),
-                Callback: _guestsingin,
+                Callback: ()
+                {
+                  _guestsingin();
+
+                },
               ),
               Signinbutton(
                 text: 'Sign in as Member',
