@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class RotationRoute extends PageRouteBuilder {
   final Widget Page;
   RotationRoute({
-    required this.Page,
-  }) : super(
+    required this.Page,}) : super(
           pageBuilder: (
             BuildContext context,
             Animation<double> animation,

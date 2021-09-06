@@ -59,11 +59,6 @@ AppBar appBar<T>(
 }
 
 void _callMenus() async {
-  var data=<String,dynamic>
-  {
-    'username':12345,
-    'password':12345,
-  };
-  var responce= await Services.SigninMember(data);
-  print(responce.statusCode);
+  var responce= await Services.upcomingEvents('get_upcoming_events');
+  print(responce);
 }

@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'extensions/text_field.dart';
-
-
+import 'pageroute.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class SignInAsGuest extends StatefulWidget {
   @override
   _SignInAsGuestState createState() => _SignInAsGuestState();
@@ -19,7 +19,6 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   TextEditingController _mail = TextEditingController();
   TextEditingController _mobile = TextEditingController();
   SignInGuestModel? GuestSignin = SignInGuestModel();
-
 
   void _guestsingin() async {
     var data = <String, dynamic>{
@@ -31,7 +30,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
     var response = await Services.SignUpGeste(data);
     if (response.statusCode == 200) {
       GuestSignin = response.data;
-      Navigator.push(context, MaterialPageRoute(builder:(context) =>Otp(otp:GuestSignin?.otp)));
+         Navigator.pushReplacement(context,RotationRoute(Page: Otp(otp:GuestSignin?.otp)));
       setState(() {});
     } else {
       print(response.message);
@@ -40,10 +39,8 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   @override
   Widget build(BuildContext context) {
     void signinmember() {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => SignInAsMember()));
+      Navigator.pushReplacement(context,RotationRoute(Page:SignInAsMember()));
     }
-
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -84,11 +81,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
               Signinbutton(
                 text: 'Next',
                 maincolor: Color(0xFFF0233ad),
-                Callback: ()
-                {
-                  _guestsingin();
-
-                },
+                Callback:() {_guestsingin();},
               ),
               Signinbutton(
                 text: 'Sign in as Member',
@@ -102,4 +95,29 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       ),
     );
   }
+  void _register() {
+    if(_name.text.isNotEmpty)
+      {
+            if(_mail.text.isNotEmpty)
+              {
+                if (RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$').hasMatch(_mail.text)) {
+              }
+                if(_mobile.text.isNotEmpty)
+                  {
+                    if (RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(_mobile.text)) {
+                    }
+                  }
+                else
+                  {
+                    Fluttertoast.showToast(msg: 'invalid mobile');
+                  }
+            else{
+              Fluttertoast.showToast(msg: 'invalid mail');
+            }
+      }
+    else {
+      Fluttertoast.showToast(msg: 'Name not be empty');
+    }
+  }
+
 }

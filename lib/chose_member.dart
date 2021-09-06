@@ -1,21 +1,16 @@
-import 'package:avt_yuwas/homescreen.dart';
 import 'package:avt_yuwas/sign_in_as_guest.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'homescreen.dart';
 import 'pageroute.dart';
 import 'sign_in_as_member.dart';
-import 'otp.dart';
 class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void Signinmember() {
-      Navigator.push(context,RotationRoute(Page: SignInAsMember()));
-
-    }
+      Navigator.push(context,RotationRoute(Page: SignInAsMember()));}
     void Signinguest() {
       Navigator.push(context,RotationRoute(Page:SignInAsGuest()));
     }

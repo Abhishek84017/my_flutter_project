@@ -19,12 +19,16 @@ class _HomeState extends State<Home> {
     super.initState();
   }
   void _fetchupcomingevents() async {
-    var data = await Services.upcomingEvents('');
-    var upcomingevents = <UpcomingEventsmodel>[];
-    data?.data?.forEach((event) {
-      upcomingevents.add(UpcomingEventsmodel.fromJson(event));
-    });
-    upcomingeventsitem = upcomingevents;
+    var responce = await Services.upcomingEvents('get_upcoming_events');
+    if(responce?.statusCode == 200)
+      {
+        upcomingeventsitem = responce?.data;
+        print(upcomingeventsitem);
+      }
+      else
+        {
+          print('something wrong');
+        }
     setState(() {});
   }
 
@@ -35,7 +39,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.black,
         body: Column(
           children: [
-            Bannerimages(upcomingeventsitem),
+            Bannerimages(),
             Container(
               height: 35,
               width: double.infinity,
@@ -49,9 +53,33 @@ class _HomeState extends State<Home> {
   }
 }
 
-class Bannerimages extends StatelessWidget {
-  const Bannerimages(this.upcomingeventsitem);
-  final List<UpcomingEventsmodel> upcomingeventsitem;
+class Bannerimages extends StatefulWidget {
+  @override
+  _BannerimagesState createState() => _BannerimagesState();
+}
+
+class _BannerimagesState extends State<Bannerimages> {
+  var upcomingevents =<UpcomingEventsmodel>[];
+  @override
+  void initState() {
+    _fetchupcomingevent();
+    super.initState();
+  }
+  void _fetchupcomingevent() async
+  {
+    var responce= await Services.UpcominEvent('');
+    if(responce.statusCode == 200)
+      {
+
+        upcomingevents = responce.data!;
+        setState(() {});
+      }
+    else
+      {
+        print(responce.message);
+      }
+
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,12 +89,12 @@ class Bannerimages extends StatelessWidget {
           initialPage: 0,
           autoPlay: true,
         ),
-        items: upcomingeventsitem
+        items: upcomingevents
             .map((event) => Container(
                   constraints: BoxConstraints.tight(size),
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage('${event.image}'),
+                      image: NetworkImage('${Urls.IMAGE_BASE_URL}${event.image}'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -80,7 +108,7 @@ class Bannerimages extends StatelessWidget {
                           )),
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red)),
-                
+
                       onPressed: () {},
                       child: Text(
                         'JOIN',
@@ -121,7 +149,7 @@ class _ListviewState extends State<Listview> {
           scrollDirection: Axis.vertical,
           itemCount: pastevents.length,
           itemBuilder: (BuildContext context, int index) {
-            print("${Urls.IMAGE_BASE_URL}${pastevents[index].image}");
+
             return Stack(
               children: [
                 Padding(
