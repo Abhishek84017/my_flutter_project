@@ -1,3 +1,4 @@
+import 'package:avt_yuwas/constants/validate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -5,9 +6,8 @@ class inputtext extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final TextEditingController? controller;
-
-  const inputtext({Key, key, this.text, this.icon, this.controller}) :super(key: key);
-
+  final Validator? validator;
+  const inputtext({Key, key, this.text, this.icon, this.controller, this.validator}) :super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(

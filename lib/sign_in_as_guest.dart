@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'extensions/text_field.dart';
 import 'pageroute.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:avt_yuwas/constants/validate.dart';
 class SignInAsGuest extends StatefulWidget {
   @override
   _SignInAsGuestState createState() => _SignInAsGuestState();
@@ -21,6 +22,22 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   SignInGuestModel? GuestSignin = SignInGuestModel();
 
   void _guestsingin() async {
+    // if (_name.text.isNotEmpty &&
+    //     _mail.text.isNotEmpty &&
+    //     _mobile.text.isNotEmpty) {
+    //   if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    //       .hasMatch(_mail.text)) {
+    //     if (RegExp(r"^(?:[+0]9)?[0-9]{10}$").hasMatch(_mobile.text)) {
+    //     } else {
+    //       Fluttertoast.showToast(msg: 'invalid mobile');
+    //     }
+    //   } else {
+    //     Fluttertoast.showToast(msg: 'invalid email');
+    //   }
+    // } else {
+    //   Fluttertoast.showToast(msg: "All fields are required");
+    // }
+
     var data = <String, dynamic>{
       'name': _name.text,
       'email': _mail.text,
@@ -64,7 +81,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                   fit: BoxFit.fill,
                 ),
               ),
-              inputtext(text: 'NAME', icon: Icons.person, controller: _name),
+              inputtext(text: 'NAME', icon: Icons.person, controller: _name,),
               SizedBox(height: 10.h),
               inputtext(
                 text: 'E-MAIL',
@@ -76,6 +93,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                 text: 'MOBILE',
                 icon: Icons.mobile_friendly_sharp,
                 controller: _mobile,
+
               ),
               SizedBox(height: 10.h),
               Signinbutton(
@@ -94,30 +112,6 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
         ),
       ),
     );
-  }
-  void _register() {
-    if(_name.text.isNotEmpty)
-      {
-            if(_mail.text.isNotEmpty)
-              {
-                if (RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$').hasMatch(_mail.text)) {
-              }
-                if(_mobile.text.isNotEmpty)
-                  {
-                    if (RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(_mobile.text)) {
-                    }
-                  }
-                else
-                  {
-                    Fluttertoast.showToast(msg: 'invalid mobile');
-                  }
-            else{
-              Fluttertoast.showToast(msg: 'invalid mail');
-            }
-      }
-    else {
-      Fluttertoast.showToast(msg: 'Name not be empty');
-    }
   }
 
 }

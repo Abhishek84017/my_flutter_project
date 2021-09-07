@@ -62,7 +62,7 @@ class _SignInAsMemberState extends State<SignInAsMember> {
           decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assests/images/bg.jpg'),fit: BoxFit.fill,)),
           child: Column(
             children: [
-              Padding(
+              Padding(  
                 padding: const EdgeInsets.only(top:50),
                 child: Image.asset('assests/images/logo.png',width:180.h,height:180.h,fit:BoxFit.fill,),
               ),
