@@ -11,10 +11,12 @@ import 'extensions/text_field.dart';
 import 'pageroute.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:avt_yuwas/constants/validate.dart';
+
 class SignInAsGuest extends StatefulWidget {
   @override
   _SignInAsGuestState createState() => _SignInAsGuestState();
 }
+
 class _SignInAsGuestState extends State<SignInAsGuest> {
   TextEditingController _name = TextEditingController();
   TextEditingController _mail = TextEditingController();
@@ -22,22 +24,20 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   SignInGuestModel? GuestSignin = SignInGuestModel();
 
   void _guestsingin() async {
-    // if (_name.text.isNotEmpty &&
-    //     _mail.text.isNotEmpty &&
-    //     _mobile.text.isNotEmpty) {
-    //   if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-    //       .hasMatch(_mail.text)) {
-    //     if (RegExp(r"^(?:[+0]9)?[0-9]{10}$").hasMatch(_mobile.text)) {
-    //     } else {
-    //       Fluttertoast.showToast(msg: 'invalid mobile');
-    //     }
-    //   } else {
-    //     Fluttertoast.showToast(msg: 'invalid email');
-    //   }
-    // } else {
-    //   Fluttertoast.showToast(msg: "All fields are required");
-    // }
-
+    if (_name.text.isEmpty || _mail.text.isEmpty || _mobile.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'All fields are required',backgroundColor: Colors.red);
+      return;
+    }
+    if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_mail.text)) {
+      Fluttertoast.showToast(msg: 'Invalid email id',backgroundColor: Colors.red);
+      return;
+    }
+    if (!RegExp(r"^(?:[+0]9)?[0-9]{10}$").hasMatch(_mobile.text)) {
+      Fluttertoast.showToast(msg: 'Invalid mobile number',backgroundColor: Colors.red);
+      return;
+    }
     var data = <String, dynamic>{
       'name': _name.text,
       'email': _mail.text,
@@ -47,17 +47,20 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
     var response = await Services.SignUpGeste(data);
     if (response.statusCode == 200) {
       GuestSignin = response.data;
-         Navigator.pushReplacement(context,RotationRoute(Page: Otp(otp:GuestSignin?.otp)));
+      Navigator.pushReplacement(
+          context, RotationRoute(Page: Otp(otp: GuestSignin?.otp)));
       setState(() {});
     } else {
       print(response.message);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     void signinmember() {
-      Navigator.pushReplacement(context,RotationRoute(Page:SignInAsMember()));
+      Navigator.pushReplacement(context, RotationRoute(Page: SignInAsMember()));
     }
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -81,7 +84,11 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                   fit: BoxFit.fill,
                 ),
               ),
-              inputtext(text: 'NAME', icon: Icons.person, controller: _name,),
+              inputtext(
+                text: 'NAME',
+                icon: Icons.person,
+                controller: _name,
+              ),
               SizedBox(height: 10.h),
               inputtext(
                 text: 'E-MAIL',
@@ -93,13 +100,14 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                 text: 'MOBILE',
                 icon: Icons.mobile_friendly_sharp,
                 controller: _mobile,
-
               ),
               SizedBox(height: 10.h),
               Signinbutton(
                 text: 'Next',
                 maincolor: Color(0xFFF0233ad),
-                Callback:() {_guestsingin();},
+                Callback: () {
+                  _guestsingin();
+                },
               ),
               Signinbutton(
                 text: 'Sign in as Member',
@@ -113,5 +121,4 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       ),
     );
   }
-
 }

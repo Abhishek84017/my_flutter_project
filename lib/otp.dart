@@ -25,14 +25,22 @@ class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     void login() {
+      print(widget.otp);
+      if(value.text.isEmpty || value.text.length > 6)
+        {
+          Fluttertoast.showToast(msg: 'Otp cannot be impty');
+          return;
+        }
       var enterotp= int.parse(value.text);
       if(widget.otp != enterotp)
       {
+
             Fluttertoast.showToast(msg:'Enterd Otp wrong' ,backgroundColor: Colors.red);
       }
       else
         {
-          Navigator.pushReplacement(context,RotationRoute(Page: Homescreen()));
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+              Homescreen()), (Route<dynamic> route) => false);
         }
     }
 
@@ -49,7 +57,7 @@ class _OtpState extends State<Otp> {
             fit: BoxFit.fill,
           )),
           child: Column(
-            children: [
+            children: [ 
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Image.asset(

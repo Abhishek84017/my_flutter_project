@@ -75,6 +75,24 @@ class _MoreState extends State<More> {
                                       url: '${item.webLink}')));
                         }
                       }
+                      if(item.menu == 'Logout')
+                        {
+                          return showDialog(
+                              context: context,
+                              builder: (context)=>AlertDialog(
+                                title: Text('Do you want to exit'),
+                                actions:<Widget> [
+                                  TextButton(
+                                      onPressed:() => Navigator.pop(context,false),
+                                      child: Text('No')
+                                  ),
+                                  TextButton(
+                                      onPressed:() => Navigator.pop(context,true),
+                                      child: Text('Yes')
+                                  ),
+                                ],
+                              ));
+                        }
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,7 +112,6 @@ class _MoreState extends State<More> {
     );
   }
 }
-
 class SubMenus extends StatelessWidget {
   const SubMenus({Key? key, this.title = '', this.childMenus = const []})
       : super(key: key);
