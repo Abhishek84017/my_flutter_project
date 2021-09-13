@@ -47,8 +47,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
     var response = await Services.SignUpGeste(data);
     if (response.statusCode == 200) {
       GuestSignin = response.data;
-      Navigator.pushReplacement(
-          context, RotationRoute(Page: Otp(otp: GuestSignin?.otp)));
+      Navigator.pushReplacement(context, RotationRoute(Page: Otp(otp: GuestSignin?.otp)));
       setState(() {});
     } else {
       print(response.message);

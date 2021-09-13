@@ -149,7 +149,6 @@ class _ListviewState extends State<Listview> {
           scrollDirection: Axis.vertical,
           itemCount: pastevents.length,
           itemBuilder: (BuildContext context, int index) {
-
             return Stack(
               children: [
                 Padding(
@@ -164,7 +163,7 @@ class _ListviewState extends State<Listview> {
                       child: Container(
                         color: Color(0xFFF0233ad).withOpacity(0.7),
                         padding: const EdgeInsets.all(15.0),
-                        child: Text( 
+                        child: Text(
                           '${pastevents[index].title}',
                           style: TextStyle(
                             color: Colors.white,

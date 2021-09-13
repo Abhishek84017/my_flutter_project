@@ -1,10 +1,12 @@
 import 'package:avt_yuwas/appbar.dart';
 import 'package:avt_yuwas/more_webview.dart';
+import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'models/menu_model.dart';
+import 'follow_us.dart';
 
 //ignore: must_be_immutable
 class More extends StatefulWidget {
@@ -53,47 +55,52 @@ class _MoreState extends State<More> {
                 return Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 0.05),
-                    // borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                   child: InkWell(
                     onTap: () async {
+                      if(item.menu == 'Logout')
+                      {
+                        return showDialog(
+                            context: context,
+                            builder: (context)=>AlertDialog(
+                              title: Text('Do you want to exit'),
+                              actions:<Widget> [
+                                TextButton(
+                                    onPressed:() => Navigator.pop(context,false),
+                                    child: Text('No',style:TextStyle(fontSize:18.sp,color: Colors.black),)
+                                ),
+                                TextButton(
+                                    onPressed:() => Navigator.pop(context,true),
+                                    child: Text('Yes',style:TextStyle(fontSize:18.sp,color: Colors.black),)
+                                ),
+                              ],
+                            ));
+                      }
+                      if(item.menu == 'Follow Us')
+                      {
+                        Navigator.push(context, RotationRoute(Page:Followus()));
+
+                      }
                       if (item.childMenu != null &&
                           item.childMenu!.isNotEmpty) {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
                                 builder: (_) => SubMenus(
                                     title: item.menu,
                                     childMenus: item.childMenu)));
                       } else {
-                        if (item.webLink != null) {
+                        if (item.webLink != null && item.webviewStatus == '1') {
+                          print(item.webviewStatus.runtimeType);
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (_) => MoreWebview(
-                                      title: '${item.menu}',
-                                      url: '${item.webLink}')));
+                              CupertinoPageRoute(builder: (_) => MoreWebview(
+                                  title: '${item.menu}',
+                                      url: '${item.link}')));
                         }
                       }
-                      if(item.menu == 'Logout')
-                        {
-                          return showDialog(
-                              context: context,
-                              builder: (context)=>AlertDialog(
-                                title: Text('Do you want to exit'),
-                                actions:<Widget> [
-                                  TextButton(
-                                      onPressed:() => Navigator.pop(context,false),
-                                      child: Text('No')
-                                  ),
-                                  TextButton(
-                                      onPressed:() => Navigator.pop(context,true),
-                                      child: Text('Yes')
-                                  ),
-                                ],
-                              ));
-                        }
-                    },
+
+                      },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -113,27 +120,21 @@ class _MoreState extends State<More> {
   }
 }
 class SubMenus extends StatelessWidget {
-  const SubMenus({Key? key, this.title = '', this.childMenus = const []})
-      : super(key: key);
+  const SubMenus({Key? key, this.title = '', this.childMenus = const []}) :super(key: key);
   final String? title;
   final List<ChildMenu>? childMenus;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context: context, title: '${title}'),
+      backgroundColor: Colors.black,
       body: ListView(
-        children: childMenus!
+        children: childMenus! 
             .map((subMenu) => ListTile(
-                  title: Text('${subMenu.menu}'),
+                  title: Text('${subMenu.menu}',style: TextStyle(color:Colors.white),),
                   onTap: () async {
                     if (subMenu.webLink != null) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => MoreWebview(
-                                  title: '${subMenu.menu}',
-                                  url: '${subMenu.webLink}')));
+                      Navigator.push(context, CupertinoPageRoute(builder: (_) => MoreWebview(title: '${subMenu.menu}', url: '${subMenu.link}')));
                     }
                   },
                 ))

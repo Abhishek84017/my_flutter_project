@@ -27,7 +27,7 @@ class _HomescreenState extends State<Homescreen> {
     return await  showDialog<bool>  (
         context: context,
         builder:(context)=>AlertDialog(
-          title: Text('Do you want to exit the application'),
+          title: Text('Do you want to exit'),
           actions: <Widget>[
             TextButton(
                 onPressed: () => Navigator.pop(context,false),

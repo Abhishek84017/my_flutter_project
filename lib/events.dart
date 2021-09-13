@@ -92,10 +92,10 @@ class Events extends StatelessWidget {
                   child: ListTile(
                     leading: SizedBox(
                         child: Image.asset(
-                      '${contactItem.image}',
-                      fit: BoxFit.cover,
-                      width: 100,
-                    )),
+                          '${contactItem.image}',
+                          fit: BoxFit.cover,
+                          width: 100,
+                        )),
                     title: Text(
                       '${contactItem.title}',
                       style: TextStyle(color: Colors.white),

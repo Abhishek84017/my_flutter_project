@@ -19,9 +19,9 @@ class Homepage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-            image:AssetImage('assests/images/bg.jpg'),
-            fit: BoxFit.fill,
-          )
+              image:AssetImage('assests/images/bg.jpg'),
+              fit: BoxFit.fill,
+            )
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class Homepage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 30.h),
               child: RichText(textAlign: TextAlign.center, text: TextSpan(children: [TextSpan(text: 'Developed By\n'), TextSpan(text: 'Linksys Intelligence', style: TextStyle(fontSize: 18.sp)),],
-                ),
+              ),
               ),
             ),
           ],

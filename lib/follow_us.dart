@@ -21,9 +21,9 @@ class Followus extends StatelessWidget {
           constraints: BoxConstraints.tight(size),
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('assests/images/bg.jpg',),
-            fit: BoxFit.fill,
-          )),
+                image: AssetImage('assests/images/bg.jpg',),
+                fit: BoxFit.fill,
+              )),
           child: Column(
             children: [
               Padding(
@@ -47,7 +47,7 @@ class Followus extends StatelessWidget {
                       children: [
                         InkWell(onTap: () async {
                           if (await canLaunch(url)) {
-                                await launch(url);
+                            await launch(url);
                           }},
                             child: Image(image: AssetImage('assests/images/socialinstagram.png'),
                               height: 100,

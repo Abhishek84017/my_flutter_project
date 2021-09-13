@@ -21,7 +21,7 @@ class Contact extends StatelessWidget {
         title: 'CALL US'),
     ContactItem(
         icon: Icons.phone,
-        url: 'email:abhishekpatel@gmail.com',
+        url: 'tel:9377042138',
         subtitle: 'Mr.NIKHIL AGARWAL(Secretary)',
         title: 'CALL US'),
     ContactItem(
@@ -37,7 +37,7 @@ class Contact extends StatelessWidget {
     ContactItem(
         icon: Icons.not_listed_location,
         subtitle:
-            '1st floor below Dwarka Hall,City Light,Surat-395007,Gujrat(India). +91 2612226688/89/90 +91 9687666677 agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
+        '1st floor below Dwarka Hall,City Light,Surat-395007,Gujrat(India). +91 2612226688/89/90 +91 9687666677 agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
         title: 'Maharaja Agrasen Bhawan'),
   ];
 
