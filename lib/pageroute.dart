@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 
-class RotationRoute extends PageRouteBuilder {
-  final Widget Page;
-  RotationRoute({
-    required this.Page,}) : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              Page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              Stack(
-            children: <Widget>[
-              SlideTransition(
-                position: new Tween<Offset>(
-                  begin: const Offset(1.0, 0.0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: Page,
-              )
-            ],
-          ),
-        );
+class RotationRoute<T> extends PageRoute<T> {
+  final Widget? Page;
+
+  RotationRoute({this.Page});
+
+  @override
+  Color get barrierColor => Colors.black;
+
+  @override
+  String get barrierLabel => '';
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    animation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.linearToEaseOut,
+        reverseCurve: Curves.easeInToLinear);
+    return SlideTransition(
+        transformHitTests: false,
+        position:
+        animation.drive(Tween(begin: Offset(1.0, 0.0), end: Offset.zero)),
+        child: Page);
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 400);
 }

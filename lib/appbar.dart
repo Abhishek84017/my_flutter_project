@@ -59,6 +59,5 @@ AppBar appBar<T>(
 }
 
 void _callMenus() async {
-  var responce= await Services.upcomingEvents('get_upcoming_events');
-  print(responce);
+  var responce= await Services.geteventgallary('237');
 }

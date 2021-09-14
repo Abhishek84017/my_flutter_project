@@ -17,4 +17,6 @@ class Urls {
   static const String REGISTER_MEMBER= '/json/check_logins';
 
 
+  static const String EVENT_GALLARY= '/json/get_event_galleries';
+
 }
