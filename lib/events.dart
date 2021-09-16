@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //ignore: must_be_immutable
 class Events extends StatelessWidget {
   var _constactItemList = [
+
     ContactItem(
         image: 'assests/images/kawadyatra.jpg',
         subtitle: '16 Aug 2021',
@@ -56,6 +57,7 @@ class Events extends StatelessWidget {
         subtitle: '10 Aug 2021',
         title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT LTD-10 AUG'),
   ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -92,10 +94,10 @@ class Events extends StatelessWidget {
                   child: ListTile(
                     leading: SizedBox(
                         child: Image.asset(
-                          '${contactItem.image}',
-                          fit: BoxFit.cover,
-                          width: 100,
-                        )),
+                      '${contactItem.image}',
+                      fit: BoxFit.cover,
+                      width: 100,
+                    )),
                     title: Text(
                       '${contactItem.title}',
                       style: TextStyle(color: Colors.white),
@@ -120,5 +122,6 @@ class ContactItem {
   final String? image;
   final String? title;
   final String? subtitle;
+
   const ContactItem({this.title, this.subtitle, this.image});
 }

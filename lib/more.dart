@@ -2,11 +2,13 @@ import 'package:avt_yuwas/appbar.dart';
 import 'package:avt_yuwas/more_webview.dart';
 import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
+import 'package:avt_yuwas/services/urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'models/menu_model.dart';
 import 'follow_us.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //ignore: must_be_immutable
 class More extends StatefulWidget {
@@ -25,9 +27,18 @@ class _MoreState extends State<More> {
   }
 
   void _fetchMenu() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    var isguest = sharedPreferences.getBool('isGuest');
+    print(isguest);
     var data = await Services.getMenus('app_menu');
     if (data.statusCode == 200) {
-      _menuItems = data.data;
+      if (isguest != null && isguest) {
+        _menuItems =
+            data.data?.where((element) => element.type != 'g').toList();
+      } else {
+        _menuItems = data.data;
+      }
     }
     _isLoading = false;
     setState(() {});
@@ -58,28 +69,51 @@ class _MoreState extends State<More> {
                   ),
                   child: InkWell(
                     onTap: () async {
-                      if(item.menu == 'Logout')
-                      {
+                      if (item.text == 'profile') {
+                        final url =
+                            '${Urls.IMAGE_BASE_URL}web/edit_profile?member=';
+                        Navigator.push(
+                            context,
+                            RotationRoute(
+                                Page: MoreWebview(url: url, title: 'Profile')));
+                        return;
+                      }
+                      if (item.menu == 'Logout') {
                         return showDialog(
                             context: context,
-                            builder: (context)=>AlertDialog(
-                              title: Text('Do you want to exit'),
-                              actions:<Widget> [
-                                TextButton(
-                                    onPressed:() => Navigator.pop(context,false),
-                                    child: Text('No',style:TextStyle(fontSize:18.sp,color: Colors.black),)
-                                ),
-                                TextButton(
-                                    onPressed:() => Navigator.pop(context,true),
-                                    child: Text('Yes',style:TextStyle(fontSize:18.sp,color: Colors.black),)
-                                ),
-                              ],
-                            ));
+                            builder: (context) => AlertDialog(
+                                  title: Text('Do you want to exit'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, false),
+                                        child: Text(
+                                          'No',
+                                          style: TextStyle(
+                                              fontSize: 18.sp,
+                                              color: Colors.black),
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          final SharedPreferences
+                                              sharedPreferences =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          sharedPreferences.remove('mobile');
+                                          Navigator.pop(context, true);
+                                        },
+                                        child: Text(
+                                          'Yes',
+                                          style: TextStyle(
+                                              fontSize: 18.sp,
+                                              color: Colors.black),
+                                        )),
+                                  ],
+                                ));
                       }
-                      if(item.menu == 'Follow Us')
-                      {
-                        Navigator.push(context, RotationRoute(Page:Followus()));
-
+                      if (item.menu == 'Follow Us') {
+                        Navigator.push(
+                            context, RotationRoute(Page: Followus()));
                       }
                       if (item.childMenu != null &&
                           item.childMenu!.isNotEmpty) {
@@ -94,18 +128,30 @@ class _MoreState extends State<More> {
                           print(item.webviewStatus.runtimeType);
                           Navigator.push(
                               context,
-                              CupertinoPageRoute(builder: (_) => MoreWebview(
-                                  title: '${item.menu}',
+                              CupertinoPageRoute(
+                                  builder: (_) => MoreWebview(
+                                      title: '${item.menu}',
                                       url: '${item.link}')));
                         }
                       }
-
-                      },
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ImageIcon(NetworkImage('${item.icon}'),
-                            color: Colors.white),
+                        Image.network(
+                          '${item.icon}',
+                          loadingBuilder: (context, child, chunk) {
+                            if (chunk == null) {
+                              return child;
+                            }
+                            return Container(
+                              height: 300.h,
+                              width: 1.sw,
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        ),
                         Text('${item.menu}',
                             style:
                                 TextStyle(fontSize: 12.sp, color: Colors.white),
@@ -119,22 +165,33 @@ class _MoreState extends State<More> {
     );
   }
 }
+
 class SubMenus extends StatelessWidget {
-  const SubMenus({Key? key, this.title = '', this.childMenus = const []}) :super(key: key);
+  const SubMenus({Key? key, this.title = '', this.childMenus = const []})
+      : super(key: key);
   final String? title;
   final List<ChildMenu>? childMenus;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context: context, title: '${title}'),
       backgroundColor: Colors.black,
       body: ListView(
-        children: childMenus! 
+        children: childMenus!
             .map((subMenu) => ListTile(
-                  title: Text('${subMenu.menu}',style: TextStyle(color:Colors.white),),
+                  title: Text(
+                    '${subMenu.menu}',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onTap: () async {
                     if (subMenu.webLink != null) {
-                      Navigator.push(context, CupertinoPageRoute(builder: (_) => MoreWebview(title: '${subMenu.menu}', url: '${subMenu.link}')));
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (_) => MoreWebview(
+                                  title: '${subMenu.menu}',
+                                  url: '${subMenu.link}')));
                     }
                   },
                 ))

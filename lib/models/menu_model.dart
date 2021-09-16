@@ -16,21 +16,20 @@ class MenuModel {
   List<ChildMenu>? childMenu;
   String? hasChild;
 
-  MenuModel(
-      {this.id,
-        this.menu,
-        this.text,
-        this.icon,
-        this.webviewStatus,
-        this.link,
-        this.content,
-        this.status,
-        this.position,
-        this.parentId,
-        this.webLink,
-        this.type,
-        this.childMenu,
-        this.hasChild});
+  MenuModel({this.id,
+    this.menu,
+    this.text,
+    this.icon,
+    this.webviewStatus,
+    this.link,
+    this.content,
+    this.status,
+    this.position,
+    this.parentId,
+    this.webLink,
+    this.type,
+    this.childMenu,
+    this.hasChild});
 
   MenuModel.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toString();
@@ -91,20 +90,19 @@ class ChildMenu {
   String? type;
   String? hasChild;
 
-  ChildMenu(
-      {this.id,
-        this.menu,
-        this.text,
-        this.icon,
-        this.webviewStatus,
-        this.link,
-        this.content,
-        this.status,
-        this.position,
-        this.parentId,
-        this.webLink,
-        this.type,
-        this.hasChild});
+  ChildMenu({this.id,
+    this.menu,
+    this.text,
+    this.icon,
+    this.webviewStatus,
+    this.link,
+    this.content,
+    this.status,
+    this.position,
+    this.parentId,
+    this.webLink,
+    this.type,
+    this.hasChild});
 
   ChildMenu.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toString();

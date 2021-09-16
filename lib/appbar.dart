@@ -5,25 +5,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 AppBar appBar<T>(
     {required BuildContext context,
-      String title = '',
-      List<Widget>? actions,
-      ShapeBorder? shape,
-      Widget? leading,
-      bool? centerTitle,
-      Color? backgroundColor,
-      double? elevation,
-      Color? leadingColor,
-      Widget? titleWidget,
-      VoidCallback? onBackPressed,
-      TextStyle? titleStyle,
-      T? popData,
-      PreferredSizeWidget? bottom,
-      bool automaticallyImplyLeading = true}) {
+    String title = '',
+    List<Widget>? actions,
+    ShapeBorder? shape,
+    Widget? leading,
+    bool? centerTitle,
+    Color? backgroundColor,
+    double? elevation,
+    Color? leadingColor,
+    Widget? titleWidget,
+    VoidCallback? onBackPressed,
+    TextStyle? titleStyle,
+    T? popData,
+    PreferredSizeWidget? bottom,
+    bool automaticallyImplyLeading = true}) {
   if (automaticallyImplyLeading) {
     leading = IconButton(
         icon: Icon(Icons.arrow_back_rounded),
         onPressed: onBackPressed ??
-                () async {
+            () async {
               FocusScope.of(context).unfocus();
               await Navigator.maybePop<T>(context, popData);
             },
@@ -35,19 +35,26 @@ AppBar appBar<T>(
       backgroundColor: backgroundColor ?? Palette.appbarcolor,
       title: title != null && title.isNotEmpty
           ? Padding(
-        padding: EdgeInsets.only(left:0.05.sw),
-        child: Text(
-          '$title',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0.sp,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1)
-              .merge(titleStyle),
-        ),
-      )
+              padding: EdgeInsets.only(left: 0.05.sw),
+              child: Text(
+                '$title',
+                style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0.sp,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1)
+                    .merge(titleStyle),
+              ),
+            )
           : titleWidget,
-      actions:[IconButton(onPressed: _callMenus, icon: Icon(Icons.notifications,size:24.sp,))],
+      actions: [
+        IconButton(
+            onPressed: _callMenus,
+            icon: Icon(
+              Icons.notifications,
+              size: 24.sp,
+            ))
+      ],
       shape: shape ?? null,
       leading: leading,
       elevation: elevation ?? 2.0,
@@ -55,9 +62,8 @@ AppBar appBar<T>(
       titleSpacing: 0,
       iconTheme: IconThemeData(color: leadingColor ?? Colors.white, size: 20),
       bottom: bottom);
-
 }
 
 void _callMenus() async {
-  var responce= await Services.geteventgallary('237');
+  var responce = await Services.geteventgallary('237');
 }

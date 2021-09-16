@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'appbar.dart';
+
 class YearSixteen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,10 @@ class YearSixteen extends StatelessWidget {
     ];
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar:appBar(context: context,title:'Year 2016-17',automaticallyImplyLeading: true),
+      appBar: appBar(
+          context: context,
+          title: 'Year 2016-17',
+          automaticallyImplyLeading: true),
       body: ListView.separated(
         shrinkWrap: true,
         itemCount: _moreitem.length,
@@ -59,10 +63,10 @@ class YearSixteen extends StatelessWidget {
             tileColor: Colors.black26,
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             title: Padding(
-              padding:  EdgeInsets.only(left:0.1.sw),
+              padding: EdgeInsets.only(left: 0.1.sw),
               child: Text(
                 '${item.title}',
-                style: TextStyle(color: Colors.white,fontSize:14),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ),
             trailing: Icon(
@@ -83,9 +87,11 @@ class YearSixteen extends StatelessWidget {
     );
   }
 }
+
 class Moreitem {
   final String? title;
   final IconData? icontrainel;
   final VoidCallback? Callback;
+
   const Moreitem({Key, key, this.title, this.icontrainel, this.Callback});
 }

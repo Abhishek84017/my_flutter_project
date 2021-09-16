@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/models/past_event.dart';
+import 'more_webview.dart';
 import 'secondhomescreen.dart';
 
 class Home extends StatefulWidget {
@@ -17,16 +18,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var upcomingeventsitem = <UpcomingEventsmodel>[];
+  // var upcomingeventsitem = <UpcomingEventsmodel>[];
 
   @override
   void initState() {
-    _fetchupcomingevents();
+    // _fetchupcomingevents();
     super.initState();
   }
 
-  void _fetchupcomingevents() async {
+  /*void _fetchupcomingevents() async {
     var responce = await Services.upcomingEvents('get_upcoming_events');
+    print(responce?.statusCode);
     if (responce?.statusCode == 200) {
       upcomingeventsitem = responce?.data;
       print(upcomingeventsitem);
@@ -34,11 +36,10 @@ class _HomeState extends State<Home> {
       print('something wrong');
     }
     setState(() {});
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.black,
         body: Column(
@@ -75,7 +76,7 @@ class _BannerimagesState extends State<Bannerimages> {
   }
 
   void _fetchupcomingevent() async {
-    var responce = await Services.UpcominEvent('');
+    var responce = await Services.UpcominEvent();
     if (responce.statusCode == 200) {
       upcomingevents = responce.data!;
       setState(() {});
@@ -93,34 +94,35 @@ class _BannerimagesState extends State<Bannerimages> {
           initialPage: 0,
           autoPlay: true,
         ),
-        items: upcomingevents
-            .map((event) => Container(
-                  constraints: BoxConstraints.tight(size),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage('${Urls.IMAGE_BASE_URL}${event.image}',),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+        items: upcomingevents.map((event) {
+          return Container(
+            constraints: BoxConstraints.tight(size),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  '${Urls.IMAGE_BASE_URL}${event.image}',
+                ),
+                fit: BoxFit.fill,
+              ),
+            ),
+            alignment: Alignment.bottomRight,
+            child: event.applyStatus == '0'
+                ? Padding(padding: const EdgeInsets.all(8.0),
                     child: TextButton(
                       style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all(Size.fromWidth(
-                            120.w,
-                          )),
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red)),
-                      onPressed: () {},
-                      child: Text(
-                        'JOIN',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      onPressed: () async {
+                        final url = 'https://www.avtyuwas.org/json/fill_form/${event.id}';
+                        Navigator.push(context, RotationRoute(Page: MoreWebview(url: url, title: '${event.title}')));
+                      },
+                      child: Text('JOIN', style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
-                  ),
-                ))
-            .toList());
+                  )
+                : SizedBox(),
+          );
+        }).toList());
   }
 }
 
@@ -131,7 +133,6 @@ class Listview extends StatefulWidget {
 
 class _ListviewState extends State<Listview> {
   var pastevents = <PastEventsModel>[];
-
 
   @override
   void initState() {
@@ -149,58 +150,64 @@ class _ListviewState extends State<Listview> {
     setState(() {});
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Expanded(
-      child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: pastevents.length,
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Image.network(
-                      '${Urls.IMAGE_BASE_URL}${pastevents[index].image}',
-                      loadingBuilder: (context, child, chunk) {
-                        if (chunk == null) {
-                          return child;
-                        }
-                        return Container(
-                          height: 300.h,
-                          width: 1.sw,
-                          alignment: Alignment.center,
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                    ),
+        child: SingleChildScrollView(
+      child: Column(
+        children: pastevents.map((e) {
+          final index = pastevents.indexOf(e);
+          return GestureDetector(
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Image.network(
+                    '${Urls.IMAGE_BASE_URL}${pastevents[index].image}',
+                    loadingBuilder: (context, child, chunk) {
+                      if (chunk == null) {
+                        return child;
+                      }
+                      return Container(
+                        height: 300.h,
+                        width: 1.sw,
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
+                      );
+                    },
                   ),
-                  Positioned(
-                    bottom: 12,
-                    child: Container(
-                        width: size.width,
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          color: Color(0xFFF0233ad).withOpacity(0.7),
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(
-                            '${pastevents[index].title}',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                ),
+                Positioned(
+                  bottom: 12,
+                  child: Container(
+                      width: size.width,
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        color: Color(0xFFF0233ad).withOpacity(0.7),
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          '${pastevents[index].title}',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
-                        )),
+                        ),
+                      )
                   ),
-                ],
-              ),
-              onTap: () {Navigator.push(context, RotationRoute(Page: SecondHomepage(event: pastevents[index],)));
-              },
-            );
-          }),
-    );
+                ),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  RotationRoute(
+                      Page: SecondHomepage(
+                    event: pastevents[index],
+                  )));
+            },
+          );
+        }).toList(),
+      ),
+    ));
   }
 }

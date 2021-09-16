@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'extensions/text_field.dart';
 import 'pageroute.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:avt_yuwas/constants/validate.dart';
 
 class SignInAsGuest extends StatefulWidget {
@@ -24,18 +25,24 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   SignInGuestModel? GuestSignin = SignInGuestModel();
 
   void _guestsingin() async {
+    final SharedPreferences sharedPreferences =   await SharedPreferences.getInstance();
+    sharedPreferences.setString('mobile',_mobile.text);
+
     if (_name.text.isEmpty || _mail.text.isEmpty || _mobile.text.isEmpty) {
-      Fluttertoast.showToast(msg: 'All fields are required',backgroundColor: Colors.red);
+      Fluttertoast.showToast(
+          msg: 'All fields are required', backgroundColor: Colors.red);
       return;
     }
     if (!RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(_mail.text)) {
-      Fluttertoast.showToast(msg: 'Invalid email id',backgroundColor: Colors.red);
+      Fluttertoast.showToast(
+          msg: 'Invalid email id', backgroundColor: Colors.red);
       return;
     }
     if (!RegExp(r"^(?:[+0]9)?[0-9]{10}$").hasMatch(_mobile.text)) {
-      Fluttertoast.showToast(msg: 'Invalid mobile number',backgroundColor: Colors.red);
+      Fluttertoast.showToast(
+          msg: 'Invalid mobile number', backgroundColor: Colors.red);
       return;
     }
     var data = <String, dynamic>{
@@ -67,9 +74,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
           constraints: BoxConstraints.tight(size),
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage(
-              'assests/images/bg.jpg',
-            ),
+            image: AssetImage('assests/images/bg.jpg',),
             fit: BoxFit.fill,
           )),
           child: Column(
@@ -106,7 +111,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                 maincolor: Color(0xFFF0233ad),
                 Callback: () {
                   _guestsingin();
-                },
+                  },
               ),
               Signinbutton(
                 text: 'Sign in as Member',

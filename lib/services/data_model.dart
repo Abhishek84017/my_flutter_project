@@ -7,9 +7,9 @@ class Data<T> {
 
   const Data(
       {this.message = 'Bad request',
-        this.data,
-        this.statusCode = 400,
-        this.pageInfo});
+      this.data,
+      this.statusCode = 400,
+      this.pageInfo});
 
   factory Data.fromJson(Map<String, dynamic> json) {
     var jsonMessage = json['message'];
@@ -61,9 +61,9 @@ class _PageInfoModel {
 
   const _PageInfoModel(
       {this.currentPage = 1,
-        this.totalPage = 1,
-        this.totalItemCount = 0,
-        this.currentPageItemCount = 0});
+      this.totalPage = 1,
+      this.totalItemCount = 0,
+      this.currentPageItemCount = 0});
 
   factory _PageInfoModel.fromJson(Map<String, dynamic> json) {
     return _PageInfoModel(
@@ -74,9 +74,9 @@ class _PageInfoModel {
   }
 
   Map<String, dynamic> toJson() => {
-    'currentPage': this.currentPage,
-    'currentPageItemCount': this.currentPageItemCount,
-    'totalItemCount': this.totalItemCount,
-    'totalPage': this.totalPage
-  };
+        'currentPage': this.currentPage,
+        'currentPageItemCount': this.currentPageItemCount,
+        'totalItemCount': this.totalItemCount,
+        'totalPage': this.totalPage
+      };
 }

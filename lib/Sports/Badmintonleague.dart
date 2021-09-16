@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-//ignore: must_be_immutable
+
 class Badmintonleague extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,19 @@ class Badmintonleague extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF0233ad),
-        title: const Text('Badminton League', style: TextStyle(fontSize: 16),),
+        title: const Text(
+          'Badminton League',
+          style: TextStyle(fontSize: 16),
+        ),
         actions: <Widget>[
-          IconButton(icon: Icon(FontAwesomeIcons.bell, size: 22.sp,), onPressed: () {},),],
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.bell,
+              size: 22.sp,
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       backgroundColor: Colors.black,
       body: Column(
@@ -32,13 +42,13 @@ class Badmintonleague extends StatelessWidget {
                   dense: true,
                   title: Text(
                     '${contactItem.title}',
-                    style: TextStyle(color: Colors.white,fontSize:18),
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
-
                   trailing: Icon(
                     contactItem.icontrailing,
-                    color: Colors.white,),
-                  onTap:contactItem.Callback,
+                    color: Colors.white,
+                  ),
+                  onTap: contactItem.Callback,
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
@@ -60,5 +70,10 @@ class Sportsleague {
   final String? title;
   final IconData? icontrailing;
   final VoidCallback? Callback;
-  const Sportsleague({this.title, this.icontrailing,this.Callback,});
+
+  const Sportsleague({
+    this.title,
+    this.icontrailing,
+    this.Callback,
+  });
 }

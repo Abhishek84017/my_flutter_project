@@ -21,7 +21,7 @@ class RotationRoute<T> extends PageRoute<T> {
     return SlideTransition(
         transformHitTests: false,
         position:
-        animation.drive(Tween(begin: Offset(1.0, 0.0), end: Offset.zero)),
+            animation.drive(Tween(begin: Offset(1.0, 0.0), end: Offset.zero)),
         child: Page);
   }
 

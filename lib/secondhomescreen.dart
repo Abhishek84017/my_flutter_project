@@ -1,4 +1,6 @@
+import 'package:avt_yuwas/gallery_view/gallery_view.dart';
 import 'package:avt_yuwas/models/past_event.dart';
+import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/services/urls.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +9,6 @@ import 'package:flutter/rendering.dart';
 import 'appbar.dart';
 import 'package:avt_yuwas/constants/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:avt_yuwas/services/urls.dart';
 import 'models/get_event_gallary_model.dart';
 
 class SecondHomepage extends StatefulWidget {
@@ -19,7 +20,8 @@ class SecondHomepage extends StatefulWidget {
   _SecondHomepageState createState() => _SecondHomepageState();
 }
 
-class _SecondHomepageState extends State<SecondHomepage> with SingleTickerProviderStateMixin {
+class _SecondHomepageState extends State<SecondHomepage>
+    with SingleTickerProviderStateMixin {
   List<EventGallaryModel>? _menuItems = <EventGallaryModel>[];
   TabController? _controller;
 
@@ -30,12 +32,14 @@ class _SecondHomepageState extends State<SecondHomepage> with SingleTickerProvid
     }
     setState(() {});
   }
+
   @override
   void initState() {
     super.initState();
     _controller = TabController(vsync: this, length: 2);
     _controller?.addListener(_listener);
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -88,9 +92,7 @@ class _SecondHomepageState extends State<SecondHomepage> with SingleTickerProvid
                           ),
                         ]),
                     Expanded(
-                      child: TabBarView(
-                          controller: _controller,
-                          children: [
+                      child: TabBarView(controller: _controller, children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -103,26 +105,44 @@ class _SecondHomepageState extends State<SecondHomepage> with SingleTickerProvid
                         ),
                         GridView.builder(
                           itemCount: (_menuItems?.length ?? 0),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 3 : 2,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:
+                                MediaQuery.of(context).orientation ==
+                                        Orientation.landscape
+                                    ? 3
+                                    : 2,
                             crossAxisSpacing: 1.w,
                             mainAxisSpacing: 1.w,
                             childAspectRatio: (2 / 1.2),
                           ),
                           itemBuilder: (context, index) {
                             var item = _menuItems![index];
-                            return Image(image:NetworkImage('${Urls.IMAGE_BASE_URL}${item.image}'),loadingBuilder: (context, child, chunk){
-                              if(chunk == null)
-                                {
-                                  return child;
-                                }
-                              return Container(
-                                height: 10,
-                                width: 10,
-                                alignment: Alignment.center,
-                                child: CircularProgressIndicator(),
-                              );
-                            },);
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    RotationRoute(
+                                        Page: GalleryView(
+                                            items: _menuItems,
+                                            currentIndex: index)));
+                              },
+                              child: Image(
+                                image: NetworkImage(
+                                    '${Urls.IMAGE_BASE_URL}${item.image}'),
+                                loadingBuilder: (context, child, chunk) {
+                                  if (chunk == null) {
+                                    return child;
+                                  }
+                                  return Container(
+                                    height: 10,
+                                    width: 10,
+                                    alignment: Alignment.center,
+                                    child: CircularProgressIndicator(),
+                                  );
+                                },
+                              ),
+                            );
                           },
                         ),
                       ]),

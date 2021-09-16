@@ -7,6 +7,7 @@ import 'package:avt_yuwas/models/signinmemberModel.dart';
 import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/services/urls.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'data_model.dart';
 
 class Services {
@@ -40,12 +41,11 @@ class Services {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
-        return Data(
-          data: jsonResponse['data'],
-        );
+        return Data(data: jsonResponse['data'], statusCode: 200);
       }
       return Data();
     } catch (_) {
+      print(_);
       return Data();
     }
   }
@@ -101,8 +101,7 @@ class Services {
     }
   }
 
-  static Future<Data<List<UpcomingEventsmodel>>> UpcominEvent(
-      String tableName) async {
+  static Future<Data<List<UpcomingEventsmodel>>> UpcominEvent() async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.UPCOMING_EVENTS);
 
     try {
@@ -127,7 +126,8 @@ class Services {
     }
   }
 
-  static Future<Data<List<EventGallaryModel>>> geteventgallary(String eventid) async {
+  static Future<Data<List<EventGallaryModel>>> geteventgallary(
+      String eventid) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.EVENT_GALLARY, {'event': eventid});
     try {
       http.Response response = await http.get(uri);
@@ -148,6 +148,27 @@ class Services {
     } catch (_) {
       print(_);
       return Data();
+    }
+  }
+
+  static Future<File>? downloadFile(String url) async {
+    Uri uri = Uri.https(Urls.BASE_URL, url);
+    try {
+      Directory tempDir = await getApplicationDocumentsDirectory();
+      String tempPath = tempDir.path;
+      final downloadedFile = File('$tempPath${url.split('/').last}');
+      if (await downloadedFile.exists()) {
+        return downloadedFile;
+      }
+      final http.Response response = await http.get(uri);
+      if (response.contentLength == 0) {
+        return Future.value(null);
+      }
+      File file = new File('$tempPath${url.split('/').last}');
+      await file.writeAsBytes(response.bodyBytes);
+      return file;
+    } catch (e) {
+      return Future.value(null);
     }
   }
 }

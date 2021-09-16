@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:avt_yuwas/constants/palette.dart';
+
 class Signinbutton extends StatelessWidget {
   final String? text;
   final IconData? icon;
-  final Color?  maincolor;
+  final Color? maincolor;
   final VoidCallback? Callback;
-  const Signinbutton ({Key ,key, this.text, this.icon, this.maincolor, this.Callback}): super(key: key);
+
+  const Signinbutton(
+      {Key? key, this.text, this.icon, this.maincolor, this.Callback})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,17 +25,25 @@ class Signinbutton extends StatelessWidget {
         color: text == 'Continue as Guest' ? Colors.blue : maincolor,
       ),
       child: TextButton(
-        onPressed:Callback,
-        child: Row(children: [
-          Icon(icon, color:Palette.iconcolor,size:28,),
-          Expanded(
-              child: Align(alignment: Alignment.center,
-                  child: Text(
-                    text!, style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
-                  )
-              )
-          )
-        ],
+        onPressed: Callback,
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Palette.iconcolor,
+              size: 28,
+            ),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      text!,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold),
+                    )))
+          ],
         ),
       ),
     );
