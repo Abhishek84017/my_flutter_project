@@ -1,6 +1,4 @@
 import 'package:avt_yuwas/homescreen.dart';
-import 'package:avt_yuwas/pageroute.dart';
-import 'package:avt_yuwas/services/data_model.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +23,9 @@ class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     void login() async {
-
-      print(widget.otp);
       if (value.text.isEmpty || value.text.length > 6) {
         Fluttertoast.showToast(msg: 'Otp cannot be impty');
+        print(widget.otp);
         return;
       }
       var enterotp = int.parse(value.text);
@@ -36,9 +33,12 @@ class _OtpState extends State<Otp> {
         Fluttertoast.showToast(
             msg: 'Enterd Otp wrong', backgroundColor: Colors.red);
       } else {
-        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-         await  sharedPreferences.setBool('isGuest', true);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Homescreen()), (Route<dynamic> route) => false);
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        await sharedPreferences.setBool('isGuest', true);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Homescreen()),
+            (Route<dynamic> route) => false);
       }
     }
 

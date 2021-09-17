@@ -15,12 +15,10 @@ class SignInAsMember extends StatefulWidget {
   @override
   _SignInAsMemberState createState() => _SignInAsMemberState();
 }
-
 class _SignInAsMemberState extends State<SignInAsMember> {
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
   SignIn? MemberSingIn = SignIn();
-
   void _singinmember() async {
     var data = <String, dynamic>{
       'username': _username.text,
@@ -35,7 +33,6 @@ class _SignInAsMemberState extends State<SignInAsMember> {
       } else {
         Fluttertoast.showToast(msg: 'Username or password wrong', backgroundColor: Colors.red);
       }
-
       setState(() {});
     } else {
       print(responce.message);

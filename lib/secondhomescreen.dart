@@ -13,9 +13,7 @@ import 'models/get_event_gallary_model.dart';
 
 class SecondHomepage extends StatefulWidget {
   final PastEventsModel? event;
-
   SecondHomepage({this.event});
-
   @override
   _SecondHomepageState createState() => _SecondHomepageState();
 }
@@ -24,8 +22,8 @@ class _SecondHomepageState extends State<SecondHomepage>
     with SingleTickerProviderStateMixin {
   List<EventGallaryModel>? _menuItems = <EventGallaryModel>[];
   TabController? _controller;
-
   void _fetcheventgallaryimage() async {
+
     var data = await Services.geteventgallary('${widget.event?.id}');
     if (data.statusCode == 200) {
       _menuItems = data.data;

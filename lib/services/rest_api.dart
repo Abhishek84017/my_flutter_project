@@ -66,8 +66,7 @@ class Services {
     }
   }
 
-  static Future<Data<SignInGuestModel>> SignUpGeste(
-      Map<String, dynamic> data) async {
+  static Future<Data<SignInGuestModel>> SignUpGeste(Map<String, dynamic> data) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.REGISTER_GUEST, data);
     try {
       http.Response response = await http.get(uri);

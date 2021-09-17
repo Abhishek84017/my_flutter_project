@@ -1,63 +1,39 @@
+import 'package:avt_yuwas/pageroute.dart';
+import 'package:avt_yuwas/secondhomescreen.dart';
+import 'package:avt_yuwas/services/rest_api.dart';
+import 'package:avt_yuwas/services/urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
+import 'models/past_event.dart';
+
 //ignore: must_be_immutable
-class Events extends StatelessWidget {
-  var _constactItemList = [
+class Events extends StatefulWidget {
+  @override
+  _EventsState createState() => _EventsState();
+}
 
-    ContactItem(
-        image: 'assests/images/kawadyatra.jpg',
-        subtitle: '16 Aug 2021',
-        title: 'Vishal Kwad Yatra -16th AUG'),
-    ContactItem(
-        image: 'assests/images/independenceday.jpg',
-        subtitle: '15 Aug 2021',
-        title: 'INDEPENDENCE DAY -15th AUG'),
-    ContactItem(
-        image: 'assests/images/annualmeeting.jpg',
-        subtitle: '10 Aug 2021',
-        title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT LTD-10 AUG'),
-    ContactItem(
-        image: 'assests/images/kawadyatra.jpg',
-        subtitle: '16 Aug 2021',
-        title: 'Vishal Kwad Yatra -16th AUG'),
-    ContactItem(
-        image: 'assests/images/independenceday.jpg',
-        subtitle: '15 Aug 2021',
-        title: 'INDEPENDENCE DAY -15th AUG'),
-    ContactItem(
-        image: 'assests/images/industrial.jpg',
-        subtitle: '10 Aug 2021',
-        title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT LTD-10 AUG'),
-    ContactItem(
-        image: 'assests/images/kawadyatra.jpg',
-        subtitle: '16 Aug 2021',
-        title: 'Vishal Kwad Yatra -16th AUG'),
-    ContactItem(
-        image: 'assests/images/independenceday.jpg',
-        subtitle: '15 Aug 2021',
-        title: 'INDEPENDENCE DAY -15th AUG'),
-    ContactItem(
-        image: 'assests/images/annualmeeting.jpg',
-        subtitle: '10 Aug 2021',
-        title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT LTD-10 AUG'),
-    ContactItem(
-        image: 'assests/images/kawadyatra.jpg',
-        subtitle: '16 Aug 2021',
-        title: 'Vishal Kwad Yatra -16th AUG'),
-    ContactItem(
-        image: 'assests/images/independenceday.jpg',
-        subtitle: '15 Aug 2021',
-        title: 'INDEPENDENCE DAY -15th AUG'),
-    ContactItem(
-        image: 'assests/images/industrial.jpg',
-        subtitle: '10 Aug 2021',
-        title: 'INDUSTRIAL VISIT -HARI KRISHNA EXPORTS PVT LTD-10 AUG'),
-  ];
+class _EventsState extends State<Events> {
 
+  var pastevents = <PastEventsModel>[];
+  @override
+  void initState() {
+    _fetchpastevents();
+    super.initState();
+  }
+
+  void _fetchpastevents() async {
+    var data = await Services.pastEvents('');
+    var pasteventmodel = <PastEventsModel>[];
+    data?.data?.forEach((event) {
+      pasteventmodel.add(PastEventsModel.fromJson(event));
+    });
+    pastevents = pasteventmodel;
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -80,40 +56,41 @@ class Events extends StatelessWidget {
           ],
         ),
         backgroundColor: Colors.black,
-        body: ListView.builder(
-          shrinkWrap: true,
-          itemCount: _constactItemList.length,
-          itemBuilder: (BuildContext context, int index) {
-            var contactItem = _constactItemList[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              child: Container(
-                height: 100,
-                child: Card(
-                  color: Color(0xFFF3749A4),
-                  child: ListTile(
-                    leading: SizedBox(
-                        child: Image.asset(
-                      '${contactItem.image}',
-                      fit: BoxFit.cover,
-                      width: 100,
-                    )),
-                    title: Text(
-                      '${contactItem.title}',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(
-                      '${contactItem.subtitle}',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-              ),
-            );
-          },
+        body: SingleChildScrollView(
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal:10.0.w),
+            child: Column(
+              children: pastevents.map((e){
+                final index = pastevents.indexOf(e);
+                return Container(
+                    child: Container(
+                        height: 100,
+                        child: Card(
+                          color: Color(0xFFF3749A4),
+                          child: ListTile(
+                            leading: SizedBox(
+                                child: Image.network('${Urls.IMAGE_BASE_URL}${pastevents[index].image}', fit: BoxFit.cover, width: 100,
+                                )),
+                            title: Text(
+                              '${pastevents[index].title}',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(
+                              '${pastevents[index].date}',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () {
+                              Navigator.push(context, RotationRoute(Page: SecondHomepage(event: pastevents[index],)));
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+              }).toList(),
+            ),
+          ),
         ),
-      ),
+    )
     );
   }
 }
@@ -122,6 +99,5 @@ class ContactItem {
   final String? image;
   final String? title;
   final String? subtitle;
-
   const ContactItem({this.title, this.subtitle, this.image});
 }

@@ -1,14 +1,18 @@
 import 'package:avt_yuwas/appbar.dart';
+import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/more_webview.dart';
 import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/services/urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'chose_member.dart';
 import 'models/menu_model.dart';
 import 'follow_us.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'events.dart';
 
 //ignore: must_be_immutable
 class More extends StatefulWidget {
@@ -30,7 +34,6 @@ class _MoreState extends State<More> {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     var isguest = sharedPreferences.getBool('isGuest');
-    print(isguest);
     var data = await Services.getMenus('app_menu');
     if (data.statusCode == 200) {
       if (isguest != null && isguest) {
@@ -42,6 +45,11 @@ class _MoreState extends State<More> {
     }
     _isLoading = false;
     setState(() {});
+    print('hello');
+    _menuItems?.forEach((element) {
+      precacheImage(NetworkImage('${element.icon}'), context);
+    });
+    print('hello After');
   }
 
   @override
@@ -69,9 +77,10 @@ class _MoreState extends State<More> {
                   ),
                   child: InkWell(
                     onTap: () async {
+                      print(item.id);
                       if (item.text == 'profile') {
                         final url =
-                            '${Urls.IMAGE_BASE_URL}web/edit_profile?member=';
+                            '${Urls.IMAGE_BASE_URL}web/edit_profile?member=${item.id}';
                         Navigator.push(
                             context,
                             RotationRoute(
@@ -82,7 +91,7 @@ class _MoreState extends State<More> {
                         return showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                                  title: Text('Do you want to exit'),
+                                  title: Text('Do you want to logout'),
                                   actions: <Widget>[
                                     TextButton(
                                         onPressed: () =>
@@ -99,11 +108,15 @@ class _MoreState extends State<More> {
                                               sharedPreferences =
                                               await SharedPreferences
                                                   .getInstance();
-                                          sharedPreferences.remove('mobile');
-                                          Navigator.pop(context, true);
+                                          await sharedPreferences.clear();
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              RotationRoute(Page: Homepage()),
+                                              (route) => false);
+                                          // Navigator.pushAndRemoveUntil(context, RotationRoute(Page: Homepage()), () => false);
                                         },
                                         child: Text(
-                                          'Yes',
+                                          'logout',
                                           style: TextStyle(
                                               fontSize: 18.sp,
                                               color: Colors.black),
@@ -114,6 +127,9 @@ class _MoreState extends State<More> {
                       if (item.menu == 'Follow Us') {
                         Navigator.push(
                             context, RotationRoute(Page: Followus()));
+                      }
+                      if (item.menu == 'Events') {
+                        Navigator.push(context, RotationRoute(Page: Events()));
                       }
                       if (item.childMenu != null &&
                           item.childMenu!.isNotEmpty) {
@@ -138,20 +154,22 @@ class _MoreState extends State<More> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Image.network(
-                          '${item.icon}',
-                          loadingBuilder: (context, child, chunk) {
-                            if (chunk == null) {
-                              return child;
-                            }
-                            return Container(
-                              height: 300.h,
-                              width: 1.sw,
-                              alignment: Alignment.center,
-                              child: CircularProgressIndicator(),
-                            );
-                          },
+                        ImageIcon(
+                          NetworkImage('${item.icon}'),
+                          color: Colors.white,
                         ),
+                        // Image.network('${item.icon}',height: 20.h, loadingBuilder: (context, child, chunk) {
+                        //     if (chunk == null) {
+                        //       return child;
+                        //     }
+                        //     return Container(
+                        //       height: 100.h,
+                        //       width: 1.sw,
+                        //       alignment: Alignment.center,
+                        //       child: CircularProgressIndicator(),
+                        //     );
+                        //   },
+                        // ),
                         Text('${item.menu}',
                             style:
                                 TextStyle(fontSize: 12.sp, color: Colors.white),

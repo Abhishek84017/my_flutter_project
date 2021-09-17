@@ -64,10 +64,7 @@ class _HomescreenState extends State<Homescreen> {
       child: Consumer<HomeScreenProvider>(
         builder: (context, provider, child) => SafeArea(
           child: Scaffold(
-            appBar: appBar(
-                context: context,
-                title: 'Avt Yuwas',
-                automaticallyImplyLeading: false),
+            appBar: appBar(context: context, title: 'Avt Yuwas', automaticallyImplyLeading: false),
             body: Column(
               children: [
                 Expanded(
