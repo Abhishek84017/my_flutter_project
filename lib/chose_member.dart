@@ -13,11 +13,9 @@ class Homepage extends StatelessWidget {
     void Signinmember() {
       Navigator.push(context, RotationRoute(Page: SignInAsMember()));
     }
-
     void Signinguest() {
       Navigator.push(context, RotationRoute(Page: SignInAsGuest()));
     }
-
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -25,14 +23,14 @@ class Homepage extends StatelessWidget {
             image: DecorationImage(
           image: AssetImage('assests/images/bg.jpg'),
           fit: BoxFit.fill,
-        )),
+        )
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 75),
-              child: Image.asset(
-                'assests/images/logo.png',
+              child: Image.asset('assests/images/logo.png',
                 width: 200.r,
                 height: 200.r,
                 fit: BoxFit.fill,

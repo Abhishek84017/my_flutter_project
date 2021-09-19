@@ -1,4 +1,6 @@
+// @dart=2.9
 import 'package:avt_yuwas/homescreen.dart';
+import 'package:avt_yuwas/services/notification_services.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,15 +17,18 @@ class SignInAsMember extends StatefulWidget {
   @override
   _SignInAsMemberState createState() => _SignInAsMemberState();
 }
+
 class _SignInAsMemberState extends State<SignInAsMember> {
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
-  SignIn? MemberSingIn = SignIn();
+  SignIn MemberSingIn = SignIn();
+  String _token;
+
   void _singinmember() async {
     var data = <String, dynamic>{
       'username': _username.text,
       'password': _password.text,
-      'token': 'asdfasdfasdfasdfasdfasdf',
+      'token': _token ?? '',
     };
     var responce = await Services.SigninMember(data);
     if (responce.statusCode == 200) {
@@ -31,12 +36,23 @@ class _SignInAsMemberState extends State<SignInAsMember> {
       if (MemberSingIn?.status == 1) {
         Navigator.pushReplacement(context, RotationRoute(Page: Homescreen()));
       } else {
-        Fluttertoast.showToast(msg: 'Username or password wrong', backgroundColor: Colors.red);
+        Fluttertoast.showToast(
+            msg: 'Username or password wrong', backgroundColor: Colors.red);
       }
       setState(() {});
     } else {
       print(responce.message);
     }
+  }
+
+  @override
+  void initState() {
+    _initToken();
+    super.initState();
+  }
+
+  void _initToken() async {
+    _token = await FirebaseServices.getFcmToken();
   }
 
   @override
@@ -51,9 +67,9 @@ class _SignInAsMemberState extends State<SignInAsMember> {
           constraints: BoxConstraints.tight(size),
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('assests/images/bg.jpg'),
-            fit: BoxFit.fill,
-          )),
+                image: AssetImage('assests/images/bg.jpg'),
+                fit: BoxFit.fill,
+              )),
           child: Column(
             children: [
               Padding(
@@ -94,8 +110,8 @@ class _SignInAsMemberState extends State<SignInAsMember> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return Forgetpassword();
-                    }));
+                          return Forgetpassword();
+                        }));
                   }),
             ],
           ),

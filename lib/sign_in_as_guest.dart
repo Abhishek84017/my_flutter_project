@@ -1,5 +1,7 @@
+// @dart=2.9
 import 'package:avt_yuwas/models/signinguest.dart';
 import 'package:avt_yuwas/otp.dart';
+import 'package:avt_yuwas/services/notification_services.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/sign_in_as_member.dart';
 import 'package:avt_yuwas/signinbutton.dart';
@@ -22,11 +24,13 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   TextEditingController _name = TextEditingController();
   TextEditingController _mail = TextEditingController();
   TextEditingController _mobile = TextEditingController();
-  SignInGuestModel? GuestSignin = SignInGuestModel();
+  SignInGuestModel GuestSignin = SignInGuestModel();
+  String _token;
 
   void _guestsingin() async {
-    final SharedPreferences sharedPreferences =   await SharedPreferences.getInstance();
-    sharedPreferences.setString('mobile',_mobile.text);
+    final SharedPreferences sharedPreferences =
+    await SharedPreferences.getInstance();
+    sharedPreferences.setString('mobile', _mobile.text);
 
     if (_name.text.isEmpty || _mail.text.isEmpty || _mobile.text.isEmpty) {
       Fluttertoast.showToast(
@@ -34,7 +38,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       return;
     }
     if (!RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(_mail.text)) {
       Fluttertoast.showToast(
           msg: 'Invalid email id', backgroundColor: Colors.red);
@@ -49,16 +53,27 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       'name': _name.text,
       'email': _mail.text,
       'mobile': _mobile.text,
-      'token': 'asdfasdfasdf'
+      'token': _token ?? ''
     };
     var response = await Services.SignUpGeste(data);
     if (response.statusCode == 200) {
       GuestSignin = response.data;
-      Navigator.pushReplacement(context, RotationRoute(Page: Otp(otp: GuestSignin?.otp)));
+      Navigator.pushReplacement(
+          context, RotationRoute(Page: Otp(otp: GuestSignin?.otp)));
       setState(() {});
     } else {
       print(response.message);
     }
+  }
+
+  @override
+  void initState() {
+    _initToken();
+    super.initState();
+  }
+
+  void _initToken() async {
+    _token = await FirebaseServices.getFcmToken();
   }
 
   @override
@@ -74,9 +89,11 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
           constraints: BoxConstraints.tight(size),
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('assests/images/bg.jpg',),
-            fit: BoxFit.fill,
-          )),
+                image: AssetImage(
+                  'assests/images/bg.jpg',
+                ),
+                fit: BoxFit.fill,
+              )),
           child: Column(
             children: [
               Padding(
@@ -111,7 +128,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                 maincolor: Color(0xFFF0233ad),
                 Callback: () {
                   _guestsingin();
-                  },
+                },
               ),
               Signinbutton(
                 text: 'Sign in as Member',

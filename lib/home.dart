@@ -1,4 +1,3 @@
-import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/urls.dart';
 import 'package:flutter/cupertino.dart';
@@ -106,9 +105,7 @@ class _BannerimagesState extends State<Bannerimages> {
                 constraints: BoxConstraints.tight(size),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                      '${Urls.IMAGE_BASE_URL}${event.image}',
-                    ),
+                    image: NetworkImage('${Urls.IMAGE_BASE_URL}${event.image}',),
                     fit: BoxFit.fill,
                   ),
                 ),

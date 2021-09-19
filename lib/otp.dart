@@ -65,7 +65,7 @@ class _OtpState extends State<Otp> {
                   fit: BoxFit.fill,
                 ),
               ),
-              inputtext(text: 'OTP', controller: value),
+              inputtext(text: 'OTP', controller: value,keyboardtype: TextInputType.number),
               SizedBox(height: 10.h),
               Signinbutton(
                 text: 'Verify',

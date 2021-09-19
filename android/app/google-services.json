@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "171656742526",
+    "project_id": "avt-yuvas",
+    "storage_bucket": "avt-yuvas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171656742526:android:5393384f6843c040363a2f",
+        "android_client_info": {
+          "package_name": "com.example.avt_yuwas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171656742526-lsnsfjqh6bmgl343j2u9dg4uuvtcqjk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLTzxEMdmPm8HMmWE3kq5b-eaOBLzk1Lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171656742526-lsnsfjqh6bmgl343j2u9dg4uuvtcqjk0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

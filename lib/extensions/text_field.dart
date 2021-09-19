@@ -1,19 +1,38 @@
+
 import 'package:avt_yuwas/constants/validate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class inputtext extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final TextEditingController? controller;
   final Validator? validator;
-  const inputtext({Key, key, this.text, this.icon, this.controller, this.validator}) :super(key: key);
+  final TextInputType? keyboardtype;
+  final VoidCallback? onEditingComplete;
+  final FocusNode? focusNode;
+
+
+  const inputtext(
+      {Key,
+      key,
+      this.text,
+      this.icon,
+      this.controller,
+      this.validator,
+      this.keyboardtype,
+      this.onEditingComplete,
+      this.focusNode,})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
       child: TextFormField(
         controller: controller,
+        keyboardType: keyboardtype,
+        onEditingComplete: onEditingComplete,
+        focusNode: focusNode,
         style: TextStyle(color: Colors.white),
         cursorRadius: Radius.circular(100.0),
         cursorColor: Colors.white,
