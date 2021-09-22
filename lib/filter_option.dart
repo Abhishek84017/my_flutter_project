@@ -3,38 +3,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'member_filter.dart';
 import 'models/member_model.dart';
 
-//ignore: must_be_immutable
 class FilterOption extends StatefulWidget {
-  final String? title;
+  final List<MemberModel>? members;
+  final FilterType? type;
 
-  const FilterOption({this.title});
+  const FilterOption({this.members = const [], this.type});
 
   @override
   _FilterOption createState() => _FilterOption();
 }
 
 class _FilterOption extends State<FilterOption> {
-  String dropdownvalue = 'Select Gender';
-  var items = ['Select Gender', 'Male', 'Female', 'd'];
+  String _dropdownValue = '';
+  var _dropDownItems = <String>[];
   List<MemberModel>? _pastevents = <MemberModel>[];
   List<MemberModel>? _searchResult = <MemberModel>[];
-  bool _showingtext = true;
 
   @override
   void initState() {
-    _fetchpastevents();
+    _pastevents = widget.members;
+    _getDropdownValues();
     super.initState();
-  }
-
-  void _fetchpastevents() async {
-    var data = await Services.getMembers('members');
-    if (data.statusCode == 200) {
-      _pastevents = data.data;
-      _searchResult = data.data;
-    }
-    setState(() {});
   }
 
   @override
@@ -43,7 +35,7 @@ class _FilterOption extends State<FilterOption> {
       appBar: AppBar(
           backgroundColor: Color(0xFFF0233ad),
           title: Text(
-            '${widget.title}',
+            _getTypeTitle(),
             style: TextStyle(fontSize: 20),
           )),
       backgroundColor: Colors.black,
@@ -52,36 +44,7 @@ class _FilterOption extends State<FilterOption> {
           padding: EdgeInsets.symmetric(horizontal: 8.0.w),
           child: Column(
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF3749A4),
-                  ),
-                  child: DropdownButton(
-                    underline: SizedBox(),
-                    dropdownColor: Color(0xFFF3749A4),
-                    value: dropdownvalue,
-                    style: TextStyle(color: Colors.white),
-                    isExpanded: true,
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String item) {
-                      return DropdownMenuItem(value: item, child: Text(item));
-                    }).toList(),
-                    hint: Text(
-                      'hello',
-                      style: TextStyle(color: Colors.red, fontSize: 32),
-                    ),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                  ),
-                ),
-              ),
+              _dropDown(),
               ..._searchResult!.map((e) {
                 final index = _searchResult!.indexOf(e);
                 return Container(
@@ -137,17 +100,138 @@ class _FilterOption extends State<FilterOption> {
     );
   }
 
-  void _onChange(String value) {
-    if (!_showingtext) {
-      if (value.isNotEmpty) {
-        _searchResult = [];
-        _searchResult = _pastevents!
-            .where((element) =>
-                element.name?.toLowerCase().contains(value.toLowerCase()) ??
-                false)
-            .toList();
-        setState(() {});
-      }
+  void _onChange(String? value) {
+    if (widget.type == FilterType.GOTRA) {
+      _searchResult =
+          _pastevents?.where((element) => element.gotra == value).toList();
+    } else if (widget.type == FilterType.OCCUPATION) {
+      _searchResult =
+          _pastevents?.where((element) => element.occupation == value).toList();
+    } else if (widget.type == FilterType.GENDER) {
+      _searchResult =
+          _pastevents?.where((element) => element.gender == value).toList();
+    } else if (widget.type == FilterType.BLOOD_GROUP) {
+      _searchResult =
+          _pastevents?.where((element) => element.bloodGroup == value).toList();
+    } else if (widget.type == FilterType.MARITAL_STATUS) {
+      _searchResult =
+          _pastevents?.where((element) => element.marrital == value).toList();
+    }
+
+    setState(() {
+      _dropdownValue = value!;
+    });
+  }
+
+  String _getTypeTitle() {
+    switch (widget.type) {
+      case FilterType.NAME:
+        return 'Name';
+      case FilterType.GOTRA:
+        return 'Gotra';
+      case FilterType.OCCUPATION:
+        return 'Occupation';
+      case FilterType.GENDER:
+        return 'Gender';
+      case FilterType.BLOOD_GROUP:
+        return 'Blood Group';
+      case FilterType.MARITAL_STATUS:
+        return 'Marital Status';
+      default:
+        return '';
+    }
+  }
+
+  Widget _dropDown() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: Color(0xFFF3749A4),
+        ),
+        child: DropdownButton(
+          underline: SizedBox(),
+          dropdownColor: Color(0xFFF3749A4),
+          value: _dropdownValue,
+          style: TextStyle(color: Colors.white),
+          isExpanded: true,
+          icon: Icon(Icons.keyboard_arrow_down),
+          items: _dropDownItems.map((String item) {
+            return DropdownMenuItem(value: item, child: Text(item));
+          }).toList(),
+          onChanged: _onChange,
+        ),
+      ),
+    );
+  }
+
+  void _getDropdownValues() {
+    if (widget.type == FilterType.GOTRA) {
+      _dropDownItems.clear();
+      _dropDownItems = ['Select Gotra'];
+      _dropdownValue = _dropDownItems[0];
+
+      widget.members
+          ?.map((e) => e.gotra)
+          .toList()
+          .toSet()
+          .toList()
+          .forEach((element) {
+        _dropDownItems.add(element!);
+      });
+    } else if (widget.type == FilterType.OCCUPATION) {
+      _dropDownItems.clear();
+      _dropDownItems = ['Select Occupation'];
+      _dropdownValue = _dropDownItems[0];
+
+      widget.members
+          ?.map((e) => e.occupation)
+          .toList()
+          .toSet()
+          .toList()
+          .forEach((element) {
+        _dropDownItems.add(element!);
+      });
+    } else if (widget.type == FilterType.GENDER) {
+      _dropDownItems.clear();
+      _dropDownItems = ['Select Gender'];
+      _dropdownValue = _dropDownItems[0];
+
+      widget.members
+          ?.map((e) => e.gender)
+          .toList()
+          .toSet()
+          .toList()
+          .forEach((element) {
+        _dropDownItems.add(element!);
+      });
+    } else if (widget.type == FilterType.BLOOD_GROUP) {
+      _dropDownItems.clear();
+      _dropDownItems = ['Select Blood Group'];
+      _dropdownValue = _dropDownItems[0];
+
+      widget.members
+          ?.map((e) => e.bloodGroup)
+          .toList()
+          .toSet()
+          .toList()
+          .forEach((element) {
+        _dropDownItems.add(element!);
+      });
+    } else if (widget.type == FilterType.MARITAL_STATUS) {
+      _dropDownItems.clear();
+      _dropDownItems = ['Select Marital Status'];
+      _dropdownValue = _dropDownItems[0];
+
+      widget.members
+          ?.map((e) => e.marrital)
+          .toList()
+          .toSet()
+          .toList()
+          .forEach((element) {
+        _dropDownItems.add(element!);
+      });
     }
   }
 }

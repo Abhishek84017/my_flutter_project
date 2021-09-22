@@ -14,7 +14,8 @@ class Members extends StatefulWidget {
 }
 
 class _Members extends State<Members> {
-  List<MemberModel>? _pastevents = <MemberModel>[];
+  bool isLoading = true;
+  List<MemberModel>? _memberdata = <MemberModel>[];
   List<MemberModel>? _searchResult = <MemberModel>[];
   bool _showingtext = true;
 
@@ -27,10 +28,12 @@ class _Members extends State<Members> {
   void _fetchpastevents() async {
     var data = await Services.getMembers('members');
     if (data.statusCode == 200) {
-      _pastevents = data.data;
+      _memberdata = data.data;
       _searchResult = data.data;
     }
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -72,75 +75,83 @@ class _Members extends State<Members> {
               });
             },
           ),
-          IconButton(
-            icon: Icon(
-              FontAwesomeIcons.filter,
-              size: 18.sp,
+          if (!isLoading)
+            IconButton(
+              icon: Icon(
+                FontAwesomeIcons.filter,
+                size: 18.sp,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    RotationRoute(Page: MemberFilter(members: _memberdata)));
+                setState(() {});
+              },
             ),
-            onPressed: () {
-              Navigator.push(context, RotationRoute(Page: MemberFilter()));
-              setState(() {});
-            },
-          ),
         ],
       ),
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-          child: Column(
-            children: _searchResult!.map((e) {
-              final index = _searchResult!.indexOf(e);
-              return Container(
-                child: Container(
-                  height: 70.h,
-                  child: Card(
-                    color: Color(0xFFF3749A4),
-                    child: ListTile(
-                      leading: SizedBox(
-                          child: Icon(
-                        FontAwesomeIcons.userCircle,
-                        color: Colors.white,
-                        size: 36.sp,
-                      )),
-                      title: Text(
-                        '${_searchResult![index].name}',
-                        style: TextStyle(color: Colors.white, fontSize: 18.sp),
-                      ),
-                      // subtitle: Text('hello',textAlign: TextAlign.right,style: TextStyle(color: Colors.red),),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Icon(
-                            Icons.message,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Icon(
-                            Icons.email,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Icon(
-                            Icons.phone,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ))
+          : SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                child: Column(
+                  children: _searchResult!.map((e) {
+                    final index = _searchResult!.indexOf(e);
+                    return Container(
+                      child: Container(
+                        height: 70.h,
+                        child: Card(
+                          color: Color(0xFFF3749A4),
+                          child: ListTile(
+                            leading: SizedBox(
+                                child: Icon(
+                              FontAwesomeIcons.userCircle,
+                              color: Colors.white,
+                              size: 36.sp,
+                            )),
+                            title: Text(
+                              '${_searchResult![index].name}',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.sp),
+                            ),
+                            // subtitle: Text('hello',textAlign: TextAlign.right,style: TextStyle(color: Colors.red),),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(
+                                  Icons.message,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Icon(
+                                  Icons.email,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
 
-                      onTap: () {},
-                    ),
-                  ),
+                            onTap: () {},
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
+              ),
+            ),
     ));
   }
 
@@ -148,7 +159,7 @@ class _Members extends State<Members> {
     if (!_showingtext) {
       if (value.isNotEmpty) {
         _searchResult = [];
-        _searchResult = _pastevents!
+        _searchResult = _memberdata!
             .where((element) =>
                 element.name?.toLowerCase().contains(value.toLowerCase()) ??
                 false)

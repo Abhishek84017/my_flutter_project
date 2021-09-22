@@ -19,7 +19,7 @@ class Myapp extends StatelessWidget {
             create: (_) => HomeScreenProvider()),
       ],
       child: ScreenUtilInit(
-          builder: () => MaterialApp(debugShowCheckedModeBanner: false, home: Homescreen(),)),
+          builder: () => MaterialApp(debugShowCheckedModeBanner: false, home: Splashscreen1(),)),
     );
   }
 }
