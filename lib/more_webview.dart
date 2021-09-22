@@ -26,6 +26,7 @@ class _MoreWebviewState extends State<MoreWebview> {
         children: <Widget>[
           WebView(
             initialUrl: widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
             onPageStarted: (finish) {
               setState(() {
                 isloading = false;

@@ -13,7 +13,7 @@ import 'extensions/text_field.dart';
 import 'pageroute.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:avt_yuwas/constants/validate.dart';
+
 
 class SignInAsGuest extends StatefulWidget {
   @override

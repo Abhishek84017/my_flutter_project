@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
+import 'package:avt_yuwas/models/member_model.dart';
 import 'package:avt_yuwas/models/menu_model.dart';
 import 'package:avt_yuwas/models/signinguest.dart';
 import 'package:avt_yuwas/models/signinmemberModel.dart';
@@ -168,6 +169,29 @@ class Services {
       return file;
     } catch (e) {
       return Future.value(null);
+    }
+  }
+
+  static Future<Data<List<MemberModel>>> getMembers(String tableName) async {
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.JSON, {'table': tableName});
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        var _menus = <MemberModel>[];
+        if (jsonResponse['data'] != null) {
+          jsonResponse['data'].forEach((v) {
+            _menus.add(new MemberModel.fromJson(v));
+          });
+        }
+        return Data(data: _menus, statusCode: 200, message: 'data fetcher succefully');
+      }
+      return Data();
+    } on SocketException catch (_) {
+      return Data();
+    } catch (_) {
+      print(_);
+      return Data();
     }
   }
 }

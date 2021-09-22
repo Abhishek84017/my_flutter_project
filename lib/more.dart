@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'chose_member.dart';
+import 'members.dart';
 import 'models/menu_model.dart';
 import 'follow_us.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,11 +61,7 @@ class _MoreState extends State<More> {
           ? Center(child: CircularProgressIndicator())
           : GridView.builder(
               itemCount: (_menuItems?.length ?? 0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    MediaQuery.of(context).orientation == Orientation.landscape
-                        ? 3
-                        : 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 3 : 2,
                 crossAxisSpacing: 1.w,
                 mainAxisSpacing: 1.w,
                 childAspectRatio: (2 / 1.2),
@@ -72,12 +69,9 @@ class _MoreState extends State<More> {
               itemBuilder: (context, index) {
                 var item = _menuItems![index];
                 return Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0.05),
-                  ),
+                  decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.05),),
                   child: InkWell(
                     onTap: () async {
-                      print(item.id);
                       if (item.text == 'profile') {
                         final url =
                             '${Urls.IMAGE_BASE_URL}web/edit_profile?member=${item.id}';
@@ -127,6 +121,9 @@ class _MoreState extends State<More> {
                       if (item.menu == 'Follow Us') {
                         Navigator.push(
                             context, RotationRoute(Page: Followus()));
+                      }
+                      if (item.menu == 'Members') {
+                        Navigator.push(context, RotationRoute(Page: Members()));
                       }
                       if (item.menu == 'Events') {
                         Navigator.push(context, RotationRoute(Page: Events()));
