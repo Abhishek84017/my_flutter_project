@@ -197,7 +197,8 @@ class Services {
   }
 
   static Future<Data<List<ChangePasswordModel>>> changePassword(Map<String,dynamic> data  ) async {
-    Uri uri = Uri.https(Urls.BASE_URL, Urls.JSON ,data);
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.CHANGE_PASSWORD ,data);
+    print(uri);
     try {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {

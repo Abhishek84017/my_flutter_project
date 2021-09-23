@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'constants/global.dart';
 import 'extensions/text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Otp extends StatefulWidget {
   final int? otp;
@@ -34,7 +34,7 @@ class _OtpState extends State<Otp> {
         Fluttertoast.showToast(
             msg: 'Enterd Otp wrong', backgroundColor: Colors.red);
       } else {
-        await kSharedPreferences?.setBool('isGuest', true);
+        await kSharedPreferences?.setString('isGuest', 'true');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Homescreen()),
             (Route<dynamic> route) => false);

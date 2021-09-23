@@ -11,7 +11,7 @@ import 'contact.dart';
 import 'more.dart';
 import 'provider/provider.dart';
 import 'appbar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 import 'provider/user_provider.dart';
 
@@ -50,7 +50,7 @@ class _HomescreenState extends State<Homescreen> {
                         )),
                     TextButton(
                         onPressed: () async {
-                          kSharedPreferences?.remove('mobile');
+                          kSharedPreferences?.clear();
                           Navigator.pop(context, true);
                         },
                         child: Text(

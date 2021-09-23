@@ -9,29 +9,46 @@ import 'extensions/text_field.dart';
 import 'appbar.dart';
 
 class Changepassword extends StatefulWidget {
+
+  final String? id;
+  final String? oldpassword;
+  const Changepassword({this.id,this.oldpassword});
   @override
   _ChangepasswordState createState() => _ChangepasswordState();
 }
 
 class _ChangepasswordState extends State<Changepassword> {
+  FocusNode focusNode = new FocusNode();
   TextEditingController _oldpassword =TextEditingController();
   TextEditingController _newpassword =TextEditingController();
   TextEditingController _changepassword =TextEditingController();
 
-  void _guestsingin() async {
+  void _passwordchange() async {
+    focusNode.unfocus();
     if (_oldpassword.text.isEmpty || _newpassword.text.isEmpty || _changepassword.text.isEmpty) {
-      Fluttertoast.showToast(
-          msg: 'All fields are required', backgroundColor: Colors.red);
+      Fluttertoast.showToast(msg: 'All fields are required', backgroundColor: Colors.red);
       return;
     }
+    if(_oldpassword.text != widget.oldpassword)
+      {
+        Fluttertoast.showToast(msg: 'Please Enter valid old password', backgroundColor: Colors.red);
+        return;
+      }
+    if(_newpassword.text != _changepassword.text)
+      {
+        Fluttertoast.showToast(msg: 'Password and Confirm password must be same', backgroundColor: Colors.red);
+        return;
+      }
     var data = <String, dynamic>{
-      // 'member': _name.text,
-      'password': _changepassword.text,
+      'member': widget.id,
+      'password': _newpassword.text,
     };
 
     var response = await Services.changePassword(data);
     if (response.statusCode == 200) {
       Fluttertoast.showToast(msg: 'password change successfull');
+      Navigator.pop(context,true);
+
       setState(() {});
     } else {
       print(response.message);
@@ -81,9 +98,10 @@ class _ChangepasswordState extends State<Changepassword> {
                   text: 'Confirm Password',
                   icon: Icons.lock,
                   controller: _changepassword,
+                  focusNode:  focusNode,
                 ),
                 SizedBox(height: 10.h),
-                Signinbutton(text: 'Change Password', maincolor: Color(0xFFF0233ad),Callback:_guestsingin,),
+                Signinbutton(text: 'Change Password', maincolor: Color(0xFFF0233ad),Callback:_passwordchange,),
                 SizedBox(height: 15.h),
               ],
             ),

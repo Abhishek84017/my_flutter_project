@@ -36,7 +36,7 @@ class _MoreWebviewState extends State<MoreWebview> {
           isloading
               ? Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                   ),
                 )
               : Stack(),

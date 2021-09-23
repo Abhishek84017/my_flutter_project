@@ -19,4 +19,6 @@ class Urls {
 
   static const String EVENT_GALLARY= '/json/get_event_galleries';
 
+  static const String CHANGE_PASSWORD= '/json/change_passwords';
+
 }

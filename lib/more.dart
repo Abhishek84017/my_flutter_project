@@ -12,10 +12,8 @@ import 'change_password.dart';
 import 'chose_member.dart';
 import 'constants/global.dart';
 import 'members.dart';
-import 'models/member_model.dart';
 import 'models/menu_model.dart';
 import 'follow_us.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'events.dart';
 import 'provider/provider.dart';
 
@@ -36,10 +34,11 @@ class _MoreState extends State<More> {
   }
 
   void _fetchMenu() async {
-    var isguest = kSharedPreferences?.getBool('isGuest');
+
+    var isguest = kSharedPreferences?.getString('isGuest');
     var data = await Services.getMenus('app_menu');
     if (data.statusCode == 200) {
-      if (isguest != null && isguest) {
+      if (isguest != null && isguest == 'true') {
         _menuItems =
             data.data?.where((element) => element.type != 'g').toList();
       } else {
@@ -60,7 +59,7 @@ class _MoreState extends State<More> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: Colors.red,))
           : GridView.builder(
               itemCount: (_menuItems?.length ?? 0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -81,8 +80,8 @@ class _MoreState extends State<More> {
                   child: InkWell(
                     onTap: () async {
                       if (item.text == 'profile') {
-                        print('${item}');
-                        print('${item.id}');
+
+                        print('${kUserProvider?.password}');
                         final url =
                             '${Urls.IMAGE_BASE_URL}web/edit_profile?member=${kUserProvider?.id}';
                         print(url);
@@ -109,11 +108,7 @@ class _MoreState extends State<More> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
-                                          final SharedPreferences
-                                              sharedPreferences =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          await sharedPreferences.clear();
+                                          kSharedPreferences?.clear();
                                           Navigator.pushAndRemoveUntil(
                                               context,
                                               RotationRoute(Page: Homepage()),
@@ -145,7 +140,7 @@ class _MoreState extends State<More> {
                       }
                       if (item.menu == 'Change Password') {
                         Navigator.push(
-                            context, RotationRoute(Page: Changepassword()));
+                            context, RotationRoute(Page: Changepassword(id:kUserProvider?.id,oldpassword:kUserProvider?.password,)));
                       }
                       if (item.childMenu != null &&
                           item.childMenu!.isNotEmpty) {
@@ -220,12 +215,8 @@ class SubMenus extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (subMenu.webLink != null) {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (_) => MoreWebview(
-                                  title: '${subMenu.menu}',
-                                  url: '${subMenu.link}')));
+
+                      Navigator.push(context, RotationRoute(Page: MoreWebview(title: '${subMenu.menu}', url: '${subMenu.link}',)));
                     }
                   },
                 ))

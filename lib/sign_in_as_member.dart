@@ -37,8 +37,7 @@ class _SignInAsMemberState extends State<SignInAsMember> {
     var responce = await Services.SigninMember(data);
     if (responce.statusCode == 200) {
       if (responce?.data?.status == 1) {
-        await kSharedPreferences.setString(
-            'userdata', jsonEncode(responce.data.toJson()));
+        await kSharedPreferences.setString('userdata', jsonEncode(responce.data.toJson()));
         kUserProvider.init();
         Navigator.pushReplacement(context, RotationRoute(Page: Homescreen()));
       } else {
