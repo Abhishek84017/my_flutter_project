@@ -18,6 +18,7 @@ class _EventsState extends State<Events> {
   List<PastEventsModel> _pastevents = <PastEventsModel>[];
   List<PastEventsModel> _searchResult = <PastEventsModel>[];
   bool _showingtext = true;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -33,7 +34,9 @@ class _EventsState extends State<Events> {
     });
     _pastevents = pasteventmodel;
     _searchResult = pasteventmodel;
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -76,7 +79,7 @@ class _EventsState extends State<Events> {
         ],
       ),
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
+      body: isLoading ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),)) : SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0.w),
           child: Column(
@@ -128,8 +131,7 @@ class _EventsState extends State<Events> {
         _searchResult = [];
         _searchResult = _pastevents
             .where((element) =>
-                element.title?.toLowerCase().contains(value.toLowerCase()) ?? false
-               )
+                element.title?.toLowerCase().contains(value.toLowerCase()) ?? false)
             .toList();
         setState(() {});
       }

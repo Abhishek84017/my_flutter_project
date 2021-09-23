@@ -2,8 +2,10 @@
 import 'package:avt_yuwas/services/notification_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
+import 'constants/global.dart';
 
 void main() async {
   // ensuring widget binding
@@ -14,6 +16,9 @@ void main() async {
 
   // ensure firebase services initialization
   await FirebaseServices.init();
+
+  // initalize shared preferences
+  kSharedPreferences = await SharedPreferences.getInstance();
 
   runApp(Myapp());
 }

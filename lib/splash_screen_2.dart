@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'chose_member.dart';
+import 'constants/global.dart';
 import 'pageroute.dart';
 
 String? FinalMobile;
@@ -18,21 +19,23 @@ class _SplashscreenState extends State<Splashscreen2> {
   void initState() {
     super.initState();
     // Timer(Duration(seconds: 3), () => Navigator.pushReplacement(context, RotationRoute(Page: Homepage())));
-    getValidationData().whenComplete(()async{
-      Timer(Duration(seconds: 3), () => Navigator.pushReplacement(context,(FinalMobile == null ? RotationRoute(Page: Homepage()) : RotationRoute(Page: Homescreen()))));
+    getValidationData().whenComplete(() async {
+      Timer(
+          Duration(seconds: 3),
+          () => Navigator.pushReplacement(
+              context,
+              (FinalMobile == null
+                  ? RotationRoute(Page: Homepage())
+                  : RotationRoute(Page: Homescreen()))));
     });
   }
 
-  Future getValidationData() async
-  {
-    final SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
-    var obtainedMobile=  sharedPreferences.getString('mobile');
-      setState(() {
+  Future getValidationData() async {
+    var obtainedMobile = kSharedPreferences?.getString('mobile');
+    setState(() {
       FinalMobile = obtainedMobile;
     });
-
   }
-
 
   Widget build(BuildContext context) {
     return Container(

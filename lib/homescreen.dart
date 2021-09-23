@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'constants/global.dart';
 import 'home.dart';
 import 'about.dart';
 import 'contact.dart';
@@ -11,6 +12,8 @@ import 'more.dart';
 import 'provider/provider.dart';
 import 'appbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'provider/user_provider.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);
@@ -24,7 +27,11 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.black));
+    kUserProvider = Provider.of<UserProvider>(context, listen: false);
+    kUserProvider?.init();
+    kUserProvider?.sync();
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.black));
     super.initState();
   }
 
@@ -43,10 +50,9 @@ class _HomescreenState extends State<Homescreen> {
                         )),
                     TextButton(
                         onPressed: () async {
-                          final SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
-                          sharedPreferences.remove('mobile');
-                          Navigator.pop(context,true);
-                          } ,
+                          kSharedPreferences?.remove('mobile');
+                          Navigator.pop(context, true);
+                        },
                         child: Text(
                           'Yes',
                           style:
@@ -64,7 +70,10 @@ class _HomescreenState extends State<Homescreen> {
       child: Consumer<HomeScreenProvider>(
         builder: (context, provider, child) => SafeArea(
           child: Scaffold(
-            appBar: appBar(context: context, title: 'Avt Yuwas', automaticallyImplyLeading: false),
+            appBar: appBar(
+                context: context,
+                title: 'Avt Yuwas',
+                automaticallyImplyLeading: false),
             body: Column(
               children: [
                 Expanded(

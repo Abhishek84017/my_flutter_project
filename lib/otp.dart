@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'constants/global.dart';
 import 'extensions/text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,9 +34,7 @@ class _OtpState extends State<Otp> {
         Fluttertoast.showToast(
             msg: 'Enterd Otp wrong', backgroundColor: Colors.red);
       } else {
-        final SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        await sharedPreferences.setBool('isGuest', true);
+        await kSharedPreferences?.setBool('isGuest', true);
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Homescreen()),
             (Route<dynamic> route) => false);
@@ -65,7 +64,10 @@ class _OtpState extends State<Otp> {
                   fit: BoxFit.fill,
                 ),
               ),
-              inputtext(text: 'OTP', controller: value,keyboardtype: TextInputType.number),
+              inputtext(
+                  text: 'OTP',
+                  controller: value,
+                  keyboardtype: TextInputType.number),
               SizedBox(height: 10.h),
               Signinbutton(
                 text: 'Verify',

@@ -1,5 +1,4 @@
 import 'package:avt_yuwas/appbar.dart';
-import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/more_webview.dart';
 import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
@@ -8,12 +7,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'change_password.dart';
 import 'chose_member.dart';
+import 'constants/global.dart';
 import 'members.dart';
+import 'models/member_model.dart';
 import 'models/menu_model.dart';
 import 'follow_us.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'events.dart';
+import 'provider/provider.dart';
 
 //ignore: must_be_immutable
 class More extends StatefulWidget {
@@ -32,9 +36,7 @@ class _MoreState extends State<More> {
   }
 
   void _fetchMenu() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    var isguest = sharedPreferences.getBool('isGuest');
+    var isguest = kSharedPreferences?.getBool('isGuest');
     var data = await Services.getMenus('app_menu');
     if (data.statusCode == 200) {
       if (isguest != null && isguest) {
@@ -61,7 +63,11 @@ class _MoreState extends State<More> {
           ? Center(child: CircularProgressIndicator())
           : GridView.builder(
               itemCount: (_menuItems?.length ?? 0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 3 : 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    MediaQuery.of(context).orientation == Orientation.landscape
+                        ? 3
+                        : 2,
                 crossAxisSpacing: 1.w,
                 mainAxisSpacing: 1.w,
                 childAspectRatio: (2 / 1.2),
@@ -69,12 +75,17 @@ class _MoreState extends State<More> {
               itemBuilder: (context, index) {
                 var item = _menuItems![index];
                 return Container(
-                  decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.05),),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 0.05),
+                  ),
                   child: InkWell(
                     onTap: () async {
                       if (item.text == 'profile') {
+                        print('${item}');
+                        print('${item.id}');
                         final url =
-                            '${Urls.IMAGE_BASE_URL}web/edit_profile?member=${item.id}';
+                            '${Urls.IMAGE_BASE_URL}web/edit_profile?member=${kUserProvider?.id}';
+                        print(url);
                         Navigator.push(
                             context,
                             RotationRoute(
@@ -122,11 +133,19 @@ class _MoreState extends State<More> {
                         Navigator.push(
                             context, RotationRoute(Page: Followus()));
                       }
+                      if (item.menu == 'Contact Us') {
+                        Provider.of<HomeScreenProvider>(context, listen: false)
+                            .currentBottomIndex = 2;
+                      }
                       if (item.menu == 'Members') {
                         Navigator.push(context, RotationRoute(Page: Members()));
                       }
                       if (item.menu == 'Events') {
                         Navigator.push(context, RotationRoute(Page: Events()));
+                      }
+                      if (item.menu == 'Change Password') {
+                        Navigator.push(
+                            context, RotationRoute(Page: Changepassword()));
                       }
                       if (item.childMenu != null &&
                           item.childMenu!.isNotEmpty) {

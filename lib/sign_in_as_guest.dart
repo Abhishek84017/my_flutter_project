@@ -9,11 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'constants/global.dart';
 import 'extensions/text_field.dart';
 import 'pageroute.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class SignInAsGuest extends StatefulWidget {
   @override
@@ -28,9 +28,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
   String _token;
 
   void _guestsingin() async {
-    final SharedPreferences sharedPreferences =
-    await SharedPreferences.getInstance();
-    sharedPreferences.setString('mobile', _mobile.text);
+    kSharedPreferences?.setString('mobile', _mobile.text);
 
     if (_name.text.isEmpty || _mail.text.isEmpty || _mobile.text.isEmpty) {
       Fluttertoast.showToast(
@@ -38,7 +36,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       return;
     }
     if (!RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(_mail.text)) {
       Fluttertoast.showToast(
           msg: 'Invalid email id', backgroundColor: Colors.red);
@@ -89,11 +87,11 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
           constraints: BoxConstraints.tight(size),
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  'assests/images/bg.jpg',
-                ),
-                fit: BoxFit.fill,
-              )),
+            image: AssetImage(
+              'assests/images/bg.jpg',
+            ),
+            fit: BoxFit.fill,
+          )),
           child: Column(
             children: [
               Padding(

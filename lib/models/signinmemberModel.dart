@@ -1,4 +1,4 @@
-class SignIn {
+class Userdata {
   String? id;
   String? code;
   String? name;
@@ -57,7 +57,7 @@ class SignIn {
   String? filledDate;
   String? panCard;
 
-  SignIn(
+  Userdata(
       {this.id,
         this.code,
         this.name,
@@ -116,7 +116,7 @@ class SignIn {
         this.filledDate,
         this.panCard});
 
-  SignIn.fromJson(Map<String, dynamic> json) {
+  Userdata.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     name = json['name'];

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:avt_yuwas/models/Change_password_model.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/models/member_model.dart';
 import 'package:avt_yuwas/models/menu_model.dart';
@@ -84,14 +85,14 @@ class Services {
     }
   }
 
-  static Future<Data<SignIn>> SigninMember(Map<String, dynamic> data) async {
+  static Future<Data<Userdata>> SigninMember(Map<String, dynamic> data) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.REGISTER_MEMBER, data);
     try {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
         return Data(
-            data: new SignIn.fromJson(jsonResponse),
+            data: new Userdata.fromJson(jsonResponse),
             statusCode: 200,
             message: 'data fetcher succefully');
       }
@@ -182,6 +183,29 @@ class Services {
         if (jsonResponse['data'] != null) {
           jsonResponse['data'].forEach((v) {
             _menus.add(new MemberModel.fromJson(v));
+          });
+        }
+        return Data(data: _menus, statusCode: 200, message: 'data fetcher succefully');
+      }
+      return Data();
+    } on SocketException catch (_) {
+      return Data();
+    } catch (_) {
+      print(_);
+      return Data();
+    }
+  }
+
+  static Future<Data<List<ChangePasswordModel>>> changePassword(Map<String,dynamic> data  ) async {
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.JSON ,data);
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        var _menus = <ChangePasswordModel>[];
+        if (jsonResponse['data'] != null) {
+          jsonResponse['data'].forEach((v) {
+            _menus.add(new ChangePasswordModel.fromJson(v));
           });
         }
         return Data(data: _menus, statusCode: 200, message: 'data fetcher succefully');
