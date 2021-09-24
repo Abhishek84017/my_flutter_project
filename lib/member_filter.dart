@@ -40,7 +40,7 @@ class _MemberFilterState extends State<MemberFilter> {
             context: context,
             title: 'Member Filter',
             automaticallyImplyLeading: true),
-        backgroundColor: Colors.black,
+
         body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount:

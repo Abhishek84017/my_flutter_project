@@ -10,33 +10,16 @@ import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/models/past_event.dart';
 import 'more_webview.dart';
 import 'secondhomescreen.dart';
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  // var upcomingeventsitem = <UpcomingEventsmodel>[];
-
   @override
   void initState() {
-    // _fetchupcomingevents();
     super.initState();
   }
-
-  /*void _fetchupcomingevents() async {
-    var responce = await Services.upcomingEvents('get_upcoming_events');
-    print(responce?.statusCode);
-    if (responce?.statusCode == 200) {
-      upcomingeventsitem = responce?.data;
-      print(upcomingeventsitem);
-    } else {
-      print('something wrong');
-    }
-    setState(() {});
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

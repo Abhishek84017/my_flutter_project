@@ -12,7 +12,6 @@ import 'more.dart';
 import 'provider/provider.dart';
 import 'appbar.dart';
 
-
 import 'provider/user_provider.dart';
 
 class Homescreen extends StatefulWidget {
@@ -34,7 +33,6 @@ class _HomescreenState extends State<Homescreen> {
         SystemUiOverlayStyle(statusBarColor: Colors.black));
     super.initState();
   }
-
   Future<bool> _onbackpress() async {
     return await showDialog<bool>(
             context: context,

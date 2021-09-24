@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'constants/global.dart';
 import 'pageroute.dart';
 import 'sign_in_as_member.dart';
 
@@ -30,7 +31,7 @@ class Homepage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 75),
-              child: Image.asset('assests/images/logo.png',
+              child: Image.asset(kimagelogo,
                 width: 200.r,
                 height: 200.r,
                 fit: BoxFit.fill,

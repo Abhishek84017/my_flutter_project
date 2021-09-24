@@ -1,3 +1,5 @@
+import 'package:avt_yuwas/constants/global.dart';
+import 'package:avt_yuwas/constants/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -21,20 +23,11 @@ class Followus extends StatelessWidget {
             title: 'Follow Us',
             automaticallyImplyLeading: true),
         body: Container(
-          constraints: BoxConstraints.tight(size),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage(
-              'assests/images/bg.jpg',
-            ),
-            fit: BoxFit.fill,
-          )),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Image.asset(
-                  'assests/images/logo.png',
+                child: Image.asset(kimagelogo,
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.fill,
@@ -43,15 +36,15 @@ class Followus extends StatelessWidget {
               Text(
                 'Follow Us On Social Media',
                 style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18.sp,
+                    color: Palette.Textcolor,
+                    fontSize: 22.sp,
                     fontWeight: FontWeight.bold),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 7),
+                    padding: const EdgeInsets.only(top: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -87,11 +80,11 @@ class Followus extends StatelessWidget {
                       children: [
                         Text(
                           'Instagram',
-                          style: TextStyle(color: Colors.grey, fontSize: 18.sp),
+                          style: TextStyle(color: Palette.Textcolor, fontSize: 18.sp),
                         ),
                         Text(
                           'Facebook',
-                          style: TextStyle(color: Colors.grey, fontSize: 18.sp),
+                          style: TextStyle(color: Palette.Textcolor, fontSize: 18.sp),
                         ),
                       ],
                     ),
@@ -133,11 +126,11 @@ class Followus extends StatelessWidget {
                       children: [
                         Text(
                           'Instagram',
-                          style: TextStyle(color: Colors.grey, fontSize: 18.sp),
+                          style: TextStyle(color: Palette.Textcolor, fontSize: 18.sp),
                         ),
                         Text(
                           'twitter',
-                          style: TextStyle(color: Colors.grey, fontSize: 18.sp),
+                          style: TextStyle(color: Palette.Textcolor, fontSize: 18.sp),
                         ),
                       ],
                     ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'constants/global.dart';
 import 'sign_in_as_member.dart';
 import 'extensions/text_field.dart';
 
@@ -26,7 +27,7 @@ class Forgetpassword extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Image.asset(
-                  'assests/images/logo.png',
+                  kimagelogo,
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.fill,

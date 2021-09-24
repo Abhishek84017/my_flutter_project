@@ -1,8 +1,13 @@
+import 'package:avt_yuwas/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:flutter/material.dart';
 import 'package:avt_yuwas/constants/palette.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'dart:async';
+import 'barcode_data.dart';
+import 'more_webview.dart';
 AppBar appBar<T>(
     {required BuildContext context,
     String title = '',
@@ -30,6 +35,19 @@ AppBar appBar<T>(
         color: Colors.white,
         iconSize: 24.0.sp);
   }
+
+
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.DEFAULT);
+      Navigator.push(context, RotationRoute(Page:Scannerdata(Data: barcodeScanRes,)));
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+  }
+
   return AppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
       backgroundColor: backgroundColor ?? Palette.appbarcolor,
@@ -49,7 +67,13 @@ AppBar appBar<T>(
           : titleWidget,
       actions: [
         IconButton(
-            onPressed: _callMenus,
+            onPressed: scanBarcodeNormal,
+            icon: Icon(
+              Icons.qr_code_scanner,
+              size: 24.sp,
+            )),
+        IconButton(
+            onPressed: () => _notification(context),
             icon: Icon(
               Icons.notifications,
               size: 24.sp,
@@ -64,6 +88,7 @@ AppBar appBar<T>(
       bottom: bottom);
 }
 
-void _callMenus() async {
-  var responce = await Services.geteventgallary('237');
+void _notification(BuildContext context) async {
+  Navigator.push(context, RotationRoute(Page:MoreWebview(url: 'http://avtyuwas.org/web/updates', title: 'Notification',)));
 }
+

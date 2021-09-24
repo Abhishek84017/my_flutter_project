@@ -89,8 +89,8 @@ class _Members extends State<Members> {
             ),
         ],
       ),
-      backgroundColor: Colors.black,
-      body: isLoading ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),))
+
+      body: isLoading ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.red),))
           : SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0.w),

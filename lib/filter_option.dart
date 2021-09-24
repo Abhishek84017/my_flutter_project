@@ -38,7 +38,6 @@ class _FilterOption extends State<FilterOption> {
             _getTypeTitle(),
             style: TextStyle(fontSize: 20),
           )),
-      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0.w),

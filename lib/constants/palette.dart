@@ -25,4 +25,6 @@ class Palette {
   //app bar color
   static const Color appbarcolor = const Color(0xFFF0233ad);
 
+  static const Color Textcolor = const Color(0xFFF000000);
+
 }

@@ -80,7 +80,10 @@ class Services {
             message: 'data fetcher succefully');
       }
       return Data();
+    } on SocketException catch (_) {
+      return Data(message: 'no internet connection');
     } catch (_) {
+      print(_);
       return Data();
     }
   }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'constants/global.dart';
 import 'extensions/text_field.dart';
 import 'appbar.dart';
 
@@ -78,7 +79,7 @@ class _ChangepasswordState extends State<Changepassword> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Image.asset(
-                    'assests/images/logo.png',
+                    kimagelogo,
                     width: 200.w,
                     height: 200.h,
                     fit: BoxFit.fill,

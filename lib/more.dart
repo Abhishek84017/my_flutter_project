@@ -34,7 +34,6 @@ class _MoreState extends State<More> {
   }
 
   void _fetchMenu() async {
-
     var isguest = kSharedPreferences?.getString('isGuest');
     var data = await Services.getMenus('app_menu');
     if (data.statusCode == 200) {
@@ -47,11 +46,10 @@ class _MoreState extends State<More> {
     }
     _isLoading = false;
     setState(() {});
-    print('hello');
+
     _menuItems?.forEach((element) {
       precacheImage(NetworkImage('${element.icon}'), context);
     });
-    print('hello After');
   }
 
   @override
@@ -59,7 +57,8 @@ class _MoreState extends State<More> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: _isLoading
-          ? Center(child: CircularProgressIndicator(color: Colors.red,))
+          ? Center(
+              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.red),))
           : GridView.builder(
               itemCount: (_menuItems?.length ?? 0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -80,8 +79,7 @@ class _MoreState extends State<More> {
                   child: InkWell(
                     onTap: () async {
                       if (item.text == 'profile') {
-
-                        print('${kUserProvider?.password}');
+                        print('${kUserProvider?.id}');
                         final url =
                             '${Urls.IMAGE_BASE_URL}web/edit_profile?member=${kUserProvider?.id}';
                         print(url);
@@ -140,7 +138,12 @@ class _MoreState extends State<More> {
                       }
                       if (item.menu == 'Change Password') {
                         Navigator.push(
-                            context, RotationRoute(Page: Changepassword(id:kUserProvider?.id,oldpassword:kUserProvider?.password,)));
+                            context,
+                            RotationRoute(
+                                Page: Changepassword(
+                              id: kUserProvider?.id,
+                              oldpassword: kUserProvider?.password,
+                            )));
                       }
                       if (item.childMenu != null &&
                           item.childMenu!.isNotEmpty) {
@@ -215,8 +218,13 @@ class SubMenus extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (subMenu.webLink != null) {
-
-                      Navigator.push(context, RotationRoute(Page: MoreWebview(title: '${subMenu.menu}', url: '${subMenu.link}',)));
+                      Navigator.push(
+                          context,
+                          RotationRoute(
+                              Page: MoreWebview(
+                            title: '${subMenu.menu}',
+                            url: '${subMenu.link}',
+                          )));
                     }
                   },
                 ))

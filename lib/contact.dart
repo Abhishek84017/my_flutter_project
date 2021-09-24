@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'constants/palette.dart';
+
 //ignore: must_be_immutable
 class Contact extends StatelessWidget {
   var _constactItemList = [
     ContactItem(
         icon: Icons.phone,
-        url: 'tel:9328054757',
-        subtitle: 'Mr.SANJAY.M.AGGARWL(PRESIDENT)',
+        url: 'tel:9586233081',
+        subtitle: 'Mr.Nikhil Agarwal(PRESIDENT)',
+        title: 'CALL US'),
+    ContactItem(
+        icon: Icons.phone,
+        url: 'tel:9825133853',
+        subtitle: 'Mr.Neeraj Agrawal(Vice-president)',
         title: 'CALL US'),
     ContactItem(
         icon: Icons.phone,
         url: 'tel:9909652534',
-        subtitle: 'Mr.NISHITH BEDIA(Vice-president)',
-        title: 'CALL US'),
-    ContactItem(
-        icon: Icons.phone,
-        url: 'tel:9016285978',
-        subtitle: 'Mr.RAHUL AGARWAL(IPP)',
-        title: 'CALL US'),
-    ContactItem(
-        icon: Icons.phone,
-        url: 'tel:9377042138',
-        subtitle: 'Mr.NIKHIL AGARWAL(Secretary)',
+        subtitle: 'Mr.Nishith Bedia (IPP)',
         title: 'CALL US'),
     ContactItem(
         icon: Icons.email_rounded,
@@ -40,12 +37,10 @@ class Contact extends StatelessWidget {
             '1st floor below Dwarka Hall,City Light,Surat-395007,Gujrat(India). +91 2612226688/89/90 +91 9687666677 agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
         title: 'Maharaja Agrasen Bhawan'),
   ];
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Column(
         children: [
           Expanded(
@@ -58,15 +53,15 @@ class Contact extends StatelessWidget {
                   dense: true,
                   title: Text(
                     '${contactItem.title}',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Palette.Textcolor),
                   ),
                   subtitle: Text(
                     '${contactItem.subtitle}',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Palette.Textcolor),
                   ),
                   trailing: Icon(
                     contactItem.icon,
-                    color: Colors.white,
+                    color: Palette.Textcolor,
                   ),
                   onTap: () async {
                     if (await canLaunch(contactItem.url ?? '')) {

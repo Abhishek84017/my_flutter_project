@@ -1,6 +1,5 @@
 // @dart=2.9
 import 'dart:convert';
-
 import 'package:avt_yuwas/homescreen.dart';
 import 'package:avt_yuwas/provider/user_provider.dart';
 import 'package:avt_yuwas/services/notification_services.dart';
@@ -15,7 +14,6 @@ import 'constants/global.dart';
 import 'forget_password.dart';
 import 'extensions/text_field.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
-import 'package:avt_yuwas/models/signinmemberModel.dart';
 import 'pageroute.dart';
 
 class SignInAsMember extends StatefulWidget {
@@ -29,12 +27,15 @@ class _SignInAsMemberState extends State<SignInAsMember> {
   String _token;
 
   void _singinmember() async {
+
     var data = <String, dynamic>{
       'username': _username.text,
       'password': _password.text,
       'token': _token ?? '',
     };
+
     var responce = await Services.SigninMember(data);
+
     if (responce.statusCode == 200) {
       if (responce?.data?.status == 1) {
         await kSharedPreferences.setString('userdata', jsonEncode(responce.data.toJson()));
@@ -80,7 +81,7 @@ class _SignInAsMemberState extends State<SignInAsMember> {
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Image.asset(
-                  'assests/images/logo.png',
+                  kimagelogo,
                   width: 180.h,
                   height: 180.h,
                   fit: BoxFit.fill,

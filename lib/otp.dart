@@ -58,7 +58,7 @@ class _OtpState extends State<Otp> {
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Image.asset(
-                  'assests/images/logo.png',
+                  kimagelogo,
                   width: 180.h,
                   height: 180.h,
                   fit: BoxFit.fill,

@@ -6,3 +6,5 @@ SharedPreferences? kSharedPreferences;
 
 // instance of user provider
 UserProvider? kUserProvider;
+
+const String kimagelogo='assests/images/logo.png';

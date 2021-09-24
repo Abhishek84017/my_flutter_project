@@ -53,9 +53,14 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
       'mobile': _mobile.text,
       'token': _token ?? ''
     };
+    print(data);
     var response = await Services.SignUpGeste(data);
+    print(response.toJson());
+    print(response.statusCode);
     if (response.statusCode == 200) {
+
       GuestSignin = response.data;
+
       Navigator.pushReplacement(
           context, RotationRoute(Page: Otp(otp: GuestSignin?.otp)));
       setState(() {});
@@ -97,7 +102,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Image.asset(
-                  'assests/images/logo.png',
+                  kimagelogo,
                   width: 180.h,
                   height: 180.h,
                   fit: BoxFit.fill,

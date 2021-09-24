@@ -42,7 +42,7 @@ class _SecondHomepageState extends State<SecondHomepage>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black38,
+
       appBar: appBar(
         context: context,
         title: 'Avt Yuwas',
