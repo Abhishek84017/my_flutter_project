@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:avt_yuwas/constants/global.dart';
+
 class Urls {
   // apps base url
   static const String BASE_URL = 'www.avtyuwas.org';
@@ -20,5 +24,7 @@ class Urls {
   static const String EVENT_GALLARY= '/json/get_event_galleries';
 
   static const String CHANGE_PASSWORD= '/json/change_passwords';
+
+  static const String URL_FOR_QR = '/json/markEventAttendance/';
 
 }

@@ -10,6 +10,7 @@ import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/models/past_event.dart';
 import 'more_webview.dart';
 import 'secondhomescreen.dart';
+import 'package:progressive_image/progressive_image.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -85,7 +86,7 @@ class _BannerimagesState extends State<Bannerimages> {
             ),
             items: upcomingevents.map((event) {
               return Container(
-                constraints: BoxConstraints.tight(size),
+
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage('${Urls.IMAGE_BASE_URL}${event.image}',),

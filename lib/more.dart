@@ -106,7 +106,7 @@ class _MoreState extends State<More> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
-                                          kSharedPreferences?.clear();
+                                         await kSharedPreferences?.clear();
                                           Navigator.pushAndRemoveUntil(
                                               context,
                                               RotationRoute(Page: Homepage()),

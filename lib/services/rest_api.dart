@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:avt_yuwas/constants/global.dart';
 import 'package:avt_yuwas/models/Change_password_model.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/models/member_model.dart';
@@ -68,7 +69,8 @@ class Services {
     }
   }
 
-  static Future<Data<SignInGuestModel>> SignUpGeste(Map<String, dynamic> data) async {
+  static Future<Data<SignInGuestModel>> SignUpGeste(
+      Map<String, dynamic> data) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.REGISTER_GUEST, data);
     try {
       http.Response response = await http.get(uri);
@@ -188,7 +190,8 @@ class Services {
             _menus.add(new MemberModel.fromJson(v));
           });
         }
-        return Data(data: _menus, statusCode: 200, message: 'data fetcher succefully');
+        return Data(
+            data: _menus, statusCode: 200, message: 'data fetcher succefully');
       }
       return Data();
     } on SocketException catch (_) {
@@ -199,9 +202,10 @@ class Services {
     }
   }
 
-  static Future<Data<List<ChangePasswordModel>>> changePassword(Map<String,dynamic> data  ) async {
-    Uri uri = Uri.https(Urls.BASE_URL, Urls.CHANGE_PASSWORD ,data);
-    print(uri);
+  static Future<Data<List<ChangePasswordModel>>> changePassword(
+      Map<String, dynamic> data) async {
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.CHANGE_PASSWORD, data);
+
     try {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
@@ -212,10 +216,29 @@ class Services {
             _menus.add(new ChangePasswordModel.fromJson(v));
           });
         }
-        return Data(data: _menus, statusCode: 200, message: 'data fetcher succefully');
+        return Data(
+            data: _menus, statusCode: 200, message: 'data fetcher succefully');
       }
       return Data();
     } on SocketException catch (_) {
+      return Data();
+    } catch (_) {
+      print(_);
+      return Data();
+    }
+  }
+
+  static Future<Data?> QrDataModel(String tableName) async {
+    Uri uri = Uri.https(
+        Urls.BASE_URL, Urls.URL_FOR_QR + '${kUserProvider?.id}/${tableName}');
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        print('hello $jsonResponse');
+
+        return Data(data: jsonResponse['message'], statusCode: 200,message: 'data fetcher successfully');
+      }
       return Data();
     } catch (_) {
       print(_);
