@@ -44,6 +44,8 @@ dependencies:
   firebase_messaging: ^10.0.3
   flutter_local_notifications: ^5.0.0+1
   flutter_barcode_scanner: ^2.0.0
+  progressive_image: ^2.0.0
+  geolocator: ^7.6.2
 
 dev_dependencies:
   flutter_test:
