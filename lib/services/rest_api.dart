@@ -131,7 +131,6 @@ class Services {
       return Data();
     }
   }
-
   static Future<Data<List<EventGallaryModel>>> geteventgallary(
       String eventid) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.EVENT_GALLARY, {'event': eventid});
