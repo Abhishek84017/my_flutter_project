@@ -27,7 +27,6 @@ class _SignInAsMemberState extends State<SignInAsMember> {
   String _token;
 
   void _singinmember() async {
-
     var data = <String, dynamic>{
       'username': _username.text,
       'password': _password.text,
@@ -38,8 +37,9 @@ class _SignInAsMemberState extends State<SignInAsMember> {
 
     if (responce.statusCode == 200) {
       if (responce?.data?.status == 1) {
-        await kSharedPreferences.setString('userdata', jsonEncode(responce.data.toJson()));
-        await kSharedPreferences.setString('data','true');
+        await kSharedPreferences.setString(
+            'userdata', jsonEncode(responce.data.toJson()));
+        await kSharedPreferences.setString('data', 'true');
         kUserProvider.init();
         Navigator.pushReplacement(context, RotationRoute(Page: Homescreen()));
       } else {
@@ -80,7 +80,7 @@ class _SignInAsMemberState extends State<SignInAsMember> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: EdgeInsets.only(top: 25.h),
                 child: Image.asset(
                   kimagelogo,
                   width: 180.h,
@@ -89,36 +89,35 @@ class _SignInAsMemberState extends State<SignInAsMember> {
                 ),
               ),
               inputtext(
-                text: 'Username',
-                icon: Icons.person,
-                controller: _username,
-              ),
-              SizedBox(height: 10.h),
+                  text: 'Username',
+                  icon: Icons.person,
+                  controller: _username,
+                  onEditingComplete: () => FocusScope.of(context).nextFocus()),
               inputtext(
-                text: 'Password',
-                icon: Icons.lock,
-                controller: _password,
-              ),
-              SizedBox(height: 20.h),
+                  text: 'Password',
+                  icon: Icons.lock,
+                  controller: _password,
+                  onEditingComplete: () => FocusScope.of(context).unfocus()),
               Signinbutton(
                 text: 'Sign In ',
                 maincolor: Color(0xFFF0233ad),
                 Callback: _singinmember,
               ),
-              SizedBox(height: 15.h),
               GestureDetector(
-                  child: Text(
-                    'forget password?',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        decoration: TextDecoration.underline),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.h),
+                    child: Text(
+                      'Forget Password?',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          decoration: TextDecoration.underline),
+                    ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return Forgetpassword();
-                    }));
+                    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {return Forgetpassword();}));
+                    Navigator.push(
+                        context, RotationRoute(Page: Forgetpassword()));
                   }),
             ],
           ),

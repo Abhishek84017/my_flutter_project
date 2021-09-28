@@ -12,6 +12,7 @@ class inputtext extends StatelessWidget {
   final FocusNode? focusNode;
 
 
+
   const inputtext(
       {Key,
       key,
@@ -27,7 +28,7 @@ class inputtext extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      padding:  EdgeInsets.symmetric(horizontal: 25.0.w,vertical:15.0.h),
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardtype,

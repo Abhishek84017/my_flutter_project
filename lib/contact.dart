@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geolocator/geolocator.dart';
 import 'constants/palette.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 //ignore: must_be_immutable
 class Contact extends StatefulWidget {
@@ -13,16 +16,49 @@ class _ContactState extends State<Contact> {
   Position? _position;
   Uri? _url;
   List<ContactItem> _constactItemList = [];
+  Set<Marker> _marker = {};
+
+  void _onmapcreated(GoogleMapController controller) {
+    _marker.add(
+        Marker(markerId: MarkerId('currentLocation'),
+        position:LatLng(_position!.latitude,_position!.longitude),
+          infoWindow: InfoWindow(
+            title: 'Current Location'
+          )
+        ),
+    );
+  }
 
   void _currentloacation() async {
-    _position = await Geolocator.getCurrentPosition();
+    Location location = new Location();
 
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        print('permission not granted');
+        return;
+      }
+    }
+
+    _position = await Geolocator.getCurrentPosition();
     _url = Uri.https('www.google.com', '/maps/dir/', {
       'api': '1',
       'destination': '21.1634372, 72.7922237',
       'origin': '${_position?.latitude}, ${_position?.longitude}'
     });
-
     _constactItemList = [
       ContactItem(
           icon: Icons.phone,
@@ -53,7 +89,7 @@ class _ContactState extends State<Contact> {
           icon: Icons.not_listed_location,
           url: _url.toString(),
           subtitle:
-              '1st floor below Dwarka Hall, City Light, Surat - 395007, Gujrat(India). +91 2612226688/89/90 +91 9687666677.agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
+          '1st floor below Dwarka Hall, City Light, Surat - 395007, Gujrat(India). +91 2612226688/89/90 +91 9687666677.agrawalvikastrust@gmail.com info@agrawalvikassurat.org',
           title: 'Maharaja Agrasen Bhawan'),
     ];
     setState(() {});
@@ -70,6 +106,16 @@ class _ContactState extends State<Contact> {
     return Scaffold(
       body: Column(
         children: [
+          Container(
+              height: 200.h,
+              width: MediaQuery.of(context).size.width,
+              child: GoogleMap(
+                onMapCreated: _onmapcreated,
+                markers: _marker,
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(_position!.latitude, _position!.longitude),
+                    zoom: 15),
+              )),
           Expanded(
             child: ListView.separated(
               shrinkWrap: true,

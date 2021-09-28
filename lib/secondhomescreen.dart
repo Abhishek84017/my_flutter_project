@@ -13,7 +13,9 @@ import 'models/get_event_gallary_model.dart';
 
 class SecondHomepage extends StatefulWidget {
   final PastEventsModel? event;
+
   SecondHomepage({this.event});
+
   @override
   _SecondHomepageState createState() => _SecondHomepageState();
 }
@@ -22,8 +24,8 @@ class _SecondHomepageState extends State<SecondHomepage>
     with SingleTickerProviderStateMixin {
   List<EventGallaryModel>? _menuItems = <EventGallaryModel>[];
   TabController? _controller;
-  void _fetcheventgallaryimage() async {
 
+  void _fetcheventgallaryimage() async {
     var data = await Services.geteventgallary('${widget.event?.id}');
     if (data.statusCode == 200) {
       _menuItems = data.data;
@@ -42,7 +44,6 @@ class _SecondHomepageState extends State<SecondHomepage>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-
       appBar: appBar(
         context: context,
         title: 'Avt Yuwas',
@@ -79,8 +80,8 @@ class _SecondHomepageState extends State<SecondHomepage>
                     TabBar(
                         controller: _controller,
                         indicatorColor: Palette.appbarcolor,
-                        unselectedLabelColor: Colors.white,
-                        labelColor: Colors.white,
+                        unselectedLabelColor: Colors.black,
+                        labelColor: Colors.black,
                         tabs: [
                           Tab(
                             text: 'DETAILS',
@@ -96,7 +97,7 @@ class _SecondHomepageState extends State<SecondHomepage>
                           child: Text(
                             '${widget.event?.longDescription}',
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 13.5.sp,
                                 height: 1.3),
                           ),
@@ -136,7 +137,9 @@ class _SecondHomepageState extends State<SecondHomepage>
                                     height: 10,
                                     width: 10,
                                     alignment: Alignment.center,
-                                    child: CircularProgressIndicator(),
+                                    child: CircularProgressIndicator(
+                                      color: Colors.red,
+                                    ),
                                   );
                                 },
                               ),

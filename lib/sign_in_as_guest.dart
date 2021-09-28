@@ -58,7 +58,6 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
     print(response.toJson());
     print(response.statusCode);
     if (response.statusCode == 200) {
-
       GuestSignin = response.data;
 
       Navigator.pushReplacement(
@@ -100,7 +99,7 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding:  EdgeInsets.only(top: 25.h),
                 child: Image.asset(
                   kimagelogo,
                   width: 180.h,
@@ -112,22 +111,22 @@ class _SignInAsGuestState extends State<SignInAsGuest> {
                 text: 'NAME',
                 icon: Icons.person,
                 controller: _name,
-              ),
-              SizedBox(height: 10.h),
+                  onEditingComplete: () => FocusScope.of(context).nextFocus()),
               inputtext(
                 text: 'E-MAIL',
                 icon: Icons.mail,
                 controller: _mail,
+                  onEditingComplete: () => FocusScope.of(context).nextFocus()
               ),
-              SizedBox(height: 20.h),
               inputtext(
                 text: 'MOBILE',
                 icon: Icons.mobile_friendly_sharp,
                 controller: _mobile,
+                  onEditingComplete: () => FocusScope.of(context).unfocus()
               ),
-              SizedBox(height: 10.h),
               Signinbutton(
                 text: 'Next',
+                icon: Icons.arrow_forward,
                 maincolor: Color(0xFFF0233ad),
                 Callback: () {
                   _guestsingin();

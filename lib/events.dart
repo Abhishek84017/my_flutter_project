@@ -38,7 +38,6 @@ class _EventsState extends State<Events> {
       isLoading = false;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
