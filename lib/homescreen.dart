@@ -11,7 +11,6 @@ import 'contact.dart';
 import 'more.dart';
 import 'provider/provider.dart';
 import 'appbar.dart';
-
 import 'provider/user_provider.dart';
 
 class Homescreen extends StatefulWidget {
@@ -60,7 +59,6 @@ class _HomescreenState extends State<Homescreen> {
                 )) ??
         false;
   }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'calender.dart';
 import 'change_password.dart';
 import 'chose_member.dart';
 import 'constants/global.dart';
@@ -32,7 +33,6 @@ class _MoreState extends State<More> {
     _fetchMenu();
     super.initState();
   }
-
   void _fetchMenu() async {
     var isguest = kSharedPreferences?.getString('isGuest');
     var data = await Services.getMenus('app_menu');
@@ -126,6 +126,9 @@ class _MoreState extends State<More> {
                         Navigator.push(
                             context, RotationRoute(Page: Followus()));
                       }
+                      if (item.menu == 'Calendar') {
+                        Navigator.push(context, RotationRoute(Page: Calender()));
+                      }
                       if (item.menu == 'Contact Us') {
                         Provider.of<HomeScreenProvider>(context, listen: false)
                             .currentBottomIndex = 2;
@@ -172,18 +175,6 @@ class _MoreState extends State<More> {
                           NetworkImage('${item.icon}'),
                           color: Colors.white,
                         ),
-                        // Image.network('${item.icon}',height: 20.h, loadingBuilder: (context, child, chunk) {
-                        //     if (chunk == null) {
-                        //       return child;
-                        //     }
-                        //     return Container(
-                        //       height: 100.h,
-                        //       width: 1.sw,
-                        //       alignment: Alignment.center,
-                        //       child: CircularProgressIndicator(),
-                        //     );
-                        //   },
-                        // ),
                         Text('${item.menu}',
                             style:
                                 TextStyle(fontSize: 12.sp, color: Colors.white),
@@ -203,7 +194,6 @@ class SubMenus extends StatelessWidget {
       : super(key: key);
   final String? title;
   final List<ChildMenu>? childMenus;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

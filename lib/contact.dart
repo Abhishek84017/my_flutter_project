@@ -21,7 +21,7 @@ class _ContactState extends State<Contact> {
   void _onmapcreated(GoogleMapController controller) {
     _marker.add(
         Marker(markerId: MarkerId('currentLocation'),
-        position:LatLng(_position!.latitude,_position!.longitude),
+        position:LatLng(21.1634372, 72.7922237),
           infoWindow: InfoWindow(
             title: 'Current Location'
           )
