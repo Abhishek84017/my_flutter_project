@@ -22,6 +22,9 @@ class _CalenderState extends State<Calender> {
   @override
   void initState() {
     _fetchpastevents();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -33,7 +36,6 @@ class _CalenderState extends State<Calender> {
     });
     pastevents = pasteventmodel;
     _eventDates = pastevents.map((e) => '${e.date}').toList();
-
     setState(() {});
   }
 
@@ -67,6 +69,13 @@ class _CalenderState extends State<Calender> {
                 return isSameDay(_selectedDay, day);
               },
               onDaySelected: (selectedDay, focusedDay) {
+                final event = pastevents.where((element) =>
+                    element.date ==
+                    DateFormat('yyyy-MM-dd').format(selectedDay));
+                if (event != null && event.isNotEmpty) {
+                  Navigator.push(context,
+                      RotationRoute(Page: SecondHomepage(event: event.first)));
+                }
                 if (!isSameDay(_selectedDay, selectedDay)) {
                   // Call `setState()` when updating the selected day
                   setState(() {
@@ -74,33 +83,16 @@ class _CalenderState extends State<Calender> {
                     _focusedDay = focusedDay;
                   });
                 }
+                //
               },
               calendarBuilders:
                   CalendarBuilders(defaultBuilder: (context, day, day1) {
-                // print(pastevents
-                //     .where((e) => e.date!.contains(
-                //     DateFormat('yyyy-MM-dd').format(day).toString()))
-                //     .toList());
-
                 if (_eventDates
                     .contains(DateFormat('yyyy-MM-dd').format(day))) {
-                  // print(pastevents
-                  //     .where((e) => e.date!.contains(
-                  //     DateFormat('yyyy-MM-dd').format(day).toString()))
-                  //     .toList());
                   _alleventData.addAll(pastevents
                       .where((e) => e.date!
                           .contains(DateFormat('yyyy-MM-dd').format(day)))
                       .toList());
-                  // _alleventData.sort((a, b) {
-                  //   var date1 = DateTime.tryParse('$a') ?? DateTime.now();
-                  //   var date2 = DateTime.tryParse('$b') ?? DateTime.now();
-                  //   if (date1.isBefore(date2)) {
-                  //     return 1;
-                  //   } else {
-                  //     return 0;
-                  //   }
-                  // });
                   return Container(
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -121,37 +113,24 @@ class _CalenderState extends State<Calender> {
                 }
               },
               onPageChanged: (d) {
-
                 _alleventData.clear();
-                print('hello');
                 // No need to call `setState()` here
-
                 var dateUtility = DateUtil();
                 var totaldays = dateUtility.daysInMonth(d.month, d.year);
-                print(totaldays);
                 _focusedDay = d;
-
                 // var listofdate = new List<int>.generate(totaldays, (i) => ${i+1}/${d.month}/${d.year});
-                // print(listofdate);
                 List<String> days = [];
                 for (int i = 1; i < totaldays; i++) {
                   days.add(DateFormat('yyyy-MM-dd')
                       .format(DateTime(d.year, d.month, i)));
                 }
 
-                print(pastevents
-                    .where((e) => e.date!.contains(DateFormat('yyyy-MM-dd')
-                        .format(DateTime(2021,08,16))
-                        .toString()))
-                    .toList());
-                // print(pastevents.map((e) => e.date).toList());
                 days.forEach((element) {
                   _alleventData.addAll(pastevents
-                        .where((e) => e.date!.contains(DateFormat('yyyy-MM-dd')
-                            .format(DateTime.parse(element))
-                            .toString()))
-                        .toList());
-
+                      .where((e) => e.date!.contains(DateFormat('yyyy-MM-dd')
+                          .format(DateTime.parse(element))
+                          .toString()))
+                      .toList());
                 });
                 setState(() {});
               }),
@@ -202,107 +181,3 @@ class _CalenderState extends State<Calender> {
     );
   }
 }
-
-// class Calendar extends StatefulWidget {
-//   const Calendar({Key? key}) : super(key: key);
-//
-//   @override
-//   _CalendarState createState() => _CalendarState();
-// }
-//
-// class _CalendarState extends State<Calendar> {
-//   var _focusDay = DateTime.now();
-//   List<PastEventsModel> _events = <PastEventsModel>[];
-//   List<PastEventsModel> _eventsList = <PastEventsModel>[];
-//   List<String> _eventDates = [];
-//
-//   void _fetchEvents() async {
-//     var data = await Services.pastEvents('');
-//     data?.data?.forEach((event) {
-//       _events.add(new PastEventsModel.fromJson(event));
-//     });
-//     _eventsList = _events;
-//     _eventDates = _eventsList.map((e) => '${e.date}').toList();
-//     setState(() {});
-//   }
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _fetchEvents();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: SafeArea(
-//       child: Column(
-//         children: [
-//           TableCalendar(
-//               firstDay: DateTime.utc(2010, 10, 16),
-//               lastDay: DateTime.utc(2030, 3, 14),
-//               focusedDay: _focusDay,
-//               calendarBuilders:
-//                   CalendarBuilders(defaultBuilder: (context, day, _) {
-//                 if (_eventDates
-//                     .contains(DateFormat('yyyy-MM-dd').format(day))) {
-//                   return Container(
-//                       padding: EdgeInsets.all(10.0),
-//                       decoration: BoxDecoration(
-//                           color: Colors.red, shape: BoxShape.circle),
-//                       child: Text(day.day.toString(),
-//                           style: TextStyle(color: Colors.white)));
-//                 }
-//                 final events = _events.where((event) {
-//                   var date = DateFormat('yyyy-MM-dd').parse('${event.date}');
-//                   print(DateFormat('yyyy-MM-dd').format(date));
-//                   print(DateFormat('yyyy-MM-dd').format(day));
-//                   return DateFormat('yyyy-MM-dd').format(date) ==
-//                       DateFormat('yyyy-MM-dd').format(day);
-//                 });
-//                 print(events);
-//               }),
-//               onPageChanged: (day) {
-//                 _focusDay = day;
-//                 setState(() {});
-//               }),
-//           Expanded(
-//             child: ListView.builder(
-//                 itemBuilder: (context, index) => Container(
-//                       child: Container(
-//                         height: 100,
-//                         child: Card(
-//                           color: Color(0xFFF3749A4),
-//                           child: ListTile(
-//                             leading: SizedBox(
-//                                 child: Image.network(
-//                               '${Urls.IMAGE_BASE_URL}${_eventsList[index].image}',
-//                               fit: BoxFit.cover,
-//                               width: 100,
-//                             )),
-//                             title: Text(
-//                               '${_eventsList[index].title}',
-//                               style: TextStyle(color: Colors.white),
-//                             ),
-//                             subtitle: Text(
-//                               '${_eventsList[index].date}',
-//                               style: TextStyle(color: Colors.white),
-//                             ),
-//                             onTap: () {
-//                               Navigator.push(
-//                                   context,
-//                                   RotationRoute(
-//                                       Page: SecondHomepage(
-//                                           event: _eventsList[index])));
-//                             },
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                 itemCount: _eventsList.length),
-//           )
-//         ],
-//       ),
-//     ));
-//   }
-// }

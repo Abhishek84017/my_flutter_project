@@ -13,7 +13,6 @@ class MoreWebview extends StatefulWidget {
 
 class _MoreWebviewState extends State<MoreWebview> {
   bool isloading = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

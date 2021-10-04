@@ -8,9 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/models/past_event.dart';
+import 'constants/global.dart';
 import 'more_webview.dart';
 import 'secondhomescreen.dart';
-import 'package:progressive_image/progressive_image.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -21,26 +22,27 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         body: Column(
-          children: [
-            Bannerimages(),
-            Container(
-              height: 35,
-              width: double.infinity,
-              color: Color(0xff123456),
-              child: Center(
-                  child: Text(
-                'Past Events',
-                style: TextStyle(color: Colors.white),
-              )),
-            ),
-            Listview(),
-          ],
-        ));
+      children: [
+        Bannerimages(),
+        Container(
+          height: 35,
+          width: double.infinity,
+          color: Color(0xff123456),
+          child: Center(
+              child: Text(
+            'Past Events',
+            style: TextStyle(color: Colors.white),
+          )),
+        ),
+        Listview(),
+      ],
+    ));
   }
 }
 
@@ -52,6 +54,7 @@ class Bannerimages extends StatefulWidget {
 class _BannerimagesState extends State<Bannerimages> {
   int currentPos = 0;
   var upcomingevents = <UpcomingEventsmodel>[];
+
   @override
   void initState() {
     _fetchupcomingevent();
@@ -75,22 +78,22 @@ class _BannerimagesState extends State<Bannerimages> {
       children: [
         CarouselSlider(
             options: CarouselOptions(
-              viewportFraction: 1.0,
-              initialPage: 0,
-              autoPlay: true,
-                onPageChanged: (index,reason) {
+                viewportFraction: 1.0,
+                initialPage: 0,
+                autoPlay: true,
+                onPageChanged: (index, reason) {
                   setState(() {
                     currentPos = index;
                   });
-                }
-            ),
+                }),
             items: upcomingevents.map((event) {
               return Container(
-
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage('${Urls.IMAGE_BASE_URL}${event.image}',),
-                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                      '${Urls.IMAGE_BASE_URL}${event.image}',
+                    ),
+                    fit: BoxFit.cover,
                   ),
                 ),
                 alignment: Alignment.bottomRight,
@@ -124,22 +127,21 @@ class _BannerimagesState extends State<Bannerimages> {
         Positioned(
           top: 30.w,
           bottom: 1.w,
-          left:3.w,
+          left: 3.w,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children:
-              upcomingevents.map((e){
-                int index = upcomingevents.indexOf(e);
-                return Container(
-                  width: 8.0,
-                  height: 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                     color: currentPos == index ? Colors.red: Colors.blue,
-                  ),
-                );
-              }).toList(),
+            children: upcomingevents.map((e) {
+              int index = upcomingevents.indexOf(e);
+              return Container(
+                width: 8.0,
+                height: 8.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: currentPos == index ? Colors.red : Colors.blue,
+                ),
+              );
+            }).toList(),
           ),
         )
       ],
@@ -182,26 +184,15 @@ class _ListviewState extends State<Listview> {
           return GestureDetector(
             child: Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Image.network(
-                    '${Urls.IMAGE_BASE_URL}${pastevents[index].image}',
-                    height: 200.h,
-                    loadingBuilder: (context, child, chunk) {
-                      if (chunk == null) {
-                        return child;
-                      }
-                      return Container(
-                        height: 200.h,
-                        width: 1.sw,
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  ),
+                FadeInImage.assetNetwork(
+                  placeholder: kimagelogo,
+                  image: '${Urls.IMAGE_BASE_URL}${pastevents[index].image}',
+                  height: 200.h,
+                  width: 1.sw,
+                  fit: BoxFit.fill,
                 ),
                 Positioned(
-                  bottom: 12,
+                  bottom: 0,
                   child: Container(
                       width: size.width,
                       alignment: Alignment.centerLeft,
@@ -219,7 +210,12 @@ class _ListviewState extends State<Listview> {
               ],
             ),
             onTap: () {
-              Navigator.push(context, RotationRoute(Page: SecondHomepage(event: pastevents[index],)));
+              Navigator.push(
+                  context,
+                  RotationRoute(
+                      Page: SecondHomepage(
+                    event: pastevents[index],
+                  )));
             },
           );
         }).toList(),

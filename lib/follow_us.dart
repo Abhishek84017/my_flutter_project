@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'appbar.dart';
 
 class Followus extends StatelessWidget {
-  var url = 'https://www.instagram.com/avt.yuwashakha/';
+  var url = 'https://www.instagram.com/singh_akku2855/';
   var facebookurl = 'https://www.facebook.com/';
   var youtubeurl = 'https://www.youtube.com/';
   var twitterurl = 'https://www.twitter.com/';

@@ -9,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'appbar.dart';
 import 'package:avt_yuwas/constants/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'constants/global.dart';
 import 'models/get_event_gallary_model.dart';
 
 class SecondHomepage extends StatefulWidget {
@@ -126,22 +127,9 @@ class _SecondHomepageState extends State<SecondHomepage>
                                             items: _menuItems,
                                             currentIndex: index)));
                               },
-                              child: Image(
-                                image: NetworkImage(
-                                    '${Urls.IMAGE_BASE_URL}${item.image}'),
-                                loadingBuilder: (context, child, chunk) {
-                                  if (chunk == null) {
-                                    return child;
-                                  }
-                                  return Container(
-                                    height: 10,
-                                    width: 10,
-                                    alignment: Alignment.center,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.red,
-                                    ),
-                                  );
-                                },
+                              child: FadeInImage.assetNetwork(
+                                placeholder: kimagelogo,
+                                image: '${Urls.IMAGE_BASE_URL}${item.image}',
                               ),
                             );
                           },
