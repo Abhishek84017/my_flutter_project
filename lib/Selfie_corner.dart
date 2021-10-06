@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:avt_yuwas/constants/global.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +54,7 @@ class _SelfieCornerState extends State<SelfieCorner> {
                         if (response.statusCode == 200) {
                           Fluttertoast.showToast(msg: '${response.message}');
                         }
+                        print(response.message);
                       }
                     },
                   )),
@@ -62,9 +62,18 @@ class _SelfieCornerState extends State<SelfieCorner> {
                       child: TextButton(
                     child: Icon(Icons.camera, color: Colors.white),
                     onPressed: () async {
+
+
                       final XFile? photo =
                           await _picker.pickImage(source: ImageSource.camera);
-                      print(photo);
+                      if (photo != null) {
+                        final file = File(photo.path);
+                        final response = await Services.addSelfie(
+                            file, '${kUserProvider?.id}');
+                        if (response.statusCode == 200) {
+                          Fluttertoast.showToast(msg: '${response.message}');
+                        }
+                      }
                     },
                   )),
                 ],

@@ -277,7 +277,6 @@ class Services {
 
   static Future<Data> addSelfie(File file, String memberId) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.ADD_SELFIE);
-
     try {
       http.MultipartRequest request = http.MultipartRequest('POST', uri);
       request.files.add(new http.MultipartFile.fromBytes(
@@ -287,7 +286,7 @@ class Services {
       final response = await request.send();
       if (response.statusCode == 200) {
         print(response.stream);
-        return Data(statusCode: 200, message: 'data fetcher succefully');
+        return Data(statusCode: 200, message: 'file uploaded successfully');
       }
       return Data();
     } on SocketException catch (_) {
