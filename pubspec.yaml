@@ -50,6 +50,9 @@ dependencies:
   location: ^4.2.0
   table_calendar: ^3.0.2
   intl: ^0.17.0
+  date_util: ^0.1.4
+  image_picker: ^0.8.4+2
+
 
 dev_dependencies:
   flutter_test:
