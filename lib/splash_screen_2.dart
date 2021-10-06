@@ -34,9 +34,6 @@ class _SplashscreenState extends State<Splashscreen2> {
   Future getValidationData() async {
     var obtainedMobile = kSharedPreferences?.getString('userdata');
     var guestchek =kSharedPreferences?.getString('isGuest');
-    print(guestchek);
-    print('hello');
-    print(Finalguest);
     setState(() {
       FinalMobile = obtainedMobile;
       Finalguest = guestchek;

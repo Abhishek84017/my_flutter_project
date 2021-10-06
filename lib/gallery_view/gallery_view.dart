@@ -9,7 +9,7 @@ import 'package:share/share.dart';
 class GalleryView extends StatefulWidget {
   const GalleryView({Key? key, this.items = const [], this.currentIndex = 0})
       : super(key: key);
-  final List<EventGallaryModel>? items;
+  final List<String>? items;
   final int? currentIndex;
 
   @override
@@ -52,7 +52,7 @@ class _GalleryViewState extends State<GalleryView> {
               children: widget.items
                       ?.map((item) => new Image(
                             image: NetworkImage(
-                                '${Urls.IMAGE_BASE_URL}${item.image}'),
+                                '${Urls.IMAGE_BASE_URL}${item}'),
                           ))
                       .toList() ??
                   List.empty(),
@@ -65,7 +65,7 @@ class _GalleryViewState extends State<GalleryView> {
 
   void _share() async {
     var response =
-        await Services.downloadFile('${widget.items?[_index].image}');
+        await Services.downloadFile('${widget.items?[_index]}');
     if (response != null) {
       Share.shareFiles([response.path]);
     } else {
@@ -75,7 +75,7 @@ class _GalleryViewState extends State<GalleryView> {
 
   void _downloadToLocal() async {
     var response =
-        await Services.downloadFile('${widget.items?[_index].image}');
+        await Services.downloadFile('${widget.items?[_index]}');
     if (response != null) {
       await response.create(recursive: true);
       Fluttertoast.showToast(msg: 'Downloaded successfully');

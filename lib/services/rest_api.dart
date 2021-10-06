@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:avt_yuwas/constants/global.dart';
 import 'package:avt_yuwas/models/Change_password_model.dart';
+import 'package:avt_yuwas/models/Media_corner_model.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/models/member_model.dart';
 import 'package:avt_yuwas/models/menu_model.dart';
@@ -131,6 +132,7 @@ class Services {
       return Data();
     }
   }
+
   static Future<Data<List<EventGallaryModel>>> geteventgallary(
       String eventid) async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.EVENT_GALLARY, {'event': eventid});
@@ -236,8 +238,59 @@ class Services {
         final jsonResponse = jsonDecode(response.body);
         print('hello $jsonResponse');
 
-        return Data(data: jsonResponse['message'], statusCode: 200,message: 'data fetcher successfully');
+        return Data(
+            data: jsonResponse['message'],
+            statusCode: 200,
+            message: 'data fetcher successfully');
       }
+      return Data();
+    } catch (_) {
+      print(_);
+      return Data();
+    }
+  }
+
+  static Future<Data<List<MediacornerModel>>> mediacorner() async {
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.MEDIA_CORNER);
+
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        var _menus = <MediacornerModel>[];
+        if (jsonResponse['data'] != null) {
+          jsonResponse['data'].forEach((v) {
+            _menus.add(new MediacornerModel.fromJson(v));
+          });
+        }
+        return Data(
+            data: _menus, statusCode: 200, message: 'data fetcher succefully');
+      }
+      return Data();
+    } on SocketException catch (_) {
+      return Data();
+    } catch (_) {
+      print(_);
+      return Data();
+    }
+  }
+
+  static Future<Data> addSelfie(File file, String memberId) async {
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.ADD_SELFIE);
+
+    try {
+      http.MultipartRequest request = http.MultipartRequest('POST', uri);
+      request.files.add(new http.MultipartFile.fromBytes(
+          'uploaded_file', file.readAsBytesSync(),
+          filename: file.path.split(Platform.pathSeparator).last));
+      request.fields.addAll({'member': memberId});
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        print(response.stream);
+        return Data(statusCode: 200, message: 'data fetcher succefully');
+      }
+      return Data();
+    } on SocketException catch (_) {
       return Data();
     } catch (_) {
       print(_);

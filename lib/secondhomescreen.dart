@@ -14,7 +14,6 @@ import 'models/get_event_gallary_model.dart';
 
 class SecondHomepage extends StatefulWidget {
   final PastEventsModel? event;
-
   SecondHomepage({this.event});
 
   @override
@@ -49,6 +48,7 @@ class _SecondHomepageState extends State<SecondHomepage>
         context: context,
         title: 'Avt Yuwas',
         automaticallyImplyLeading: true,
+
       ),
       body: Column(
         children: [
@@ -124,7 +124,7 @@ class _SecondHomepageState extends State<SecondHomepage>
                                     context,
                                     RotationRoute(
                                         Page: GalleryView(
-                                            items: _menuItems,
+                                            items: _menuItems?.map((e) => '${e.image}').toList() ?? [],
                                             currentIndex: index)));
                               },
                               child: FadeInImage.assetNetwork(

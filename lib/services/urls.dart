@@ -27,4 +27,8 @@ class Urls {
 
   static const String URL_FOR_QR = '/json/markEventAttendance/';
 
+  static const String MEDIA_CORNER = '/Json/get_media_corner';
+
+  static const String ADD_SELFIE = '/Json/add_selfie';
+
 }

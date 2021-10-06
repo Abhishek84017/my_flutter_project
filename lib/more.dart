@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'Selfie_corner.dart';
 import 'calender.dart';
 import 'change_password.dart';
 import 'chose_member.dart';
 import 'constants/global.dart';
+import 'media_corner.dart';
 import 'members.dart';
 import 'models/menu_model.dart';
 import 'follow_us.dart';
@@ -126,6 +128,9 @@ class _MoreState extends State<More> {
                         Navigator.push(
                             context, RotationRoute(Page: Followus()));
                       }
+                      if (item.menu == 'Media Corner') {
+                        Navigator.push(context, RotationRoute(Page: Mediacorner()));
+                      }
                       if (item.menu == 'Calendar') {
                         Navigator.push(context, RotationRoute(Page: Calender()));
                       }
@@ -138,6 +143,9 @@ class _MoreState extends State<More> {
                       }
                       if (item.menu == 'Events') {
                         Navigator.push(context, RotationRoute(Page: Events()));
+                      }
+                      if (item.menu == 'Selfie Corner') {
+                        Navigator.push(context, RotationRoute(Page: SelfieCorner()));
                       }
                       if (item.menu == 'Change Password') {
                         Navigator.push(
