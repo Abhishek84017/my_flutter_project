@@ -163,7 +163,9 @@ class Services {
     try {
       Directory tempDir = await getApplicationDocumentsDirectory();
       String tempPath = tempDir.path;
-      final downloadedFile = File('$tempPath${url.split('/').last}');
+      final downloadedFile = File('$tempPath${url
+          .split('/')
+          .last}');
       if (await downloadedFile.exists()) {
         return downloadedFile;
       }
@@ -171,7 +173,9 @@ class Services {
       if (response.contentLength == 0) {
         return Future.value(null);
       }
-      File file = new File('$tempPath${url.split('/').last}');
+      File file = new File('$tempPath${url
+          .split('/')
+          .last}');
       await file.writeAsBytes(response.bodyBytes);
       return file;
     } catch (e) {
@@ -281,12 +285,32 @@ class Services {
       http.MultipartRequest request = http.MultipartRequest('POST', uri);
       request.files.add(new http.MultipartFile.fromBytes(
           'uploaded_file', file.readAsBytesSync(),
-          filename: file.path.split(Platform.pathSeparator).last));
+          filename: file.path
+              .split(Platform.pathSeparator)
+              .last));
       request.fields.addAll({'member': memberId});
       final response = await request.send();
       if (response.statusCode == 200) {
         print(response.stream);
         return Data(statusCode: 200, message: 'file uploaded successfully');
+      }
+      return Data();
+    } on SocketException catch (_) {
+      return Data();
+    } catch (_) {
+      print(_);
+      return Data();
+    }
+  }
+
+  static Future<Data> forgetPassword(String mobile) async {
+    Uri uri = Uri.https(Urls.BASE_URL, Urls.FORGET_PASSWORD + mobile,);
+    print(uri);
+    try {
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        return Data(statusCode: 200, message: '${jsonResponse['message']}');
       }
       return Data();
     } on SocketException catch (_) {

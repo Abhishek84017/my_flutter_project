@@ -31,4 +31,7 @@ class Urls {
 
   static const String ADD_SELFIE = '/Json/add_selfie';
 
+  static const String FORGET_PASSWORD = '/Json/forget_password/';
+
+
 }
