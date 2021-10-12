@@ -45,13 +45,13 @@ dependencies:
   flutter_local_notifications: ^5.0.0+1
   flutter_barcode_scanner: ^2.0.0
   progressive_image: ^2.0.0
-  geolocator: ^7.6.2
   google_maps_flutter: ^2.0.10
   location: ^4.2.0
   table_calendar: ^3.0.2
   intl: ^0.17.0
   date_util: ^0.1.4
   image_picker: ^0.8.4+2
+  cached_network_image: ^3.1.0
 
 
 dev_dependencies:
