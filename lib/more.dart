@@ -19,6 +19,7 @@ import 'models/menu_model.dart';
 import 'follow_us.dart';
 import 'events.dart';
 import 'provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 //ignore: must_be_immutable
 class More extends StatefulWidget {
@@ -49,9 +50,6 @@ class _MoreState extends State<More> {
     _isLoading = false;
     setState(() {});
 
-    _menuItems?.forEach((element) {
-      precacheImage(NetworkImage('${element.icon}'), context);
-    });
   }
 
   @override
@@ -179,9 +177,18 @@ class _MoreState extends State<More> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ImageIcon(
-                          NetworkImage('${item.icon}'),
-                          color: Colors.white,
+                        // CachedNetworkImage(
+                        //   height:22.h,
+                        //   imageUrl: '${item.icon}',
+                        //   placeholder: (context, url) => CircularProgressIndicator(),
+                        //   errorWidget: (context, url, error) => Icon(Icons.error),
+                        // ),
+                        CachedNetworkImage(
+                          height: 20.h,
+                          imageUrl: '${item.icon}',
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              CircularProgressIndicator(value: downloadProgress.progress),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                         Text('${item.menu}',
                             style:
@@ -196,7 +203,6 @@ class _MoreState extends State<More> {
     );
   }
 }
-
 class SubMenus extends StatelessWidget {
   const SubMenus({Key? key, this.title = '', this.childMenus = const []})
       : super(key: key);

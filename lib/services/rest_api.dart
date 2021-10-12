@@ -110,16 +110,21 @@ class Services {
 
   static Future<Data<List<UpcomingEventsmodel>>> UpcominEvent() async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.UPCOMING_EVENTS);
-
     try {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
         var _menus = <UpcomingEventsmodel>[];
-        if (jsonResponse['data'] != null) {
+        if (jsonResponse['data'] != null && jsonResponse['data'].isNotEmpty) {
           jsonResponse['data'].forEach((v) {
             _menus.add(new UpcomingEventsmodel.fromJson(v));
           });
+        } else {
+          if (jsonResponse['slider'] != null) {
+            jsonResponse['slider'].forEach((v) {
+              _menus.add(new UpcomingEventsmodel.fromJson(v));
+            });
+          }
         }
         return Data(
             data: _menus, statusCode: 200, message: 'data fetcher succefully');
@@ -163,9 +168,7 @@ class Services {
     try {
       Directory tempDir = await getApplicationDocumentsDirectory();
       String tempPath = tempDir.path;
-      final downloadedFile = File('$tempPath${url
-          .split('/')
-          .last}');
+      final downloadedFile = File('$tempPath${url.split('/').last}');
       if (await downloadedFile.exists()) {
         return downloadedFile;
       }
@@ -173,9 +176,7 @@ class Services {
       if (response.contentLength == 0) {
         return Future.value(null);
       }
-      File file = new File('$tempPath${url
-          .split('/')
-          .last}');
+      File file = new File('$tempPath${url.split('/').last}');
       await file.writeAsBytes(response.bodyBytes);
       return file;
     } catch (e) {
@@ -285,9 +286,7 @@ class Services {
       http.MultipartRequest request = http.MultipartRequest('POST', uri);
       request.files.add(new http.MultipartFile.fromBytes(
           'uploaded_file', file.readAsBytesSync(),
-          filename: file.path
-              .split(Platform.pathSeparator)
-              .last));
+          filename: file.path.split(Platform.pathSeparator).last));
       request.fields.addAll({'member': memberId});
       final response = await request.send();
       if (response.statusCode == 200) {
@@ -304,7 +303,10 @@ class Services {
   }
 
   static Future<Data> forgetPassword(String mobile) async {
-    Uri uri = Uri.https(Urls.BASE_URL, Urls.FORGET_PASSWORD + mobile,);
+    Uri uri = Uri.https(
+      Urls.BASE_URL,
+      Urls.FORGET_PASSWORD + mobile,
+    );
     print(uri);
     try {
       http.Response response = await http.get(uri);

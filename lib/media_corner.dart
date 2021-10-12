@@ -14,13 +14,11 @@ class Mediacorner extends StatefulWidget {
 
 class _MediacornerState extends State<Mediacorner> {
   List<MediacornerModel>? mediacornerdata = <MediacornerModel>[];
-
   @override
   void initState() {
     _fetchmediacorner();
     super.initState();
   }
-
   void _fetchmediacorner() async {
     var responce = await Services.mediacorner();
     if (responce.statusCode == 200) {

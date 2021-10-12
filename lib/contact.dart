@@ -1,6 +1,6 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:geolocator/geolocator.dart';
 import 'constants/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,8 +13,8 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
-  Position? _position;
-  Uri? _url;
+  LocationData _position;
+  Uri _url;
   List<ContactItem> _constactItemList = [];
   Set<Marker> _marker = {};
 
@@ -34,7 +34,6 @@ class _ContactState extends State<Contact> {
 
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
-    LocationData _locationData;
 
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -53,7 +52,7 @@ class _ContactState extends State<Contact> {
       }
     }
 
-    _position = await Geolocator.getCurrentPosition();
+    _position = await location.getLocation();
     _url = Uri.https('www.google.com', '/maps/dir/', {
       'api': '1',
       'destination': '21.1634372, 72.7922237',
@@ -113,7 +112,7 @@ class _ContactState extends State<Contact> {
                 onMapCreated: _onmapcreated,
                 markers: _marker,
                 initialCameraPosition: CameraPosition(
-                    target: LatLng(_position!.latitude, _position!.longitude),
+                    target: LatLng(_position.latitude, _position.longitude),
                     zoom: 15),
               )),
           Expanded(
@@ -159,10 +158,10 @@ class _ContactState extends State<Contact> {
 }
 
 class ContactItem {
-  final String? title;
-  final String? subtitle;
-  final IconData? icon;
-  final String? url;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final String url;
 
   const ContactItem({this.title, this.subtitle, this.icon, this.url});
 }
