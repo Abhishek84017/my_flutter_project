@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'provider/provider.dart';
-import 'splash_screen_1.dart';
+import 'pages/auth/splash_screen_1.dart';
 
 class Myapp extends StatelessWidget {
   @override

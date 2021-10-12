@@ -1,4 +1,4 @@
-import 'package:avt_yuwas/sign_in_as_guest.dart';
+import 'package:avt_yuwas/pages/auth/sign_in_as_guest.dart';
 import 'package:avt_yuwas/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'constants/global.dart';
 import 'pageroute.dart';
-import 'sign_in_as_member.dart';
+import 'pages/auth/sign_in_as_member.dart';
 
 class Homepage extends StatelessWidget {
   @override

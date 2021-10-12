@@ -62,8 +62,6 @@ class _SelfieCornerState extends State<SelfieCorner> {
                       child: TextButton(
                     child: Icon(Icons.camera, color: Colors.white),
                     onPressed: () async {
-
-
                       final XFile? photo =
                           await _picker.pickImage(source: ImageSource.camera);
                       if (photo != null) {

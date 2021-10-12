@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:avt_yuwas/constants/global.dart';
 import 'package:avt_yuwas/models/Change_password_model.dart';
-import 'package:avt_yuwas/models/Media_corner_model.dart';
+import 'package:avt_yuwas/models/media_corner_model.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/models/member_model.dart';
 import 'package:avt_yuwas/models/menu_model.dart';

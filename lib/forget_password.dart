@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'constants/global.dart';
-import 'sign_in_as_member.dart';
+import 'pages/auth/sign_in_as_member.dart';
 import 'extensions/text_field.dart';
 
 class Forgetpassword extends StatefulWidget {

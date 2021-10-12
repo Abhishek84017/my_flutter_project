@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'constants/global.dart';
 import 'gallery_view/gallery_view.dart';
-import 'models/Media_corner_model.dart';
+import 'models/media_corner_model.dart';
 
 class Mediacorner extends StatefulWidget {
   @override
