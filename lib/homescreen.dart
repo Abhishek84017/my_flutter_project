@@ -5,12 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'constants/global.dart';
-import 'home.dart';
-import 'about.dart';
-import 'contact.dart';
-import 'more.dart';
+import 'bottom_navigation_menu/events_homepage.dart';
+import 'bottom_navigation_menu/about.dart';
+import 'bottom_navigation_menu/contact.dart';
+import 'bottom_navigation_menu/more.dart';
 import 'provider/provider.dart';
-import 'appbar.dart';
+import 'pages/widgets/appbar.dart';
 import 'provider/user_provider.dart';
 
 class Homescreen extends StatefulWidget {

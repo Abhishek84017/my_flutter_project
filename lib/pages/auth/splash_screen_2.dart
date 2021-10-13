@@ -3,9 +3,9 @@ import 'package:avt_yuwas/homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../chose_member.dart';
+import 'chose_member.dart';
 import '../../constants/global.dart';
-import '../../pageroute.dart';
+import '../widgets/pageroute.dart';
 
 String? FinalMobile;
 String? Finalguest;

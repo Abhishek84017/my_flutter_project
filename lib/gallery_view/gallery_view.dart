@@ -1,4 +1,4 @@
-import 'package:avt_yuwas/appbar.dart';
+import 'package:avt_yuwas/pages/widgets/appbar.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/services/urls.dart';

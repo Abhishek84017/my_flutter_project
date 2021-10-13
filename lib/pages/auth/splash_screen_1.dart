@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:avt_yuwas/pages/auth/splash_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../../pageroute.dart';
+import '../widgets/pageroute.dart';
 
 class Splashscreen1 extends StatefulWidget {
   @override

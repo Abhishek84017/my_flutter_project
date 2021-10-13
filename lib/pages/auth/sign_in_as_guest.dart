@@ -4,14 +4,14 @@ import 'package:avt_yuwas/pages/auth/otp.dart';
 import 'package:avt_yuwas/services/notification_services.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/pages/auth/sign_in_as_member.dart';
-import 'package:avt_yuwas/signinbutton.dart';
+import 'package:avt_yuwas/pages/widgets/signinbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constants/global.dart';
 import '../../extensions/text_field.dart';
-import '../../pageroute.dart';
+import '../widgets/pageroute.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

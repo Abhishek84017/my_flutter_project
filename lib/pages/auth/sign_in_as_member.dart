@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:avt_yuwas/homescreen.dart';
 import 'package:avt_yuwas/provider/user_provider.dart';
 import 'package:avt_yuwas/services/notification_services.dart';
-import 'package:avt_yuwas/signinbutton.dart';
+import 'package:avt_yuwas/pages/widgets/signinbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
@@ -11,10 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../constants/global.dart';
-import '../../forget_password.dart';
+import 'forget_password.dart';
 import '../../extensions/text_field.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
-import '../../pageroute.dart';
+import '../widgets/pageroute.dart';
 
 class SignInAsMember extends StatefulWidget {
   @override
