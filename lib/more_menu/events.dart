@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/global.dart';
-import '../models/past_event.dart';
+import '../models/Events_model.dart';
 
 //ignore: must_be_immutable
 class Events extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'package:avt_yuwas/services/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../constants/palette.dart';
-import '../models/past_event.dart';
+import '../models/Events_model.dart';
 import 'package:intl/intl.dart';
 import 'package:date_util/date_util.dart';
 
@@ -18,7 +18,6 @@ class _CalenderState extends State<Calender> {
   var pastevents = <EventsModel>[];
   var upcomingevents = <EventsModel>[];
   var _alleventData = <EventsModel>[];
-  var _allupcomingeventData = <EventsModel>[];
   List<String> _eventDates = [];
   List<String> _upcomingeventDates = [];
 
@@ -119,10 +118,11 @@ class _CalenderState extends State<Calender> {
                       .where((e) => e.date!
                           .contains(DateFormat('yyyy-MM-dd').format(day)))
                       .toList());
-                  _allupcomingeventData.addAll(upcomingevents
+                  _alleventData.addAll(upcomingevents
                       .where((e) => e.date!
                       .contains(DateFormat('yyyy-MM-dd').format(day)))
                       .toList());
+
                   return Container(
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(

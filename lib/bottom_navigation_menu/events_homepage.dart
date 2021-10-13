@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
-import 'package:avt_yuwas/models/past_event.dart';
+import 'package:avt_yuwas/models/Events_model.dart';
 import '../constants/global.dart';
 import '../pages/widgets/webview.dart';
 import '../pages/widgets/secondhomescreen.dart';

@@ -1,5 +1,5 @@
 import 'package:avt_yuwas/gallery_view/gallery_view.dart';
-import 'package:avt_yuwas/models/past_event.dart';
+import 'package:avt_yuwas/models/Events_model.dart';
 import 'package:avt_yuwas/pages/widgets/pageroute.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/services/urls.dart';

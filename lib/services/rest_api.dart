@@ -6,7 +6,7 @@ import 'package:avt_yuwas/models/media_corner_model.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/models/member_model.dart';
 import 'package:avt_yuwas/models/menu_model.dart';
-import 'package:avt_yuwas/models/past_event.dart';
+import 'package:avt_yuwas/models/Events_model.dart';
 import 'package:avt_yuwas/models/signinguest.dart';
 import 'package:avt_yuwas/models/signinmemberModel.dart';
 import 'package:avt_yuwas/services/urls.dart';

@@ -133,8 +133,7 @@ class _MoreState extends State<More> {
                         Navigator.push(context, RotationRoute(Page: Calender()));
                       }
                       if (item.menu == 'Contact Us') {
-                        Provider.of<HomeScreenProvider>(context, listen: false)
-                            .currentBottomIndex = 2;
+                        Provider.of<HomeScreenProvider>(context, listen: false).currentBottomIndex = 2;
                       }
                       if (item.menu == 'Members') {
                         Navigator.push(context, RotationRoute(Page: Members()));
