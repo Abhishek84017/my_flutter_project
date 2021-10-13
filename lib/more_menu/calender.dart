@@ -15,13 +15,17 @@ class Calender extends StatefulWidget {
 }
 
 class _CalenderState extends State<Calender> {
-  var pastevents = <PastEventsModel>[];
-  var _alleventData = <PastEventsModel>[];
+  var pastevents = <EventsModel>[];
+  var upcomingevents = <EventsModel>[];
+  var _alleventData = <EventsModel>[];
+  var _allupcomingeventData = <EventsModel>[];
   List<String> _eventDates = [];
+  List<String> _upcomingeventDates = [];
 
   @override
   void initState() {
     _fetchpastevents();
+    _fetchupcomingevent();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       setState(() {});
     });
@@ -30,13 +34,24 @@ class _CalenderState extends State<Calender> {
 
   void _fetchpastevents() async {
     var data = await Services.pastEvents('');
-    var pasteventmodel = <PastEventsModel>[];
+    var pasteventmodel = <EventsModel>[];
     data?.data?.forEach((event) {
-      pasteventmodel.add(PastEventsModel.fromJson(event));
+      pasteventmodel.add(EventsModel.fromJson(event));
     });
     pastevents = pasteventmodel;
     _eventDates = pastevents.map((e) => '${e.date}').toList();
+
     setState(() {});
+  }
+
+  void _fetchupcomingevent() async {
+    var responce = await Services.UpcominEvent();
+    if (responce.statusCode == 200) {
+      upcomingevents = responce.data!;
+      _upcomingeventDates =upcomingevents.map((e) => '${e.date}').toList();
+    } else {
+      print(responce.message);
+    }
   }
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
@@ -72,10 +87,20 @@ class _CalenderState extends State<Calender> {
                 final event = pastevents.where((element) =>
                     element.date ==
                     DateFormat('yyyy-MM-dd').format(selectedDay));
+                print(selectedDay);
+                final upcomingevent = upcomingevents.where((element) => element.date ==DateFormat('yyyy-MM-dd').format(selectedDay));
                 if (event != null && event.isNotEmpty) {
                   Navigator.push(context,
                       RotationRoute(Page: SecondHomepage(event: event.first)));
                 }
+                else
+                  {
+                    if(upcomingevent != null && upcomingevent.isNotEmpty)
+                      {
+                        Navigator.push(context,
+                            RotationRoute(Page: SecondHomepage(event: upcomingevent.first)));
+                      }
+                  }
                 if (!isSameDay(_selectedDay, selectedDay)) {
                   // Call `setState()` when updating the selected day
                   setState(() {
@@ -88,10 +113,15 @@ class _CalenderState extends State<Calender> {
               calendarBuilders:
                   CalendarBuilders(defaultBuilder: (context, day, day1) {
                 if (_eventDates
+                    .contains(DateFormat('yyyy-MM-dd').format(day)) || _upcomingeventDates
                     .contains(DateFormat('yyyy-MM-dd').format(day))) {
                   _alleventData.addAll(pastevents
                       .where((e) => e.date!
                           .contains(DateFormat('yyyy-MM-dd').format(day)))
+                      .toList());
+                  _allupcomingeventData.addAll(upcomingevents
+                      .where((e) => e.date!
+                      .contains(DateFormat('yyyy-MM-dd').format(day)))
                       .toList());
                   return Container(
                     padding: EdgeInsets.all(10.0),

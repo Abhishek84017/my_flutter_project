@@ -6,9 +6,9 @@ import 'package:avt_yuwas/models/media_corner_model.dart';
 import 'package:avt_yuwas/models/get_event_gallary_model.dart';
 import 'package:avt_yuwas/models/member_model.dart';
 import 'package:avt_yuwas/models/menu_model.dart';
+import 'package:avt_yuwas/models/past_event.dart';
 import 'package:avt_yuwas/models/signinguest.dart';
 import 'package:avt_yuwas/models/signinmemberModel.dart';
-import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/services/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -108,21 +108,21 @@ class Services {
     }
   }
 
-  static Future<Data<List<UpcomingEventsmodel>>> UpcominEvent() async {
+  static Future<Data<List<EventsModel>>> UpcominEvent() async {
     Uri uri = Uri.https(Urls.BASE_URL, Urls.UPCOMING_EVENTS);
     try {
       http.Response response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
-        var _menus = <UpcomingEventsmodel>[];
+        var _menus = <EventsModel>[];
         if (jsonResponse['data'] != null && jsonResponse['data'].isNotEmpty) {
           jsonResponse['data'].forEach((v) {
-            _menus.add(new UpcomingEventsmodel.fromJson(v));
+            _menus.add(new EventsModel.fromJson(v));
           });
         } else {
           if (jsonResponse['slider'] != null) {
             jsonResponse['slider'].forEach((v) {
-              _menus.add(new UpcomingEventsmodel.fromJson(v));
+              _menus.add(new EventsModel.fromJson(v));
             });
           }
         }

@@ -16,8 +16,8 @@ class Events extends StatefulWidget {
 }
 
 class _EventsState extends State<Events> {
-  List<PastEventsModel> _pastevents = <PastEventsModel>[];
-  List<PastEventsModel> _searchResult = <PastEventsModel>[];
+  List<EventsModel> _pastevents = <EventsModel>[];
+  List<EventsModel> _searchResult = <EventsModel>[];
   bool _showingtext = true;
   bool isLoading = true;
 
@@ -29,9 +29,9 @@ class _EventsState extends State<Events> {
 
   void _fetchpastevents() async {
     var data = await Services.pastEvents('');
-    var pasteventmodel = <PastEventsModel>[];
+    var pasteventmodel = <EventsModel>[];
     data?.data?.forEach((event) {
-      pasteventmodel.add(PastEventsModel.fromJson(event));
+      pasteventmodel.add(EventsModel.fromJson(event));
     });
     _pastevents = pasteventmodel;
     _searchResult = pasteventmodel;

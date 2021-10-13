@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:avt_yuwas/models/upcoming_events.dart';
 import 'package:avt_yuwas/services/rest_api.dart';
 import 'package:avt_yuwas/models/past_event.dart';
 import '../constants/global.dart';
@@ -54,7 +53,7 @@ class Bannerimages extends StatefulWidget {
 
 class _BannerimagesState extends State<Bannerimages> {
   int currentPos = 0;
-  var upcomingevents = <UpcomingEventsmodel>[];
+  var upcomingevents = <EventsModel>[];
 
   @override
   void initState() {
@@ -156,7 +155,7 @@ class Listview extends StatefulWidget {
 }
 
 class _ListviewState extends State<Listview> {
-  var pastevents = <PastEventsModel>[];
+  var pastevents = <EventsModel>[];
 
   @override
   void initState() {
@@ -166,9 +165,9 @@ class _ListviewState extends State<Listview> {
 
   void _fetchpastevents() async {
     var data = await Services.pastEvents('');
-    var pasteventmodel = <PastEventsModel>[];
+    var pasteventmodel = <EventsModel>[];
     data?.data?.forEach((event) {
-      pasteventmodel.add(PastEventsModel.fromJson(event));
+      pasteventmodel.add(EventsModel.fromJson(event));
     });
     pastevents = pasteventmodel;
     setState(() {});
